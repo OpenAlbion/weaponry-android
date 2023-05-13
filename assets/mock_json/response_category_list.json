@@ -1,0 +1,120 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Warrior Weapons",
+            "type": "weapon",
+            "subcategories": [
+                {
+                    "id": 2,
+                    "name": "Axe",
+                    "type": "weapon"
+                },
+                {
+                    "id": 3,
+                    "name": "Sword",
+                    "type": "weapon"
+                },
+                {
+                    "id": 4,
+                    "name": "Mace",
+                    "type": "weapon"
+                },
+                {
+                    "id": 5,
+                    "name": "Hammer",
+                    "type": "weapon"
+                },
+                {
+                    "id": 6,
+                    "name": "Crossbow",
+                    "type": "weapon"
+                },
+                {
+                    "id": 7,
+                    "name": "War Gloves",
+                    "type": "weapon"
+                },
+                {
+                    "id": 8,
+                    "name": "Shield",
+                    "type": "weapon"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "name": "Hunter Weapons",
+            "type": "weapon",
+            "subcategories": [
+                {
+                    "id": 10,
+                    "name": "Bow",
+                    "type": "weapon"
+                },
+                {
+                    "id": 11,
+                    "name": "Spear",
+                    "type": "weapon"
+                },
+                {
+                    "id": 12,
+                    "name": "Nature Staff",
+                    "type": "weapon"
+                },
+                {
+                    "id": 13,
+                    "name": "Dagger",
+                    "type": "weapon"
+                },
+                {
+                    "id": 14,
+                    "name": "Quarterstaff",
+                    "type": "weapon"
+                },
+                {
+                    "id": 15,
+                    "name": "Torch",
+                    "type": "weapon"
+                }
+            ]
+        },
+        {
+            "id": 16,
+            "name": "Mage Weapons",
+            "type": "weapon",
+            "subcategories": [
+                {
+                    "id": 17,
+                    "name": "Fire Staff",
+                    "type": "weapon"
+                },
+                {
+                    "id": 18,
+                    "name": "Holy Staff",
+                    "type": "weapon"
+                },
+                {
+                    "id": 19,
+                    "name": "Arcane Staff",
+                    "type": "weapon"
+                },
+                {
+                    "id": 20,
+                    "name": "Frost Staff",
+                    "type": "weapon"
+                },
+                {
+                    "id": 21,
+                    "name": "Cursed Staff",
+                    "type": "weapon"
+                },
+                {
+                    "id": 22,
+                    "name": "Tome of Spells",
+                    "type": "weapon"
+                }
+            ]
+        }
+    ]
+}
