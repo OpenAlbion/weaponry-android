@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
-import 'package:openalbion_weaponry/providers/based_drawer_provider.dart';
+import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,7 @@ class DrawerHeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _basedDrawerProvider = Provider.of<BasedDrawerProvider>(context);
+    // final homeProvider = Provider.of<HomeProvider>(context);
 
     return DrawerHeader(
       margin: EdgeInsets.zero,
@@ -42,7 +42,7 @@ class DrawerHeaderSection extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomLeft,
-            child: Consumer<BasedDrawerProvider>(
+            child: Consumer<HomeProvider>(
               builder: (context, provider, child) {
                 return InterText(
                   'Version ${provider.versionName}',

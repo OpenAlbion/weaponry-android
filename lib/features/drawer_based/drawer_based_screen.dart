@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_category_section.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_header_section.dart';
 import 'package:openalbion_weaponry/features/home/home_screen.dart';
-import 'package:openalbion_weaponry/providers/based_drawer_provider.dart';
+import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
@@ -34,8 +34,8 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<BasedDrawerProvider>(
-      create: (context) => BasedDrawerProvider(),
+    return ChangeNotifierProvider<HomeProvider>(
+      create: (context) => HomeProvider(),
       builder: (context, child) {
         return Scaffold(
           drawer: Drawer(

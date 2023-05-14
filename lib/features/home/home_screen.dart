@@ -6,6 +6,14 @@ import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:openalbion_weaponry/constants/app_fonts.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
+import 'package:openalbion_weaponry/features/home/sections/app_name_section.dart';
+import 'package:openalbion_weaponry/features/home/sections/item_list_section.dart';
+import 'package:openalbion_weaponry/features/home/sections/search_section.dart';
+import 'package:openalbion_weaponry/features/home/sections/sub_category_list_section.dart';
+import 'package:openalbion_weaponry/providers/based_provider.dart';
+import 'package:openalbion_weaponry/providers/home_provider.dart';
+import 'package:openalbion_weaponry/theme/app_color.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = 'home_screen';
@@ -16,47 +24,36 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late TextEditingController? _searchController;
+  @override
+  void initState() {
+    _searchController = TextEditingController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         children: [
           AppNameSection(),
+          SizedBox(height: MARGIN_CARD_MEDIUM),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+            child: SearchSection(
+              controller: _searchController,
+              onDimissSearch: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+            ),
+          ),
           SizedBox(height: MARGIN_MEDIUM_2),
-          ],
+          SubCategoryListSection(),
+          SizedBox(height: MARGIN_MEDIUM_2),
+          ItemListSection()
+        ],
       ),
     );
   }
 }
 
-class AppNameSection extends StatelessWidget {
-  const AppNameSection({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        // SizedBox(width: MARGIN_MEDIUM),
-        IconButton(
-          padding: EdgeInsets.all(MARGIN_MEDIUM_2),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: SvgPicture.asset(
-            'assets/images/svgs/ic_menu.svg',
-            colorFilter: ColorFilter.mode(Theme.of(context).iconTheme.color!, BlendMode.srcIn),
-          ),
-          splashRadius: MARGIN_LARGE,
-          constraints: BoxConstraints(
-            minWidth: MARGIN_LARGE,
-          ),
-        ),
-        // SizedBox(width: MARGIN_MEDIUM),
-        InterText(AppLocalizations.of(context)!.appName, TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500))
-      ],
-    );
-  }
-}

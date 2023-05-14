@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
-import 'package:openalbion_weaponry/providers/based_drawer_provider.dart';
+import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:provider/provider.dart';
@@ -20,12 +20,12 @@ class DrawerCategorySection extends StatefulWidget {
 class _DrawerCategorySection extends State<DrawerCategorySection> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<BasedDrawerProvider>(builder: (context, provider, child) {
+    return Consumer<HomeProvider>(builder: (context, provider, child) {
       return _renderUI(provider, context);
     });
   }
 
-  Widget _renderUI(BasedDrawerProvider provider, BuildContext context) {
+  Widget _renderUI(HomeProvider provider, BuildContext context) {
     switch (provider.state) {
       case ViewState.LOADING:
         return _buildLoadingUI();
@@ -38,15 +38,24 @@ class _DrawerCategorySection extends State<DrawerCategorySection> {
     }
   }
 
-  Widget _buildCompleteUI(BasedDrawerProvider provider, BuildContext context) {
+  Widget _buildCompleteUI(HomeProvider provider, BuildContext context) {
     return Column(
       children: provider.categoryList.getUniqueTypeList().map((type) {
         return ExpansionTile(
+          initiallyExpanded: provider.selectedCategory.type == type,
           title: InterText(convertTypeToLocalizedName(type, context)),
           children: provider.categoryList.getByType(type).map((category) {
             return ListTile(
               leading: Image.asset(getCategoryLogoByType(type), width: MARGIN_LARGE),
-              title: InterText(category.name),
+              selected: provider.selectedCategory.id == category.id,
+              title: InterText(
+                  category.name,
+                  TextStyle(
+                      color: provider.selectedCategory.id == category.id ? secondaryRed : blackText80)),
+              onTap: () {
+                provider.setCategoryAndSubCategory(catId: category.id, setFirstSubcategory: true);
+                Navigator.pop(context);
+              },
             );
           }).toList(),
         );

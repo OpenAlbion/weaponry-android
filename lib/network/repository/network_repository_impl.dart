@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
+import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/network/dio/dio_client.dart';
 import 'package:openalbion_weaponry/network/error/error_mapper.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
@@ -25,8 +26,27 @@ class NetworkRepositoryImpl implements NetworkRepository {
   @override
   Future<Either<AppError, List<CategoryVO>>> getCategoryList() async {
     try {
-      await Future.delayed(Duration(seconds: 2));
-      var response = await _albionClient.openAlbionApi().getCategoryList();
+      // await Future.delayed(Duration(seconds: 2));
+      // var response = await _albionClient.openAlbionApi().getCategoryList();
+      final String response =
+          await rootBundle.loadString("assets/mock_json/response_category_list.json");
+
+      final Map<String, dynamic> mappedJson = await jsonDecode(response);
+      return Right(ResponseCategoryList.fromJson(mappedJson).data);
+    } on DioError catch (e) {
+      return Left(ErrorMapper.mapDioToAppError(e));
+    } on JsonUnsupportedObjectError catch (_) {
+      return Left(AppError(code: "-", message: "Respond is not Json"));
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(int subId) async{
+    try {
+      // await Future.delayed(Duration(seconds: 2));
+      var response = await _albionClient.openAlbionApi().getItemListBySubCategoryId(subId);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 

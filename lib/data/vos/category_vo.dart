@@ -25,6 +25,14 @@ extension CategoryListExtension on List<CategoryVO> {
   List<String> getUniqueTypeList() {
     return map((category) => category.type).toSet().toList();
   }
+
+  CategoryVO getCategoryById(int id) {
+    return where((category) => category.id == id).first;
+  }
+
+  SubCategoryVO getSubCategoryById(int categoryId, int subCategoryId) {
+    return getCategoryById(categoryId).subcategories.where((sub) => sub.id == subCategoryId).first;
+  }
 }
 
 String convertTypeToLocalizedName(String type, BuildContext context) {
@@ -37,8 +45,8 @@ String convertTypeToLocalizedName(String type, BuildContext context) {
   }
 }
 
-String getCategoryLogoByType(String type){
-    switch (type) {
+String getCategoryLogoByType(String type) {
+  switch (type) {
     case 'weapon':
       return "assets/images/pngs/ic_category_weapon.png";
 
