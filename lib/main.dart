@@ -15,7 +15,7 @@ void main() async {
   await settingsController.loadSettings();
 
   WidgetsFlutterBinding.ensureInitialized();
-  await NetworkRepositoryImpl().getCategoryList();
+  // await NetworkRepositoryImpl().getCategoryList();
 
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the

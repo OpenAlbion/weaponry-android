@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
@@ -24,14 +25,13 @@ class NetworkRepositoryImpl implements NetworkRepository {
   @override
   Future<Either<AppError, List<CategoryVO>>> getCategoryList() async {
     try {
-      await Future.delayed(Duration(seconds: 3));
-      // var data = await _albionClient.toolApi().getItemDetail(itemId);
-      final String response =
-          await rootBundle.loadString("assets/mock_json/response_category_list.json");
+      await Future.delayed(Duration(seconds: 2));
+      var response = await _albionClient.openAlbionApi().getCategoryList();
+      // final String response =
+      //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
-      final Map<String, dynamic> mappedJson = await jsonDecode(response);
-      print(mappedJson);
-      return Right(ResponseCategoryList.fromJson(mappedJson).data);
+      // final Map<String, dynamic> mappedJson = await jsonDecode(response);
+      return Right(response.data);
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
     } on JsonUnsupportedObjectError catch (_) {

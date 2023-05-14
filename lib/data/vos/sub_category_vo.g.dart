@@ -8,7 +8,7 @@ part of 'sub_category_vo.dart';
 
 _$_SubCategoryVO _$$_SubCategoryVOFromJson(Map<String, dynamic> json) =>
     _$_SubCategoryVO(
-      id: json['id'] as String? ?? "",
+      id: json['id'] as int,
       name: json['name'] as String? ?? "",
       type: json['type'] as String? ?? "",
     );

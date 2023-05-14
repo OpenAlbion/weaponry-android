@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:openalbion_weaponry/network/open_albion_api.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -16,6 +15,16 @@ class DioClient {
     dio = Dio();
     dio.options.connectTimeout = Duration(seconds: 10);
     dio.interceptors.add(PrettyDioLogger());
+  }
+
+  OpenAlbionApi openAlbionApi() {
+    dio.options.headers = {
+      "Content-Type": Headers.jsonContentType,
+      "Accept": Headers.jsonContentType,
+    };
+
+    mApi = OpenAlbionApi(dio);
+    return mApi;
   }
 
   // OpenAlbionApi dataProjectApi(){

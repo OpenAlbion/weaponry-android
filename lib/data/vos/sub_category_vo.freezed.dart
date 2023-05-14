@@ -20,7 +20,7 @@ SubCategoryVO _$SubCategoryVOFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SubCategoryVO {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
 
@@ -36,7 +36,7 @@ abstract class $SubCategoryVOCopyWith<$Res> {
           SubCategoryVO value, $Res Function(SubCategoryVO) then) =
       _$SubCategoryVOCopyWithImpl<$Res, SubCategoryVO>;
   @useResult
-  $Res call({String id, String name, String type});
+  $Res call({int id, String name, String type});
 }
 
 /// @nodoc
@@ -60,7 +60,7 @@ class _$SubCategoryVOCopyWithImpl<$Res, $Val extends SubCategoryVO>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$$_SubCategoryVOCopyWith<$Res>
       __$$_SubCategoryVOCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String type});
+  $Res call({int id, String name, String type});
 }
 
 /// @nodoc
@@ -103,7 +103,7 @@ class __$$_SubCategoryVOCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -119,14 +119,13 @@ class __$$_SubCategoryVOCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_SubCategoryVO implements _SubCategoryVO {
-  _$_SubCategoryVO({this.id = "", this.name = "", this.type = ""});
+  _$_SubCategoryVO({required this.id, this.name = "", this.type = ""});
 
   factory _$_SubCategoryVO.fromJson(Map<String, dynamic> json) =>
       _$$_SubCategoryVOFromJson(json);
 
   @override
-  @JsonKey()
-  final String id;
+  final int id;
   @override
   @JsonKey()
   final String name;
@@ -169,7 +168,7 @@ class _$_SubCategoryVO implements _SubCategoryVO {
 
 abstract class _SubCategoryVO implements SubCategoryVO {
   factory _SubCategoryVO(
-      {final String id,
+      {required final int id,
       final String name,
       final String type}) = _$_SubCategoryVO;
 
@@ -177,7 +176,7 @@ abstract class _SubCategoryVO implements SubCategoryVO {
       _$_SubCategoryVO.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get name;
   @override

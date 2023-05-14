@@ -6,7 +6,7 @@ part 'sub_category_vo.g.dart';
 @Freezed()
 class SubCategoryVO with _$SubCategoryVO {
   factory SubCategoryVO({
-    @Default("") String id,
+    required int id,
     @Default("") String name,
     @Default("") String type,
   }) = _SubCategoryVO;

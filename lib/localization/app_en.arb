@@ -3,5 +3,9 @@
   "@appTitle": {
     "description": "The title of the application"
   },
-  "appName": "OpenAlbion Weaponry"
+  "appName": "OpenAlbion Weaponry",
+  "weaponType": "Weapon Type",
+  "armorType": "ArmorType",
+  "accessories": "Accessories"
+
 }
