@@ -1,4 +1,4 @@
-package com.example.openalbion_weaponry
+package com.openalbion.weaponry
 
 import io.flutter.embedding.android.FlutterActivity
 

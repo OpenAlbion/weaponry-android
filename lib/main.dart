@@ -1,11 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:openalbion_weaponry/firebase_options.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository_impl.dart';
 
 import 'app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
 
-void main() async {
+Future<void> main() async {
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   final settingsController = SettingsController(SettingsService());
@@ -15,6 +17,7 @@ void main() async {
   await settingsController.loadSettings();
 
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // await NetworkRepositoryImpl().getItemListBySubCategoryId(2);
 
   // Run the app and pass in the SettingsController. The app listens to the

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.openalbion_weaponry">
+    package="com.openalbion.weaponry">
    <application
         android:label="openalbion_weaponry"
         android:name="${applicationName}"
