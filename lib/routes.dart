@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/features/drawer_based/drawer_based_screen.dart';
 import 'package:openalbion_weaponry/features/home/home_screen.dart';
 import 'package:openalbion_weaponry/features/item_detail/item_detail_screen.dart';
-import 'package:openalbion_weaponry/features/test/test_screen.dart';
+import 'package:openalbion_weaponry/src/settings/settings_controller.dart';
 
 class Routes {
-  static Route<dynamic>? generateRoutes(RouteSettings routeSettings) {
+  static Route<dynamic>? generateRoutes(RouteSettings routeSettings, SettingsController controller) {
     return MaterialPageRoute(
       settings: routeSettings,
       builder: (context) {
@@ -17,8 +17,8 @@ class Routes {
             return DrawerBasedScreen();
 
           case ItemDetailScreen.routeName:
-            // final args = ModalRoute.of(context)!.settings.arguments as ItemDetailArgs;
-            return ItemDetailScreen();
+            final args = ModalRoute.of(context)!.settings.arguments as ItemDetailArgs;
+            return ItemDetailScreen(args: args);
 
           default:
             // return TestScreen();

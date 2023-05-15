@@ -35,22 +35,22 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeProvider>(
-      create: (context) => HomeProvider(),
-      builder: (context, child) {
-        return Scaffold(
-          drawer: Drawer(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            child: Column(
-              children: [
-                DrawerHeaderSection(),
-                DrawerCategorySection()
-              ],
+        create: (context) => HomeProvider(),
+        builder: (context, child) {
+          return Scaffold(
+            drawer: Drawer(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              child: Column(
+                children: [
+                  DrawerHeaderSection(),
+                  DrawerCategorySection()
+                ],
+              ),
             ),
-          ),
-          body: HomeScreen(),
-        );
-      }
-    );
+            body: HomeScreen(),
+          );
+        }
+      );
   }
 }
 

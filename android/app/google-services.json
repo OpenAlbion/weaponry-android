@@ -29,6 +29,13 @@
             {
               "client_id": "819891611733-crrss09ton4blqed4ip9h1m42rkjr2od.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "819891611733-u5lo3db3fddgdkf68uo780v5q9ck6btu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.openalbionWeaponry"
+              }
             }
           ]
         }

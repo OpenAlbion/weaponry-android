@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:openalbion_weaponry/network/api_constants.dart';
 import 'package:openalbion_weaponry/network/response/response_category_list.dart';
+import 'package:openalbion_weaponry/network/response/response_enchantment_list.dart';
 import 'package:openalbion_weaponry/network/response/response_item_list.dart';
 import 'package:retrofit/http.dart';
 part 'open_albion_api.g.dart';
@@ -15,5 +16,11 @@ abstract class OpenAlbionApi {
   @GET("/weapons?subcategory_id={subId}")
   Future<ResponseItemList> getItemListBySubCategoryId(
     @Path() subId
+  );
+
+  @GET("/weapon-stats/{itemType}/{itemId}")
+  Future<ResponseEnchantmentList> getItemDetailById(
+    @Path() itemType,
+    @Path() itemId
   );
 }

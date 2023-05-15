@@ -1,10 +1,13 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/sub_category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/tier_group_vo.dart';
+import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository.dart';
+import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository_impl.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository_impl.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
@@ -22,8 +25,8 @@ class HomeProvider extends BasedProvider {
 
   AppError? appError;
   final NetworkRepository _repository = NetworkRepositoryImpl();
+  final FirebaseAnalyticsRepository _fireRepository = FirebaseAnalyticsRepositoryImpl();
 
-  late TabController tabController;
 
   bool itemLoading = true;
   bool itemComplete = false;
@@ -34,6 +37,8 @@ class HomeProvider extends BasedProvider {
   List<TierGroupVO> get tierGroupList => _tierGroupList;
 
   HomeProvider() {
+    _fireRepository.reportOpenApp();
+    _getFCMToken();
     _getCategoryList();
     _getVersion();
   }
@@ -57,6 +62,9 @@ class HomeProvider extends BasedProvider {
   }
 
   void getItemList() async {
+    _fireRepository
+        .reportToFirebase("watch_${selectedSubCategory.type}_${selectedSubCategory.name.toLowerCase()}");
+
     _tierGroupList = [];
     itemLoading = true;
     notifyListeners();
@@ -78,6 +86,11 @@ class HomeProvider extends BasedProvider {
       itemComplete = true;
       notifyListeners();
     });
+  }
+
+  void _getFCMToken() async {
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(fcmToken);
   }
 
   void _getVersion() async {

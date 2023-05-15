@@ -3,13 +3,25 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:openalbion_weaponry/theme/app_theme.dart';
 
-
-
-class AppNameSection extends StatelessWidget {
+class AppNameSection extends StatefulWidget {
   const AppNameSection({
     super.key,
   });
+
+  @override
+  State<AppNameSection> createState() => _AppNameSectionState();
+}
+
+class _AppNameSectionState extends State<AppNameSection> with TickerProviderStateMixin {
+  late AnimationController _dayNightController;
+
+  @override
+  void initState() {
+    _dayNightController = AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +44,10 @@ class AppNameSection extends StatelessWidget {
           ),
         ),
         // SizedBox(width: MARGIN_MEDIUM),
-        InterText(AppLocalizations.of(context)!.appName, TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500))
+        InterText(AppLocalizations.of(context)!.appName,
+            TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500)),
+        SizedBox(width: MARGIN_MEDIUM_2),
+        IconButton(onPressed: () {}, icon: Icon(Icons.sunny))
       ],
     );
   }

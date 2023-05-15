@@ -10,6 +10,8 @@ import 'package:openalbion_weaponry/features/home/sections/app_name_section.dart
 import 'package:openalbion_weaponry/features/home/sections/item_list_section.dart';
 import 'package:openalbion_weaponry/features/home/sections/search_section.dart';
 import 'package:openalbion_weaponry/features/home/sections/sub_category_list_section.dart';
+import 'package:openalbion_weaponry/features/item_detail/item_detail_screen.dart';
+import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository_impl.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
@@ -50,10 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: MARGIN_MEDIUM_2),
           SubCategoryListSection(),
           SizedBox(height: MARGIN_MEDIUM_2),
-          ItemListSection()
+          ItemListSection(onTap: (type, item) {
+            Navigator.pushNamed(context, ItemDetailScreen.routeName,
+                arguments: ItemDetailArgs(item: item, type: type));
+          })
         ],
       ),
     );
   }
 }
-

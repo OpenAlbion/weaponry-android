@@ -6,6 +6,7 @@
   "appName": "OpenAlbion Weaponry",
   "weaponType": "Weapon Type",
   "armorType": "ArmorType",
-  "accessories": "Accessories"
+  "accessories": "Accessories",
+  "choose_enchantment_level": "Choose Enchantment Level"
 
 }

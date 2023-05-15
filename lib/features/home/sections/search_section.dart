@@ -18,7 +18,7 @@ class SearchSection extends StatelessWidget {
         controller: controller,
         style: TextStyle(fontSize: TEXT_REGULAR),
         onTapOutside: (event) {
-
+          
           onDimissSearch();
         },
         decoration: InputDecoration(

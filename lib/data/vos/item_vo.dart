@@ -27,8 +27,6 @@ extension ItemVOListExtension on List<ItemVO> {
         tier: tier,
         itemList: where((item) => item.tier == tier).toList()));
     });
-    print(tierSet);
-    print(tierGroupList);
     return tierGroupList;
   }
 }

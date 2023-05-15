@@ -11,7 +11,8 @@ import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class ItemListSection extends StatelessWidget {
-  const ItemListSection({super.key});
+  final Function(String type, ItemVO itemVO) onTap;
+  const ItemListSection({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,6 @@ class ItemListSection extends StatelessWidget {
   }
 
   Widget _renderUI(HomeProvider provider, BuildContext context) {
-
     if (provider.itemLoading) {
       return ItemListLoading();
     } else if (provider.itemComplete) {
@@ -37,6 +37,9 @@ class ItemListSection extends StatelessWidget {
           itemBuilder: (context, index) {
             return TierGroupView(
               tierGroup: provider.tierGroupList[index],
+              onTap: (item) {
+                onTap(provider.selectedSubCategory.type,item);
+              },
             );
           },
           separatorBuilder: (_, index) => Divider(
@@ -50,41 +53,52 @@ class ItemListSection extends StatelessWidget {
 
 class ItemView extends StatelessWidget {
   final ItemVO item;
+  final Function() onTap;
   const ItemView({
     required this.item,
+    required this.onTap,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 100,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                CachedNetworkImage(
-                  imageUrl: item.icon,
-                  width: 70,
-                ),
-                SizedBox(width: MARGIN_MEDIUM),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    InterText(item.name),
-                    SizedBox(height: MARGIN_CARD_MEDIUM_2),
-                    InterText('IP : ${item.itemPower}'),
-                  ],
-                )
-              ],
-            )
-          ],
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        onTap();
+      },
+      child: SizedBox(
+        width: double.infinity,
+        height: 100,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Hero(
+                    tag: 'item${item.id}',
+                    child: CachedNetworkImage(
+                      imageUrl: item.icon,
+                      width: 70,
+                    ),
+                  ),
+                  SizedBox(width: MARGIN_MEDIUM),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      InterText(item.name),
+                      SizedBox(height: MARGIN_CARD_MEDIUM_2),
+                      InterText('IP : ${item.itemPower}'),
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -93,7 +107,9 @@ class ItemView extends StatelessWidget {
 
 class TierGroupView extends StatelessWidget {
   final TierGroupVO tierGroup;
-  const TierGroupView({super.key, required this.tierGroup});
+  final Function(ItemVO item) onTap;
+
+  const TierGroupView({super.key, required this.tierGroup, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +127,9 @@ class TierGroupView extends StatelessWidget {
             itemCount: tierGroup.itemList.length,
             itemBuilder: (context, index) => ItemView(
                   item: tierGroup.itemList[index],
+                  onTap: () {
+                    onTap(tierGroup.itemList[index]);
+                  },
                 ))
       ],
     );
