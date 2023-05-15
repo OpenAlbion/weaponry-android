@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 const double MARGIN_SMALLER = 2;
 const double MARGIN_SMALL = 4;
 const double MARGIN_CARD_MEDIUM = 6;
@@ -22,8 +24,9 @@ const double TEXT_BIG = 40;
 const double TEXT_BIG_2X = 60;
 const double TEXT_BIG_3X = 80;
 
-
 const double DRAWER_ICON_SIZE = 26;
 const double HEIGHT_MANGA_ROW = 300;
 const double HEIGHT_MANGA = 200;
 const double WIDTH_MANGA = 160;
+
+const double HEIGHT_SUB_CATEGORY = 28;

@@ -26,6 +26,7 @@ class HomeProvider extends BasedProvider {
   late TabController tabController;
 
   bool itemLoading = false;
+  bool itemComplete = false;
   List<ItemVO> _itemList = [];
   List<ItemVO> get itemList => _itemList;
 
@@ -67,12 +68,14 @@ class HomeProvider extends BasedProvider {
         await _repository.getItemListBySubCategoryId(selectedSubCategory.id);
     data.fold((L) {
       itemLoading = false;
+      itemComplete = false;
       appError = L;
       notifyListeners();
     }, (R) {
       _itemList = R;
       _tierGroupList = _itemList.convertToTierGroupList();
       itemLoading = false;
+      itemComplete = true;
       notifyListeners();
     });
   }

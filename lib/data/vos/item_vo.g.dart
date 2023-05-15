@@ -9,7 +9,7 @@ part of 'item_vo.dart';
 _$_ItemVO _$$_ItemVOFromJson(Map<String, dynamic> json) => _$_ItemVO(
       id: json['id'] as int,
       name: json['name'] as String? ?? "",
-      tier: json['tire'] as String? ?? "",
+      tier: json['tier'] as String? ?? "",
       itemPower: json['item_power'] as int,
       icon: json['icon'] as String? ?? "",
     );
@@ -17,7 +17,7 @@ _$_ItemVO _$$_ItemVOFromJson(Map<String, dynamic> json) => _$_ItemVO(
 Map<String, dynamic> _$$_ItemVOToJson(_$_ItemVO instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'tire': instance.tier,
+      'tier': instance.tier,
       'item_power': instance.itemPower,
       'icon': instance.icon,
     };

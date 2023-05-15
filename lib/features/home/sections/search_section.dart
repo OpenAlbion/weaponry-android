@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
+import 'package:openalbion_weaponry/theme/app_theme.dart';
 
 class SearchSection extends StatelessWidget {
   final TextEditingController? controller;
@@ -23,9 +24,9 @@ class SearchSection extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           isDense: true,
-          fillColor: secondaryWhite,
+          fillColor: getCardColor(context),
           hintText: "Search swords & ...",
-          hintStyle: TextStyle(fontSize: 14),
+          hintStyle: TextStyle(fontSize: 14, color: get80PercentColor(context)),
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
           prefixIcon: Padding(

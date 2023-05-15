@@ -7,6 +7,7 @@ import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
+import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -42,16 +43,18 @@ class _DrawerCategorySection extends State<DrawerCategorySection> {
     return Column(
       children: provider.categoryList.getUniqueTypeList().map((type) {
         return ExpansionTile(
+          collapsedIconColor: get80PercentColor(context),
+          iconColor: secondaryRed,
           initiallyExpanded: provider.selectedCategory.type == type,
           title: InterText(convertTypeToLocalizedName(type, context)),
           children: provider.categoryList.getByType(type).map((category) {
             return ListTile(
-              leading: Image.asset(getCategoryLogoByType(type), width: MARGIN_LARGE),
+              leading: Image.asset(getCategoryLogoByType(type), width: MARGIN_LARGE, color: get80PercentColor(context),),
               selected: provider.selectedCategory.id == category.id,
               title: InterText(
                   category.name,
                   TextStyle(
-                      color: provider.selectedCategory.id == category.id ? secondaryRed : blackText80)),
+                      color: provider.selectedCategory.id == category.id ? secondaryRed : get80PercentColor(context))),
               onTap: () {
                 provider.setCategoryAndSubCategory(catId: category.id, setFirstSubcategory: true);
                 Navigator.pop(context);

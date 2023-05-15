@@ -4,7 +4,10 @@ import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/tier_group_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:openalbion_weaponry/features/home/widgets/item_list_loading.dart';
+import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
+import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class ItemListSection extends StatelessWidget {
@@ -12,24 +15,36 @@ class ItemListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeProvider>(
-      builder: (context, provider, child) {
-        return Expanded(
-          child: ListView.separated(
-              itemBuilder: (context, index) {
-                return TierGroupView(tierGroup: provider.tierGroupList[index],);
-              },
-              separatorBuilder: (_, index) => Divider(
-                    endIndent: 140,
-                    color: Theme.of(context).textTheme.displayMedium!.color!.withOpacity(0.5),
-                  ),
-              itemCount: provider.tierGroupList.length),
-        );
-      }
+    return Consumer<HomeProvider>(builder: (context, provider, child) {
+      return _renderUI(provider, context);
+    });
+  }
+
+  Widget _renderUI(HomeProvider provider, BuildContext context) {
+
+    if (provider.itemLoading) {
+      return ItemListLoading();
+    } else if (provider.itemComplete) {
+      return _completeUI(provider, context);
+    }
+
+    return SizedBox();
+  }
+
+  Expanded _completeUI(HomeProvider provider, BuildContext context) {
+    return Expanded(
+      child: ListView.separated(
+          itemBuilder: (context, index) {
+            return TierGroupView(
+              tierGroup: provider.tierGroupList[index],
+            );
+          },
+          separatorBuilder: (_, index) => Divider(
+                endIndent: 140,
+                color: get80PercentColor(context).withOpacity(0.5),
+              ),
+          itemCount: provider.tierGroupList.length),
     );
-    // return Column(
-    //   children: ,
-    // )
   }
 }
 
@@ -94,7 +109,9 @@ class TierGroupView extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: tierGroup.itemList.length,
-            itemBuilder: (context, index) => ItemView(item: tierGroup.itemList[index],))
+            itemBuilder: (context, index) => ItemView(
+                  item: tierGroup.itemList[index],
+                ))
       ],
     );
   }

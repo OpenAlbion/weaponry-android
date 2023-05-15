@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/features/drawer_based/drawer_based_screen.dart';
 import 'package:openalbion_weaponry/features/home/home_screen.dart';
+import 'package:openalbion_weaponry/features/test/test_screen.dart';
 
 class Routes {
   static Route<dynamic>? generateRoutes(RouteSettings routeSettings) {
@@ -19,6 +20,7 @@ class Routes {
           //   return ItemDetailScreen(args: args);
 
           default:
+            // return TestScreen();
             return DrawerBasedScreen();
         }
       },

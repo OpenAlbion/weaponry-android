@@ -22,7 +22,6 @@ ItemVO _$ItemVOFromJson(Map<String, dynamic> json) {
 mixin _$ItemVO {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  @JsonKey(name: "tire")
   String get tier => throw _privateConstructorUsedError;
   @JsonKey(name: "item_power")
   int get itemPower => throw _privateConstructorUsedError;
@@ -41,7 +40,7 @@ abstract class $ItemVOCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      @JsonKey(name: "tire") String tier,
+      String tier,
       @JsonKey(name: "item_power") int itemPower,
       String icon});
 }
@@ -99,7 +98,7 @@ abstract class _$$_ItemVOCopyWith<$Res> implements $ItemVOCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      @JsonKey(name: "tire") String tier,
+      String tier,
       @JsonKey(name: "item_power") int itemPower,
       String icon});
 }
@@ -151,7 +150,7 @@ class _$_ItemVO implements _ItemVO {
   _$_ItemVO(
       {required this.id,
       this.name = "",
-      @JsonKey(name: "tire") this.tier = "",
+      this.tier = "",
       @JsonKey(name: "item_power") required this.itemPower,
       this.icon = ""});
 
@@ -164,7 +163,7 @@ class _$_ItemVO implements _ItemVO {
   @JsonKey()
   final String name;
   @override
-  @JsonKey(name: "tire")
+  @JsonKey()
   final String tier;
   @override
   @JsonKey(name: "item_power")
@@ -213,7 +212,7 @@ abstract class _ItemVO implements ItemVO {
   factory _ItemVO(
       {required final int id,
       final String name,
-      @JsonKey(name: "tire") final String tier,
+      final String tier,
       @JsonKey(name: "item_power") required final int itemPower,
       final String icon}) = _$_ItemVO;
 
@@ -224,7 +223,6 @@ abstract class _ItemVO implements ItemVO {
   @override
   String get name;
   @override
-  @JsonKey(name: "tire")
   String get tier;
   @override
   @JsonKey(name: "item_power")

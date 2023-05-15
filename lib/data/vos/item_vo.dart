@@ -9,7 +9,7 @@ class ItemVO with _$ItemVO {
   factory ItemVO({
     required int id,
     @Default("") String name,
-    @JsonKey(name: "tire") @Default("") String tier,
+    @Default("") String tier,
     @JsonKey(name: "item_power") required int itemPower,
     @Default("") String icon,
   }) = _ItemVO;
