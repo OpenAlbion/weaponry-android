@@ -25,7 +25,7 @@ class HomeProvider extends BasedProvider {
 
   late TabController tabController;
 
-  bool itemLoading = false;
+  bool itemLoading = true;
   bool itemComplete = false;
   List<ItemVO> _itemList = [];
   List<ItemVO> get itemList => _itemList;

@@ -68,7 +68,7 @@ class _DrawerCategorySection extends State<DrawerCategorySection> {
 
   Widget _buildLoadingUI() {
     return Shimmer.fromColors(
-      baseColor: whiteText,
+      baseColor: getCardColor(context),
       highlightColor: Colors.grey.withOpacity(0.4),
       child: Column(
         children: [
