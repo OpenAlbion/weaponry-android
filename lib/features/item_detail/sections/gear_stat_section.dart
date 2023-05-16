@@ -5,6 +5,8 @@ import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/quality_vo.dart';
 import 'package:openalbion_weaponry/data/vos/stat_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
+import 'package:openalbion_weaponry/features/item_detail/widgets/gear_stat_loading.dart';
+import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -16,17 +18,30 @@ class GearStatSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ItemDetailProvider>(builder: (context, provider, child) {
-      return Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-            child: GearStatTitleAndDropDown(),
-          ),
-          SizedBox(height: MARGIN_MEDIUM_3),
-          provider.enchanmentList.isNotEmpty ? GearStatTable() : SizedBox(),
-        ],
-      );
+      switch (provider.state) {
+        case ViewState.COMPLETE:
+          return _buildCompleteGearStat(provider);
+
+        case ViewState.LOADING:
+          return GearStatLoading();
+
+        default:
+          return SizedBox();
+      }
     });
+  }
+
+  Column _buildCompleteGearStat(ItemDetailProvider provider) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+          child: GearStatTitleAndDropDown(),
+        ),
+        SizedBox(height: MARGIN_MEDIUM_3),
+        provider.enchanmentList.isNotEmpty ? GearStatTable() : SizedBox(),
+      ],
+    );
   }
 }
 

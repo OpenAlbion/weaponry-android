@@ -28,7 +28,8 @@ class ItemDetailScreen extends StatelessWidget {
                     ChooseEnchantmentSection(item: args.item),
                     SizedBox(height: MARGIN_LARGE),
                     GearStatSection(),
-                    SpellSection()
+                    SpellSection(),
+                    SizedBox(height: MARGIN_LARGE),
                   ],
                 ),
               ),

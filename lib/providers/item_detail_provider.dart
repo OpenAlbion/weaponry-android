@@ -28,7 +28,6 @@ class ItemDetailProvider extends BasedProvider {
   List<SlotVO> _slotList = [];
   List<SlotVO> get slotList => _slotList;
 
-
   void getItemDetail(String type, int id) async {
     setState(ViewState.LOADING);
     if (await handleConnectionView(isReplaceView: false)) {
@@ -68,7 +67,6 @@ class ItemDetailProvider extends BasedProvider {
       setState(ViewState.ERROR);
     }, (R) {
       _slotList = R;
-
       setState(ViewState.COMPLETE);
     });
   }

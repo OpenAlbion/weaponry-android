@@ -60,7 +60,7 @@ class SlotView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
                     child: InterText(slot.spells[index].description),
-                  )
+                  ),                  
                 ],
               );
             })

@@ -9,6 +9,8 @@ import 'package:openalbion_weaponry/data/vos/stat_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:openalbion_weaponry/features/item_detail/sections/gear_stat_section.dart';
+import 'package:openalbion_weaponry/features/item_detail/widgets/enchantment_loading.dart';
+import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -70,32 +72,45 @@ class EnchantmentRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ItemDetailProvider>(builder: (context, provider, child) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-            child: InterText(
-              AppLocalizations.of(context)!.choose_enchantment_level,
-              TextStyle(
-                fontSize: TEXT_REGULAR,
-              ),
+      switch (provider.state) {
+        case ViewState.COMPLETE:
+          return _buildEnchantmentComplete(context, provider);
+
+        case ViewState.LOADING:
+          return EncahntmentLoading();
+
+        default:
+          return SizedBox();
+      }
+    });
+  }
+
+  Column _buildEnchantmentComplete(BuildContext context, ItemDetailProvider provider) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+          child: InterText(
+            AppLocalizations.of(context)!.choose_enchantment_level,
+            TextStyle(
+              fontSize: TEXT_REGULAR,
             ),
           ),
-          SizedBox(height: MARGIN_MEDIUM_2),
-          SizedBox(
-            height: 75,
-            child: ListView.builder(
-                padding: EdgeInsets.only(right: MARGIN_MEDIUM),
-                itemCount: provider.enchanmentList.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return EnchantmentItem(enchantItem: provider.enchanmentList[index]);
-                }),
-          )
-        ],
-      );
-    });
+        ),
+        SizedBox(height: MARGIN_MEDIUM_2),
+        SizedBox(
+          height: 75,
+          child: ListView.builder(
+              padding: EdgeInsets.only(right: MARGIN_MEDIUM),
+              itemCount: provider.enchanmentList.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return EnchantmentItem(enchantItem: provider.enchanmentList[index]);
+              }),
+        )
+      ],
+    );
   }
 }
 
@@ -142,4 +157,3 @@ class EnchantmentItem extends StatelessWidget {
     );
   }
 }
-
