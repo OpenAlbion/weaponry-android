@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
@@ -19,6 +18,8 @@ class HomeProvider extends BasedProvider {
 
   late CategoryVO selectedCategory;
   late SubCategoryVO selectedSubCategory;
+  String _selectedCategoryType = '';
+  String get selectedCategoryType => _selectedCategoryType;
 
   String _versionName = '';
   String get versionName => _versionName;
@@ -26,7 +27,6 @@ class HomeProvider extends BasedProvider {
   AppError? appError;
   final NetworkRepository _repository = NetworkRepositoryImpl();
   final FirebaseAnalyticsRepository _fireRepository = FirebaseAnalyticsRepositoryImpl();
-
 
   bool itemLoading = true;
   bool itemComplete = false;
@@ -56,6 +56,7 @@ class HomeProvider extends BasedProvider {
       setState(ViewState.ERROR);
     }, (R) {
       _categoryList = R;
+      _selectedCategoryType = _categoryList.first.type;
       _setInitialCategoryAndSubCategory();
       setState(ViewState.COMPLETE);
     });
@@ -127,9 +128,14 @@ class HomeProvider extends BasedProvider {
       selectedSubCategory = _categoryList.getSubCategoryById(catId, subId);
       getItemList();
     }
-
+    selectCategoryType(selectedCategory.type);
     print(selectedSubCategory);
 
+    notifyListeners();
+  }
+
+  void selectCategoryType(String type) {
+    _selectedCategoryType = type;
     notifyListeners();
   }
 }

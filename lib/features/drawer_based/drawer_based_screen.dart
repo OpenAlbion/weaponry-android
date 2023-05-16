@@ -1,37 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:openalbion_weaponry/constants/app_constants.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_category_section.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_header_section.dart';
+import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_setting_section.dart';
 import 'package:openalbion_weaponry/features/home/home_screen.dart';
+import 'package:openalbion_weaponry/features/setting/setting_screen.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:openalbion_weaponry/src/settings/settings_controller.dart';
 import 'package:provider/provider.dart';
-
 
 class DrawerBasedScreen extends StatefulWidget {
   static const routeName = 'drawer_based_screen';
-  const DrawerBasedScreen({super.key});
+  final SettingsController settingsController;
+
+  const DrawerBasedScreen({super.key, required this.settingsController});
 
   @override
   State<DrawerBasedScreen> createState() => _DrawerBasedScreenState();
 }
 
 class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
-  String appVersion = '';
-
-  @override
-  void initState() {
-    _getAppVersion();
-    super.initState();
-  }
-
-
-  void _getAppVersion() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      appVersion = packageInfo.version;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeProvider>(
@@ -43,14 +31,21 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
               child: Column(
                 children: [
                   DrawerHeaderSection(),
-                  DrawerCategorySection()
+                  DrawerCategorySection(),
+                  DrawerSettingSection(),
                 ],
               ),
             ),
-            body: HomeScreen(),
+            body: Consumer<HomeProvider>(builder: (context, provider, child) {
+              switch (provider.selectedCategoryType) {
+                case AppConstants.CATEGORY_TYPE_SETTING:
+                  return SettingScreen(settingsController: widget.settingsController);
+
+                default:
+                  return HomeScreen();
+              }
+            }),
           );
-        }
-      );
+        });
   }
 }
-

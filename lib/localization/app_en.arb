@@ -8,6 +8,7 @@
   "armorType": "ArmorType",
   "accessories": "Accessories",
   "choose_enchantment_level": "Choose Enchantment Level",
-  "gear_stats": "Gear Stats"
+  "gear_stats": "Gear Stats",
+  "setting": "Setting"
 
 }

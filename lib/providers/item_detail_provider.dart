@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
+import 'package:openalbion_weaponry/data/vos/quality_vo.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository_impl.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
@@ -14,6 +15,9 @@ class ItemDetailProvider extends BasedProvider {
 
   late EnchantmentVO _selectedEnchantment;
   EnchantmentVO get selectedEnchantment => _selectedEnchantment;
+
+  late QualityVO _selectedQuality;
+  QualityVO get selectedQuality => _selectedQuality;
 
   AppError? appError;
   final NetworkRepository _repository = NetworkRepositoryImpl();
@@ -34,12 +38,21 @@ class ItemDetailProvider extends BasedProvider {
     }, (R) {
       _enchanmentList = R;
       _selectedEnchantment = _enchanmentList.first;
+      _selectedQuality = _selectedEnchantment.stats.first;
+
       setState(ViewState.COMPLETE);
     });
   }
 
   void selectEnchantment(EnchantmentVO enchantmentVO) {
     _selectedEnchantment = enchantmentVO;
+    _selectedQuality = enchantmentVO.stats.first;
+    notifyListeners();
+  }
+
+  void selectQuality(QualityVO qualityVO) {
+    _selectedQuality = qualityVO;
+    print(_selectedQuality);
     notifyListeners();
   }
 }

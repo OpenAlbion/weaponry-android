@@ -14,7 +14,7 @@ class Routes {
             return HomeScreen();
 
           case DrawerBasedScreen.routeName:
-            return DrawerBasedScreen();
+            return DrawerBasedScreen(settingsController: controller);
 
           case ItemDetailScreen.routeName:
             final args = ModalRoute.of(context)!.settings.arguments as ItemDetailArgs;
@@ -22,7 +22,7 @@ class Routes {
 
           default:
             // return TestScreen();
-            return DrawerBasedScreen();
+            return DrawerBasedScreen(settingsController: controller);
         }
       },
     );

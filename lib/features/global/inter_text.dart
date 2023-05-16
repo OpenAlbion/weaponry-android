@@ -6,7 +6,8 @@ import 'package:openalbion_weaponry/constants/app_fonts.dart';
 class InterText extends StatelessWidget {
   final String text;
   final TextStyle? style;
-  const InterText(this.text, [this.style]);
+  final TextAlign? textalign;
+  const InterText(this.text, [this.style, this.textalign]);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +16,9 @@ class InterText extends StatelessWidget {
       // style: style?.copyWith(fontFamily: inter,color: Theme.of(context).textTheme.displayMedium!.color) ?? TextStyle(
       //   fontFamily: inter,
       // ),
-      style: (style ?? TextStyle())
-          .copyWith(fontFamily: inter, color: style?.color ?? Theme.of(context).textTheme.displayMedium!.color),
+      textAlign: textalign,
+      style: (style ?? TextStyle()).copyWith(
+          fontFamily: inter, color: style?.color ?? Theme.of(context).textTheme.displayMedium!.color),
     );
   }
 }

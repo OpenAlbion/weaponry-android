@@ -54,7 +54,10 @@ class _DrawerCategorySection extends State<DrawerCategorySection> {
               title: InterText(
                   category.name,
                   TextStyle(
-                      color: provider.selectedCategory.id == category.id ? secondaryRed : get80PercentColor(context))),
+                      color: provider.selectedCategory.id == category.id &&
+                      provider.selectedCategoryType == provider.selectedCategory.type
+                      
+                      ? secondaryRed : get80PercentColor(context))),
               onTap: () {
                 provider.setCategoryAndSubCategory(catId: category.id, setFirstSubcategory: true);
                 Navigator.pop(context);

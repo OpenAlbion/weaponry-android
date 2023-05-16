@@ -5,12 +5,18 @@ part 'enchantment_vo.freezed.dart';
 part 'enchantment_vo.g.dart';
 
 @Freezed()
-class EnchantmentVO with _$EnchantmentVO{
+class EnchantmentVO with _$EnchantmentVO {
   factory EnchantmentVO({
     required int enchantment,
-    @Default("")  String icon,
+    @Default("") String icon,
     required List<QualityVO> stats,
   }) = _EnchantmentVO;
 
   factory EnchantmentVO.fromJson(Map<String, dynamic> json) => _$EnchantmentVOFromJson(json);
+}
+
+extension EnchantmentVOExtension on EnchantmentVO {
+  QualityVO searchQualityVO(String quality) {
+    return stats.where((qualityVO) => qualityVO.quality == quality).first;
+  }
 }
