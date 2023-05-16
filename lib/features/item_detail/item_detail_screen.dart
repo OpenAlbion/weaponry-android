@@ -3,6 +3,7 @@ import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/features/item_detail/sections/choose_enchantment_section.dart';
 import 'package:openalbion_weaponry/features/item_detail/sections/gear_stat_section.dart';
+import 'package:openalbion_weaponry/features/item_detail/sections/spell_section.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,8 @@ class ItemDetailScreen extends StatelessWidget {
                     SizedBox(height: MARGIN_MEDIUM_2),
                     ChooseEnchantmentSection(item: args.item),
                     SizedBox(height: MARGIN_LARGE),
-                    GearStatSection()
+                    GearStatSection(),
+                    SpellSection()
                   ],
                 ),
               ),

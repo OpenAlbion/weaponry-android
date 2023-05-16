@@ -3,6 +3,8 @@ import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/quality_vo.dart';
+import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
+import 'package:openalbion_weaponry/data/vos/spell_vo.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository_impl.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
@@ -23,7 +25,9 @@ class ItemDetailProvider extends BasedProvider {
   final NetworkRepository _repository = NetworkRepositoryImpl();
   final FirebaseAnalyticsRepository _fireRepository = FirebaseAnalyticsRepositoryImpl();
 
-  ItemDetailProvider() {}
+  List<SlotVO> _slotList = [];
+  List<SlotVO> get slotList => _slotList;
+
 
   void getItemDetail(String type, int id) async {
     setState(ViewState.LOADING);
@@ -40,6 +44,7 @@ class ItemDetailProvider extends BasedProvider {
       _selectedEnchantment = _enchanmentList.first;
       _selectedQuality = _selectedEnchantment.stats.first;
 
+      _getSpellDetail(type, id);
       setState(ViewState.COMPLETE);
     });
   }
@@ -52,7 +57,19 @@ class ItemDetailProvider extends BasedProvider {
 
   void selectQuality(QualityVO qualityVO) {
     _selectedQuality = qualityVO;
-    print(_selectedQuality);
     notifyListeners();
+  }
+
+  void _getSpellDetail(String type, int id) async {
+    Either<AppError, List<SlotVO>> data = await _repository.getSpellDetailById(type, id);
+    data.fold((L) {
+      appError = L;
+      print(appError);
+      setState(ViewState.ERROR);
+    }, (R) {
+      _slotList = R;
+
+      setState(ViewState.COMPLETE);
+    });
   }
 }

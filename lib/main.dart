@@ -21,7 +21,7 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //  await NetworkRepositoryImpl().getItemDetailById("weapon",2);
+  //  await NetworkRepositoryImpl().getSpellDetailById("weapon",2);
   _handleFirebaseCloudMessaging();
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the

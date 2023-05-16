@@ -8,6 +8,8 @@ import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
+import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
+import 'package:openalbion_weaponry/data/vos/spell_vo.dart';
 import 'package:openalbion_weaponry/network/dio/dio_client.dart';
 import 'package:openalbion_weaponry/network/error/error_mapper.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
@@ -76,10 +78,28 @@ class NetworkRepositoryImpl implements NetworkRepository {
       return Left(ErrorMapper.mapDioToAppError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
-    } 
-    // on TypeError catch (_) {
-    //   return Left(AppError(code: "-", message: "Invalid Json Type"));
-    // }
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<SlotVO>>> getSpellDetailById(String itemType, int itemId) async{
+        try {
+      // await Future.delayed(Duration(seconds: 2));
+      var response = await _albionClient.openAlbionApi().getSpellDetailById(itemType, itemId);
+      // final String response =
+      //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
+
+      // final Map<String, dynamic> mappedJson = await jsonDecode(response);
+      return Right(response.data);
+    } on DioError catch (e) {
+      return Left(ErrorMapper.mapDioToAppError(e));
+    } on JsonUnsupportedObjectError catch (_) {
+      return Left(AppError(code: "-", message: "Respond is not Json"));
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    }
   }
 
   // @override
