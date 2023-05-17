@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
@@ -17,25 +18,32 @@ import 'package:openalbion_weaponry/network/response/response_category_list.dart
 
 class NetworkRepositoryImpl implements NetworkRepository {
   static final NetworkRepositoryImpl _singleton = NetworkRepositoryImpl.internal();
+  final DioClient _albionClient = DioClient();
 
   factory NetworkRepositoryImpl() {
     return _singleton;
   }
 
-  NetworkRepositoryImpl.internal();
+  NetworkRepositoryImpl.internal() {
+    _initializeEnv();
+  }
 
-  final DioClient _albionClient = DioClient();
+  void _initializeEnv() async {
+    await dotenv.load(fileName: ".env");
+  }
 
   @override
   Future<Either<AppError, List<CategoryVO>>> getCategoryList() async {
     try {
       // await Future.delayed(Duration(seconds: 2));
-      // var response = await _albionClient.openAlbionApi().getCategoryList();
-      final String response =
-          await rootBundle.loadString("assets/mock_json/response_category_list.json");
+      var apiToken = dotenv.env['API_TOKEN'];
+      var response = await _albionClient.openAlbionApi().getCategoryList(apiToken);
+      // print("env --> ${dotenv.env['API_TOKEN']}");
+      // final String response =
+      //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
-      final Map<String, dynamic> mappedJson = await jsonDecode(response);
-      return Right(ResponseCategoryList.fromJson(mappedJson).data);
+      // final Map<String, dynamic> mappedJson = await jsonDecode(response);
+      return Right(response.data);
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
     } on JsonUnsupportedObjectError catch (_) {
@@ -46,29 +54,11 @@ class NetworkRepositoryImpl implements NetworkRepository {
   }
 
   @override
-  Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(int subId) async{
+  Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(int subId) async {
     try {
       // await Future.delayed(Duration(seconds: 2));
-      var response = await _albionClient.openAlbionApi().getItemListBySubCategoryId(subId);
-      // final String response =
-      //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
-
-      // final Map<String, dynamic> mappedJson = await jsonDecode(response);
-      return Right(response.data);
-    } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
-    } on JsonUnsupportedObjectError catch (_) {
-      return Left(AppError(code: "-", message: "Respond is not Json"));
-    } on TypeError catch (_) {
-      return Left(AppError(code: "-", message: "Invalid Json Type"));
-    }
-  }
-  
-  @override
-  Future<Either<AppError, List<EnchantmentVO>>> getItemDetailById(String itemType, int itemId) async{
-        try {
-      // await Future.delayed(Duration(seconds: 2));
-      var response = await _albionClient.openAlbionApi().getItemDetailById(itemType, itemId);
+      var apiToken = dotenv.env['API_TOKEN'];
+      var response = await _albionClient.openAlbionApi().getItemListBySubCategoryId(apiToken, subId);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
@@ -84,10 +74,31 @@ class NetworkRepositoryImpl implements NetworkRepository {
   }
 
   @override
-  Future<Either<AppError, List<SlotVO>>> getSpellDetailById(String itemType, int itemId) async{
-        try {
+  Future<Either<AppError, List<EnchantmentVO>>> getItemDetailById(String itemType, int itemId) async {
+    try {
       // await Future.delayed(Duration(seconds: 2));
-      var response = await _albionClient.openAlbionApi().getSpellDetailById(itemType, itemId);
+      var apiToken = dotenv.env['API_TOKEN'];
+      var response = await _albionClient.openAlbionApi().getItemDetailById(apiToken, itemType, itemId);
+      // final String response =
+      //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
+
+      // final Map<String, dynamic> mappedJson = await jsonDecode(response);
+      return Right(response.data);
+    } on DioError catch (e) {
+      return Left(ErrorMapper.mapDioToAppError(e));
+    } on JsonUnsupportedObjectError catch (_) {
+      return Left(AppError(code: "-", message: "Respond is not Json"));
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<SlotVO>>> getSpellDetailById(String itemType, int itemId) async {
+    try {
+      // await Future.delayed(Duration(seconds: 2));
+      var apiToken = dotenv.env['API_TOKEN'];
+      var response = await _albionClient.openAlbionApi().getSpellDetailById(apiToken, itemType, itemId);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 

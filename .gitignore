@@ -45,3 +45,4 @@ app.*.map.json
 
 #ios google api key
 /ios/Runner/GoogleService-Info.plist
+*.env

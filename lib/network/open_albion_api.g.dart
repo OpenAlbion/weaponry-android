@@ -21,7 +21,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
   String? baseUrl;
 
   @override
-  Future<ResponseCategoryList> getCategoryList() async {
+  Future<ResponseCategoryList> getCategoryList(dynamic apiToken) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -34,7 +34,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     )
             .compose(
               _dio.options,
-              '/categories',
+              '/categories?api_token=${apiToken}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -44,7 +44,10 @@ class _OpenAlbionApi implements OpenAlbionApi {
   }
 
   @override
-  Future<ResponseItemList> getItemListBySubCategoryId(dynamic subId) async {
+  Future<ResponseItemList> getItemListBySubCategoryId(
+    dynamic apiToken,
+    dynamic subId,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -57,7 +60,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     )
             .compose(
               _dio.options,
-              '/weapons?subcategory_id=${subId}',
+              '/weapons?subcategory_id=${subId}&api_token=${apiToken}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -68,6 +71,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
 
   @override
   Future<ResponseEnchantmentList> getItemDetailById(
+    dynamic apiToken,
     dynamic itemType,
     dynamic itemId,
   ) async {
@@ -83,7 +87,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     )
             .compose(
               _dio.options,
-              '/weapon-stats/${itemType}/${itemId}',
+              '/weapon-stats/${itemType}/${itemId}?api_token=${apiToken}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -94,6 +98,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
 
   @override
   Future<ResponseSlotList> getSpellDetailById(
+    dynamic apiToken,
     dynamic itemType,
     dynamic itemId,
   ) async {
@@ -109,7 +114,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     )
             .compose(
               _dio.options,
-              '/spells/${itemType}/${itemId}',
+              '/spells/${itemType}/${itemId}?api_token=${apiToken}',
               queryParameters: queryParameters,
               data: _data,
             )
