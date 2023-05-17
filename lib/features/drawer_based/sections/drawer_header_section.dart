@@ -28,10 +28,11 @@ class DrawerHeaderSection extends StatelessWidget {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  Image.asset(
-                    'assets/images/pngs/ic_logo.png',
-                    width: 40,
-                    filterQuality: FilterQuality.high,
+                  SvgPicture.asset(
+                    'assets/images/svgs/ic_logo_transparent.svg',
+                    // filterQuality: FilterQuality.high,
+                    width: 60,
+                    height: 60,
                   ),
                   SizedBox(height: MARGIN_MEDIUM_2),
                   InterText(

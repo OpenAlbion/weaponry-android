@@ -129,12 +129,15 @@ class HomeProvider extends BasedProvider {
       getItemList();
     }
     selectCategoryType(selectedCategory.type);
+    print(selectedCategory);
     print(selectedSubCategory);
 
     notifyListeners();
   }
 
   void selectCategoryType(String type) {
+    print(selectedCategoryType);
+
     _selectedCategoryType = type;
     notifyListeners();
   }

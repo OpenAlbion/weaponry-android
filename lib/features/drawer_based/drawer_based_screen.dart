@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/constants/app_constants.dart';
+import 'package:openalbion_weaponry/constants/app_dimens.dart';
+import 'package:openalbion_weaponry/features/about/about_screen.dart';
+import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_about_section.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_category_section.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_header_section.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_setting_section.dart';
@@ -7,6 +10,7 @@ import 'package:openalbion_weaponry/features/home/home_screen.dart';
 import 'package:openalbion_weaponry/features/setting/setting_screen.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/src/settings/settings_controller.dart';
+import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class DrawerBasedScreen extends StatefulWidget {
@@ -32,6 +36,15 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
                 children: [
                   DrawerHeaderSection(),
                   DrawerCategorySection(),
+                  Divider(
+                      color: get80PercentColor(context).withOpacity(0.2),
+                      endIndent: MARGIN_MEDIUM_2,
+                      height: 2),
+                  DrawerAboutScreen(),
+                  Divider(
+                      color: get80PercentColor(context).withOpacity(0.2),
+                      endIndent: MARGIN_MEDIUM_2,
+                      height: 2),
                   DrawerSettingSection(),
                 ],
               ),
@@ -40,6 +53,9 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
               switch (provider.selectedCategoryType) {
                 case AppConstants.CATEGORY_TYPE_SETTING:
                   return SettingScreen(settingsController: widget.settingsController);
+
+                case AppConstants.CATEGORY_TYPE_ABOUT:
+                  return AboutScreen();
 
                 default:
                   return HomeScreen();
