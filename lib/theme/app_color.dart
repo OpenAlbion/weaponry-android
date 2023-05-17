@@ -11,3 +11,6 @@ const primaryRed = Color(0xff820000);
 const secondaryRed = Color(0xffC8152A);
 const secondaryWhite = Color(0xffF4F4F4);
 const secondaryBlack = Color(0xff252525);
+
+const bridgeWatchColor = Color(0xffE9922B);
+const fortSterlingColor = Color(0xff706B6B);

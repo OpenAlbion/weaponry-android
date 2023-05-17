@@ -1,3 +1,4 @@
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'open_albion_api.dart';
