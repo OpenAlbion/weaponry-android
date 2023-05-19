@@ -47,9 +47,11 @@ class AboutScreen extends StatelessWidget {
 class WebLauncherButton extends StatelessWidget {
   final String text;
   final String svgIcon;
+  final bool enableDarkModeColor;
   const WebLauncherButton({
     required this.text,
     required this.svgIcon,
+    required this.enableDarkModeColor,
     super.key,
   });
 
@@ -69,7 +71,13 @@ class WebLauncherButton extends StatelessWidget {
           ),
           child: Row(
             children: [
-              SvgPicture.asset(svgIcon, width: 19),
+              enableDarkModeColor
+                  ? SvgPicture.asset(
+                      svgIcon,
+                      width: 19,
+                      colorFilter: ColorFilter.mode(Theme.of(context).iconTheme.color!, BlendMode.srcIn),
+                    )
+                  : SvgPicture.asset(svgIcon, width: 19),
               SizedBox(width: MARGIN_MEDIUM),
               InterText(
                 text,
@@ -179,6 +187,7 @@ class AboutProjectSection extends StatelessWidget {
           WebLauncherButton(
             text: 'github',
             svgIcon: 'assets/images/svgs/ic_github_dark.svg',
+            enableDarkModeColor: true,
           )
         ],
       ),
@@ -212,8 +221,9 @@ class AboutAppSection extends StatelessWidget {
           ),
           SizedBox(height: MARGIN_MEDIUM_2),
           WebLauncherButton(
-            text: 'github',
+            text: 'Github',
             svgIcon: 'assets/images/svgs/ic_github_dark.svg',
+            enableDarkModeColor: true,
           )
         ],
       ),
@@ -269,6 +279,7 @@ class AboutUsSection extends StatelessWidget {
           child: WebLauncherButton(
             text: 'discord',
             svgIcon: 'assets/images/svgs/ic_discord.svg',
+            enableDarkModeColor: false,
           ),
         )
       ],

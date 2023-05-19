@@ -44,28 +44,35 @@ class _DrawerCategorySection extends State<DrawerCategorySection> {
       children: provider.categoryList.getUniqueTypeList().map((type) {
         return Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: ExpansionTile(
-            collapsedIconColor: get80PercentColor(context),
-            iconColor: secondaryRed,
-            initiallyExpanded: provider.selectedCategoryType == type,
-            title: InterText(convertTypeToLocalizedName(type, context)),
-            children: provider.categoryList.getByType(type).map((category) {
-              return ListTile(
-                // leading: Image.asset(getCategoryLogoByType(type), width: MARGIN_LARGE, color: get80PercentColor(context),),
-                selected: provider.selectedCategory.id == category.id,
-                title: InterText(
-                    category.name,
-                    TextStyle(
-                        color: provider.selectedCategory.id == category.id &&
-                                provider.selectedCategoryType == provider.selectedCategory.type
-                            ? secondaryRed
-                            : get80PercentColor(context))),
-                onTap: () {
-                  provider.setCategoryAndSubCategory(catId: category.id, setFirstSubcategory: true);
-                  Navigator.pop(context);
-                },
-              );
-            }).toList(),
+          child: Column(
+            children: [
+              ExpansionTile(
+                collapsedIconColor: get80PercentColor(context),
+                iconColor: secondaryRed,
+                initiallyExpanded: provider.selectedCategoryType == type,
+                title: InterText(convertTypeToLocalizedName(type, context)),
+                children: provider.categoryList.getByType(type).map((category) {
+                  return ListTile(
+                    selected: provider.selectedCategory.id == category.id,
+                    title: InterText(
+                        category.name,
+                        TextStyle(
+                            color: provider.selectedCategory.id == category.id &&
+                                    provider.selectedCategoryType == provider.selectedCategory.type
+                                ? secondaryRed
+                                : get80PercentColor(context))),
+                    onTap: () {
+                      provider.setCategoryAndSubCategory(catId: category.id, setFirstSubcategory: true);
+                      Navigator.pop(context);
+                    },
+                  );
+                }).toList(),
+              ),
+              Divider(
+                  color: get80PercentColor(context).withOpacity(0.2),
+                  endIndent: MARGIN_MEDIUM_2,
+                  height: 2),
+            ],
           ),
         );
       }).toList(),

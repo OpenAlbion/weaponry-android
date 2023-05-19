@@ -36,10 +36,6 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
                 children: [
                   DrawerHeaderSection(),
                   DrawerCategorySection(),
-                  Divider(
-                      color: get80PercentColor(context).withOpacity(0.2),
-                      endIndent: MARGIN_MEDIUM_2,
-                      height: 2),
                   DrawerAboutScreen(),
                   Divider(
                       color: get80PercentColor(context).withOpacity(0.2),

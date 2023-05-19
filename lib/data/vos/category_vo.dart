@@ -10,6 +10,7 @@ part 'category_vo.g.dart';
 class CategoryVO with _$CategoryVO {
   factory CategoryVO(
       {required int id,
+      @Default("armors") String path,
       @Default("") String name,
       @Default("") String type,
       @Default([]) List<SubCategoryVO> subcategories}) = _CategoryVO;
@@ -39,6 +40,9 @@ String convertTypeToLocalizedName(String type, BuildContext context) {
   switch (type) {
     case 'weapon':
       return AppLocalizations.of(context)!.weaponType;
+
+    case 'armor':
+      return AppLocalizations.of(context)!.armorType;
 
     default:
       return AppLocalizations.of(context)!.weaponType;

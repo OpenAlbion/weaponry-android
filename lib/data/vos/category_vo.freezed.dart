@@ -21,6 +21,7 @@ CategoryVO _$CategoryVOFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CategoryVO {
   int get id => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   List<SubCategoryVO> get subcategories => throw _privateConstructorUsedError;
@@ -38,7 +39,11 @@ abstract class $CategoryVOCopyWith<$Res> {
       _$CategoryVOCopyWithImpl<$Res, CategoryVO>;
   @useResult
   $Res call(
-      {int id, String name, String type, List<SubCategoryVO> subcategories});
+      {int id,
+      String path,
+      String name,
+      String type,
+      List<SubCategoryVO> subcategories});
 }
 
 /// @nodoc
@@ -55,6 +60,7 @@ class _$CategoryVOCopyWithImpl<$Res, $Val extends CategoryVO>
   @override
   $Res call({
     Object? id = null,
+    Object? path = null,
     Object? name = null,
     Object? type = null,
     Object? subcategories = null,
@@ -64,6 +70,10 @@ class _$CategoryVOCopyWithImpl<$Res, $Val extends CategoryVO>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -89,7 +99,11 @@ abstract class _$$_CategoryVOCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id, String name, String type, List<SubCategoryVO> subcategories});
+      {int id,
+      String path,
+      String name,
+      String type,
+      List<SubCategoryVO> subcategories});
 }
 
 /// @nodoc
@@ -104,6 +118,7 @@ class __$$_CategoryVOCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? path = null,
     Object? name = null,
     Object? type = null,
     Object? subcategories = null,
@@ -113,6 +128,10 @@ class __$$_CategoryVOCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -134,6 +153,7 @@ class __$$_CategoryVOCopyWithImpl<$Res>
 class _$_CategoryVO implements _CategoryVO {
   _$_CategoryVO(
       {required this.id,
+      this.path = "armors",
       this.name = "",
       this.type = "",
       final List<SubCategoryVO> subcategories = const []})
@@ -144,6 +164,9 @@ class _$_CategoryVO implements _CategoryVO {
 
   @override
   final int id;
+  @override
+  @JsonKey()
+  final String path;
   @override
   @JsonKey()
   final String name;
@@ -161,7 +184,7 @@ class _$_CategoryVO implements _CategoryVO {
 
   @override
   String toString() {
-    return 'CategoryVO(id: $id, name: $name, type: $type, subcategories: $subcategories)';
+    return 'CategoryVO(id: $id, path: $path, name: $name, type: $type, subcategories: $subcategories)';
   }
 
   @override
@@ -170,6 +193,7 @@ class _$_CategoryVO implements _CategoryVO {
         (other.runtimeType == runtimeType &&
             other is _$_CategoryVO &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.path, path) || other.path == path) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
             const DeepCollectionEquality()
@@ -178,7 +202,7 @@ class _$_CategoryVO implements _CategoryVO {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, type,
+  int get hashCode => Object.hash(runtimeType, id, path, name, type,
       const DeepCollectionEquality().hash(_subcategories));
 
   @JsonKey(ignore: true)
@@ -198,6 +222,7 @@ class _$_CategoryVO implements _CategoryVO {
 abstract class _CategoryVO implements CategoryVO {
   factory _CategoryVO(
       {required final int id,
+      final String path,
       final String name,
       final String type,
       final List<SubCategoryVO> subcategories}) = _$_CategoryVO;
@@ -207,6 +232,8 @@ abstract class _CategoryVO implements CategoryVO {
 
   @override
   int get id;
+  @override
+  String get path;
   @override
   String get name;
   @override

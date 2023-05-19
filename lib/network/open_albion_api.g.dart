@@ -1,4 +1,3 @@
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'open_albion_api.dart';
@@ -46,6 +45,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
 
   @override
   Future<ResponseItemList> getItemListBySubCategoryId(
+    dynamic path,
     dynamic apiToken,
     dynamic subId,
   ) async {
@@ -61,7 +61,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     )
             .compose(
               _dio.options,
-              '/weapons?subcategory_id=${subId}&api_token=${apiToken}',
+              '/${path}?subcategory_id=${subId}&api_token=${apiToken}',
               queryParameters: queryParameters,
               data: _data,
             )

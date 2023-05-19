@@ -11,14 +11,14 @@ abstract class NetworkRepository {
   Future<Either<AppError, List<CategoryVO>>> getCategoryList();
   Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(
     int subId,
+    String path,
   );
   Future<Either<AppError, List<EnchantmentVO>>> getItemDetailById(
     String itemType,
     int itemId,
   );
-    Future<Either<AppError, List<SlotVO>>> getSpellDetailById(
+  Future<Either<AppError, List<SlotVO>>> getSpellDetailById(
     String itemType,
     int itemId,
   );
-
 }

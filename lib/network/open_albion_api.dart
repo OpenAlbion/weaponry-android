@@ -16,8 +16,9 @@ abstract class OpenAlbionApi {
     @Path() apiToken,
   );
 
-  @GET("/weapons?subcategory_id={subId}&api_token={apiToken}")
+  @GET("/{path}?subcategory_id={subId}&api_token={apiToken}")
   Future<ResponseItemList> getItemListBySubCategoryId(
+    @Path() path,
     @Path() apiToken,
     @Path() subId,
   );

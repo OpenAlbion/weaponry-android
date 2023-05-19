@@ -54,11 +54,11 @@ class NetworkRepositoryImpl implements NetworkRepository {
   }
 
   @override
-  Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(int subId) async {
+  Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(int subId,String path) async {
     try {
       // await Future.delayed(Duration(seconds: 2));
       var apiToken = dotenv.env['API_TOKEN'];
-      var response = await _albionClient.openAlbionApi().getItemListBySubCategoryId(apiToken, subId);
+      var response = await _albionClient.openAlbionApi().getItemListBySubCategoryId(path, apiToken, subId);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 

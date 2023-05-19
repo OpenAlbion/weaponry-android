@@ -74,7 +74,7 @@ class HomeProvider extends BasedProvider {
       return;
     }
     Either<AppError, List<ItemVO>> data =
-        await _repository.getItemListBySubCategoryId(selectedSubCategory.id);
+        await _repository.getItemListBySubCategoryId(selectedSubCategory.id, selectedCategory.path);
     data.fold((L) {
       itemLoading = false;
       itemComplete = false;
