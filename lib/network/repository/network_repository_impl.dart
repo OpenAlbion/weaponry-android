@@ -2,19 +2,16 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
-import 'package:openalbion_weaponry/data/vos/spell_vo.dart';
 import 'package:openalbion_weaponry/network/dio/dio_client.dart';
 import 'package:openalbion_weaponry/network/error/error_mapper.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
-import 'package:openalbion_weaponry/network/response/response_category_list.dart';
 
 class NetworkRepositoryImpl implements NetworkRepository {
   static final NetworkRepositoryImpl _singleton = NetworkRepositoryImpl.internal();
@@ -37,13 +34,21 @@ class NetworkRepositoryImpl implements NetworkRepository {
     try {
       // await Future.delayed(Duration(seconds: 2));
       var apiToken = dotenv.env['API_TOKEN'];
-      var response = await _albionClient.openAlbionApi().getCategoryList(apiToken);
+      if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
+
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
+
+      var response = await _albionClient
+          .openAlbionApi()
+          .getCategoryList(appCheckToken: appCheckToken, apiToken: apiToken);
+      return Right(response.data);
+
       // print("env --> ${dotenv.env['API_TOKEN']}");
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
       // final Map<String, dynamic> mappedJson = await jsonDecode(response);
-      return Right(response.data);
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
     } on JsonUnsupportedObjectError catch (_) {
@@ -54,11 +59,18 @@ class NetworkRepositoryImpl implements NetworkRepository {
   }
 
   @override
-  Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(int subId,String path) async {
+  Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(int subId, String path) async {
     try {
       // await Future.delayed(Duration(seconds: 2));
       var apiToken = dotenv.env['API_TOKEN'];
-      var response = await _albionClient.openAlbionApi().getItemListBySubCategoryId(path, apiToken, subId);
+      if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
+
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
+
+      var response = await _albionClient
+          .openAlbionApi()
+          .getItemListBySubCategoryId(appCheckToken: "", apiToken: apiToken, subId: subId, path: path);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
@@ -78,7 +90,14 @@ class NetworkRepositoryImpl implements NetworkRepository {
     try {
       // await Future.delayed(Duration(seconds: 2));
       var apiToken = dotenv.env['API_TOKEN'];
-      var response = await _albionClient.openAlbionApi().getItemDetailById(apiToken, itemType, itemId);
+      if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
+
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
+
+      var response = await _albionClient
+          .openAlbionApi()
+          .getItemDetailById(appCheckToken: "", apiToken: apiToken, itemType: itemType, itemId: itemId);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
@@ -98,7 +117,14 @@ class NetworkRepositoryImpl implements NetworkRepository {
     try {
       // await Future.delayed(Duration(seconds: 2));
       var apiToken = dotenv.env['API_TOKEN'];
-      var response = await _albionClient.openAlbionApi().getSpellDetailById(apiToken, itemType, itemId);
+      if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
+
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
+
+      var response = await _albionClient
+          .openAlbionApi()
+          .getSpellDetailById(appCheckToken: "", apiToken: apiToken, itemType: itemType, itemId: itemId);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 

@@ -21,10 +21,14 @@ class _OpenAlbionApi implements OpenAlbionApi {
   String? baseUrl;
 
   @override
-  Future<ResponseCategoryList> getCategoryList(dynamic apiToken) async {
+  Future<ResponseCategoryList> getCategoryList({
+    required String appCheckToken,
+    required String apiToken,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ResponseCategoryList>(Options(
@@ -44,14 +48,16 @@ class _OpenAlbionApi implements OpenAlbionApi {
   }
 
   @override
-  Future<ResponseItemList> getItemListBySubCategoryId(
-    dynamic path,
-    dynamic apiToken,
-    dynamic subId,
-  ) async {
+  Future<ResponseItemList> getItemListBySubCategoryId({
+    required String appCheckToken,
+    required String apiToken,
+    required String path,
+    required int subId,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ResponseItemList>(Options(
@@ -71,14 +77,16 @@ class _OpenAlbionApi implements OpenAlbionApi {
   }
 
   @override
-  Future<ResponseEnchantmentList> getItemDetailById(
-    dynamic apiToken,
-    dynamic itemType,
-    dynamic itemId,
-  ) async {
+  Future<ResponseEnchantmentList> getItemDetailById({
+    required String appCheckToken,
+    required String apiToken,
+    required String itemType,
+    required int itemId,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ResponseEnchantmentList>(Options(
@@ -98,14 +106,16 @@ class _OpenAlbionApi implements OpenAlbionApi {
   }
 
   @override
-  Future<ResponseSlotList> getSpellDetailById(
-    dynamic apiToken,
-    dynamic itemType,
-    dynamic itemId,
-  ) async {
+  Future<ResponseSlotList> getSpellDetailById({
+    required String appCheckToken,
+    required String apiToken,
+    required String itemType,
+    required int itemId,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ResponseSlotList>(Options(

@@ -121,12 +121,12 @@ class DeveloperView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text.rich(TextSpan(children: [
-                TextSpan(text: "nickname : ", style: TextStyle(fontFamily: inter)),
+                TextSpan(text: "Nickname : ", style: TextStyle(fontFamily: inter)),
                 TextSpan(text: nickName, style: TextStyle(fontFamily: inter))
               ])),
               SizedBox(height: MARGIN_SMALL - 1),
               Text.rich(TextSpan(children: [
-                TextSpan(text: "royal city : ", style: TextStyle(fontFamily: inter)),
+                TextSpan(text: "Royal city : ", style: TextStyle(fontFamily: inter)),
                 TextSpan(text: city, style: TextStyle(color: color, fontFamily: inter))
               ])),
             ],
@@ -149,7 +149,11 @@ class OrgAndAppLogoSection extends StatelessWidget {
       children: [
         SvgPicture.asset('assets/images/svgs/ic_org_logo.svg', width: 70),
         SizedBox(width: MARGIN_MEDIUM_2),
-        SvgPicture.asset('assets/images/svgs/ic_arrow.svg', height: 40),
+        SvgPicture.asset(
+          'assets/images/svgs/ic_arrow.svg',
+          height: 40,
+          colorFilter: ColorFilter.mode(Theme.of(context).iconTheme.color!, BlendMode.srcIn),
+        ),
         SizedBox(width: MARGIN_MEDIUM_2),
         ClipRRect(
             borderRadius: BorderRadius.circular(8),
@@ -185,7 +189,7 @@ class AboutProjectSection extends StatelessWidget {
           ),
           SizedBox(height: MARGIN_MEDIUM_2),
           WebLauncherButton(
-            text: 'github',
+            text: 'Github',
             svgIcon: 'assets/images/svgs/ic_github_dark.svg',
             enableDarkModeColor: true,
           )
@@ -277,7 +281,7 @@ class AboutUsSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: WebLauncherButton(
-            text: 'discord',
+            text: 'Discord',
             svgIcon: 'assets/images/svgs/ic_discord.svg',
             enableDarkModeColor: false,
           ),

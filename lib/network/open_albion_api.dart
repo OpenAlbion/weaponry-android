@@ -12,28 +12,32 @@ abstract class OpenAlbionApi {
   factory OpenAlbionApi(Dio dio, {String baseUrl}) = _OpenAlbionApi;
 
   @GET("/categories?api_token={apiToken}")
-  Future<ResponseCategoryList> getCategoryList(
-    @Path() apiToken,
-  );
+  Future<ResponseCategoryList> getCategoryList({
+    @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    @Path() required String apiToken,
+  });
 
   @GET("/{path}?subcategory_id={subId}&api_token={apiToken}")
-  Future<ResponseItemList> getItemListBySubCategoryId(
-    @Path() path,
-    @Path() apiToken,
-    @Path() subId,
-  );
+  Future<ResponseItemList> getItemListBySubCategoryId({
+    @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    @Path() required String apiToken,
+    @Path() required String path,
+    @Path() required int subId,
+  });
 
   @GET("/weapon-stats/{itemType}/{itemId}?api_token={apiToken}")
-  Future<ResponseEnchantmentList> getItemDetailById(
-    @Path() apiToken,
-    @Path() itemType,
-    @Path() itemId,
-  );
+  Future<ResponseEnchantmentList> getItemDetailById({
+    @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    @Path() required String apiToken,
+    @Path() required String itemType,
+    @Path() required int itemId,
+  });
 
   @GET("/spells/{itemType}/{itemId}?api_token={apiToken}")
-  Future<ResponseSlotList> getSpellDetailById(
-    @Path() apiToken,
-    @Path() itemType,
-    @Path() itemId,
-  );
+  Future<ResponseSlotList> getSpellDetailById({
+    @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    @Path() required String apiToken,
+    @Path() required String itemType,
+    @Path() required int itemId,
+  });
 }

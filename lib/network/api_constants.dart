@@ -14,4 +14,6 @@ class ApiConstants {
 
   static const STATUS_CODE_CONNECT_TIMEOUT = "408";
   static const STATUS_CODE_RECEIVE_TIMEOUT = "406";
+
+  static const X_Firebase_AppCheck = "X-Firebase-AppCheck";
 }

@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //  await NetworkRepositoryImpl().getSpellDetailById("weapon",2);
   _handleFirebaseCloudMessaging();
+  _initializeAppCheck();
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
@@ -33,7 +35,7 @@ void _handleFirebaseCloudMessaging() {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Got a message whilst in the foreground!');
     print('Message data: ${message.data}');
-    _showLocalNotification(message.data['title'],message.data['message']);
+    _showLocalNotification(message.data['title'], message.data['message']);
     if (message.notification != null) {
       print('Message also contained a notification: ${message.notification}');
     }
@@ -43,8 +45,9 @@ void _handleFirebaseCloudMessaging() {
 void _showLocalNotification(String title, String message) async {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   // request permission
-  flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-    AndroidFlutterLocalNotificationsPlugin>()?.requestPermission();
+  flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+      ?.requestPermission();
 // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('app_icon');
@@ -60,6 +63,17 @@ void _showLocalNotification(String title, String message) async {
   );
   const NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
-  await flutterLocalNotificationsPlugin.show(10, title, message, notificationDetails,
-      payload: 'item x');
+  await flutterLocalNotificationsPlugin.show(10, title, message, notificationDetails, payload: 'item x');
+}
+
+void _initializeAppCheck() async {
+  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+    // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose
+    // your preferred provider. Choose from:
+    // 1. debug provider
+    // 2. safety net provider
+    // 3. play integrity provider
+    androidProvider: AndroidProvider.debug,
+  );
 }

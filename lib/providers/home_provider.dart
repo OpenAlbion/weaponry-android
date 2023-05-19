@@ -91,7 +91,7 @@ class HomeProvider extends BasedProvider {
 
   void _getFCMToken() async {
     final fcmToken = await FirebaseMessaging.instance.getToken();
-    print(fcmToken);
+    print("fire token - $fcmToken");
   }
 
   void _getVersion() async {
