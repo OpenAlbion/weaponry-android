@@ -60,8 +60,8 @@ int convertQualityNameToQualityId(String name) {
 }
 
 String convertToCurrency(int price) {
-  final oCcy = NumberFormat.simpleCurrency();
-  return oCcy.format(price).replaceAll("\$", "");
+  final oCcy = NumberFormat("###,###,###");
+  return oCcy.format(price);
 }
 
 DateTime convertStringToDateTime(String dateString) {

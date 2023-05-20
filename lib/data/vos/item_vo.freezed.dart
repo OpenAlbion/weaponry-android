@@ -25,7 +25,7 @@ mixin _$ItemVO {
   String get tier => throw _privateConstructorUsedError;
   String get identifier => throw _privateConstructorUsedError;
   @JsonKey(name: "item_power")
-  int get itemPower => throw _privateConstructorUsedError;
+  int? get itemPower => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $ItemVOCopyWith<$Res> {
       String name,
       String tier,
       String identifier,
-      @JsonKey(name: "item_power") int itemPower,
+      @JsonKey(name: "item_power") int? itemPower,
       String icon});
 }
 
@@ -64,7 +64,7 @@ class _$ItemVOCopyWithImpl<$Res, $Val extends ItemVO>
     Object? name = null,
     Object? tier = null,
     Object? identifier = null,
-    Object? itemPower = null,
+    Object? itemPower = freezed,
     Object? icon = null,
   }) {
     return _then(_value.copyWith(
@@ -84,10 +84,10 @@ class _$ItemVOCopyWithImpl<$Res, $Val extends ItemVO>
           ? _value.identifier
           : identifier // ignore: cast_nullable_to_non_nullable
               as String,
-      itemPower: null == itemPower
+      itemPower: freezed == itemPower
           ? _value.itemPower
           : itemPower // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       icon: null == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
@@ -107,7 +107,7 @@ abstract class _$$_ItemVOCopyWith<$Res> implements $ItemVOCopyWith<$Res> {
       String name,
       String tier,
       String identifier,
-      @JsonKey(name: "item_power") int itemPower,
+      @JsonKey(name: "item_power") int? itemPower,
       String icon});
 }
 
@@ -125,7 +125,7 @@ class __$$_ItemVOCopyWithImpl<$Res>
     Object? name = null,
     Object? tier = null,
     Object? identifier = null,
-    Object? itemPower = null,
+    Object? itemPower = freezed,
     Object? icon = null,
   }) {
     return _then(_$_ItemVO(
@@ -145,10 +145,10 @@ class __$$_ItemVOCopyWithImpl<$Res>
           ? _value.identifier
           : identifier // ignore: cast_nullable_to_non_nullable
               as String,
-      itemPower: null == itemPower
+      itemPower: freezed == itemPower
           ? _value.itemPower
           : itemPower // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       icon: null == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
@@ -165,7 +165,7 @@ class _$_ItemVO implements _ItemVO {
       this.name = "",
       this.tier = "",
       this.identifier = "",
-      @JsonKey(name: "item_power") required this.itemPower,
+      @JsonKey(name: "item_power") this.itemPower,
       this.icon = ""});
 
   factory _$_ItemVO.fromJson(Map<String, dynamic> json) =>
@@ -184,7 +184,7 @@ class _$_ItemVO implements _ItemVO {
   final String identifier;
   @override
   @JsonKey(name: "item_power")
-  final int itemPower;
+  final int? itemPower;
   @override
   @JsonKey()
   final String icon;
@@ -234,7 +234,7 @@ abstract class _ItemVO implements ItemVO {
       final String name,
       final String tier,
       final String identifier,
-      @JsonKey(name: "item_power") required final int itemPower,
+      @JsonKey(name: "item_power") final int? itemPower,
       final String icon}) = _$_ItemVO;
 
   factory _ItemVO.fromJson(Map<String, dynamic> json) = _$_ItemVO.fromJson;
@@ -249,7 +249,7 @@ abstract class _ItemVO implements ItemVO {
   String get identifier;
   @override
   @JsonKey(name: "item_power")
-  int get itemPower;
+  int? get itemPower;
   @override
   String get icon;
   @override

@@ -18,7 +18,9 @@ class MarketSection extends StatelessWidget {
     return Consumer<MarketPriceProvider>(builder: (context, provider, child) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-        child: provider.marketPriceList.isNotEmpty
+        child: provider.marketPriceList.isNotEmpty &&
+                provider.marketPriceList.where((element) => element.sellPriceMin == 0).toList().length !=
+                    6
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -27,17 +29,22 @@ class MarketSection extends StatelessWidget {
                   SizedBox(height: MARGIN_MEDIUM_2),
                   Row(
                     children: [
-                      InterText("Royal City", TextStyle(fontSize: TEXT_REGULAR - 1)),
+                      InterText("Royal City",
+                          TextStyle(fontSize: TEXT_REGULAR - 1, fontWeight: FontWeight.bold)),
                       Spacer(),
                       SizedBox(
                           width: 100,
                           child: InterText(
-                              "Sell Price", TextStyle(fontSize: TEXT_REGULAR - 1), TextAlign.end)),
+                              "Sell Price",
+                              TextStyle(fontSize: TEXT_REGULAR - 1, fontWeight: FontWeight.bold),
+                              TextAlign.end)),
                       SizedBox(width: MARGIN_MEDIUM_3),
                       SizedBox(
                           width: 100,
                           child: InterText(
-                              "Updated Time", TextStyle(fontSize: TEXT_REGULAR - 1), TextAlign.end)),
+                              "Updated Time",
+                              TextStyle(fontSize: TEXT_REGULAR - 1, fontWeight: FontWeight.bold),
+                              TextAlign.end)),
                     ],
                   ),
                   Divider(
@@ -73,25 +80,30 @@ class MarketPriceRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return sellPrice != 0 ?Column(
-      children: [
-        Row(
-          children: [
-            InterText(royalCity, TextStyle(fontSize: TEXT_SMALL)),
-            Spacer(),
-            SizedBox(
-                width: 100, child: InterText(convertToCurrency(sellPrice), TextStyle(fontSize: TEXT_SMALL), TextAlign.end)),
-            SizedBox(width: MARGIN_MEDIUM_3),
-            SizedBox(
-                width: 100,
-                child: InterText(timeago.format(convertStringToDateTime(updatedTime)), TextStyle(fontSize: TEXT_SMALL), TextAlign.end)),
-          ],
-        ),
-        Divider(
-          height: MARGIN_LARGE,
-          color: get80PercentColor(context).withOpacity(0.2),
-        ),
-      ],
-    ): SizedBox();
+    return sellPrice != 0
+        ? Column(
+            children: [
+              Row(
+                children: [
+                  InterText(royalCity, TextStyle(fontSize: TEXT_SMALL)),
+                  Spacer(),
+                  SizedBox(
+                      width: 100,
+                      child: InterText(
+                          convertToCurrency(sellPrice), TextStyle(fontSize: TEXT_SMALL), TextAlign.end)),
+                  SizedBox(width: MARGIN_MEDIUM_3),
+                  SizedBox(
+                      width: 100,
+                      child: InterText(timeago.format(convertStringToDateTime(updatedTime)),
+                          TextStyle(fontSize: TEXT_SMALL), TextAlign.end)),
+                ],
+              ),
+              Divider(
+                height: MARGIN_LARGE,
+                color: get80PercentColor(context).withOpacity(0.2),
+              ),
+            ],
+          )
+        : SizedBox();
   }
 }

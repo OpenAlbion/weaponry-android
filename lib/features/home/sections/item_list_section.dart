@@ -92,7 +92,7 @@ class ItemView extends StatelessWidget {
                     children: [
                       InterText(item.name),
                       SizedBox(height: MARGIN_CARD_MEDIUM_2),
-                      InterText('IP : ${item.itemPower}'),
+                      InterText("IP : ${item.itemPower ?? 'Not Available'}"),
                     ],
                   )
                 ],

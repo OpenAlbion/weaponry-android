@@ -11,7 +11,7 @@ class ItemVO with _$ItemVO {
     @Default("") String name,
     @Default("") String tier,
     @Default("") String identifier,
-    @JsonKey(name: "item_power") required int itemPower,
+    @JsonKey(name: "item_power") int? itemPower,
     @Default("") String icon,
   }) = _ItemVO;
 

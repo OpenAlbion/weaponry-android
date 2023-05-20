@@ -1,10 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
-import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/quality_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
-import 'package:openalbion_weaponry/data/vos/spell_vo.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository_impl.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';

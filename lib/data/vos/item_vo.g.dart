@@ -11,7 +11,7 @@ _$_ItemVO _$$_ItemVOFromJson(Map<String, dynamic> json) => _$_ItemVO(
       name: json['name'] as String? ?? "",
       tier: json['tier'] as String? ?? "",
       identifier: json['identifier'] as String? ?? "",
-      itemPower: json['item_power'] as int,
+      itemPower: json['item_power'] as int?,
       icon: json['icon'] as String? ?? "",
     );
 
