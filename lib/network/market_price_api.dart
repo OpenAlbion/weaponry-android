@@ -5,13 +5,15 @@ import 'package:retrofit/retrofit.dart';
 
 part 'market_price_api.g.dart';
 
-@RestApi(baseUrl: ApiConstants.ALBION_EAST_URL)
+@RestApi(baseUrl: ApiConstants.OPEN_ALBION_URL)
 abstract class MarketPriceApi {
   factory MarketPriceApi(Dio dio, {String baseUrl}) = _MarketPriceApi;
 
   @GET(
-      "/api/v2/stats/prices/{itemId}.json?locations=Caerleon,Bridgewatch,Lymhurst,Thetford,Martlock,Fort Sterling&qualities={quality}")
+      "/aod/{region}/item/{itemId}/price?locations=Caerleon,Bridgewatch,Lymhurst,Thetford,Martlock,Fort Sterling&qualities={quality}")
   Future<List<MarketPriceVO>> getMarketPrice({
+    @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    @Path() required String region,
     @Path() required String itemId,
     @Path() required int quality,
   });

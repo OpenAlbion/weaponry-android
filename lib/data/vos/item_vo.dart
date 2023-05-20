@@ -10,6 +10,7 @@ class ItemVO with _$ItemVO {
     required int id,
     @Default("") String name,
     @Default("") String tier,
+    @Default("") String identifier,
     @JsonKey(name: "item_power") required int itemPower,
     @Default("") String icon,
   }) = _ItemVO;
@@ -23,41 +24,41 @@ extension ItemVOListExtension on List<ItemVO> {
     List<TierGroupVO> tierGroupList = [];
     tierSet.forEach((tier) {
       tierGroupList.add(TierGroupVO(
-        name: convertTierToReadableName(tier),
-        tier: tier,
-        itemList: where((item) => item.tier == tier).toList()));
+          name: convertTierToReadableName(tier),
+          tier: tier,
+          itemList: where((item) => item.tier == tier).toList()));
     });
     return tierGroupList;
   }
 }
 
-String convertTierToReadableName(String tier){
-  switch(tier){
+String convertTierToReadableName(String tier) {
+  switch (tier) {
     case "1.0":
-    return "Beginner's Tier";
+      return "Beginner's Tier";
 
-        case "2.0":
-    return "Novice's Tier";
+    case "2.0":
+      return "Novice's Tier";
 
-        case "3.0":
-    return "Journeyman's Tier";
+    case "3.0":
+      return "Journeyman's Tier";
 
-        case "4.0":
-    return "Adept's Tier";
+    case "4.0":
+      return "Adept's Tier";
 
-        case "5.0":
-    return "Expert's Tier";
+    case "5.0":
+      return "Expert's Tier";
 
-        case "6.0":
-    return "Master's Tier";
+    case "6.0":
+      return "Master's Tier";
 
-        case "7.0":
-    return "Grandmaster's Tier";
+    case "7.0":
+      return "Grandmaster's Tier";
 
-        case "8.0":
-    return "Elder's Tier";
+    case "8.0":
+      return "Elder's Tier";
 
     default:
-    return "Unkown Tier";
+      return "Unkown Tier";
   }
 }

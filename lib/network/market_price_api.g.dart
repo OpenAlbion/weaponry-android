@@ -13,7 +13,7 @@ class _MarketPriceApi implements MarketPriceApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://east.albion-online-data.com';
+    baseUrl ??= 'https://api.openalbion.com/api/weaponry';
   }
 
   final Dio _dio;
@@ -22,12 +22,15 @@ class _MarketPriceApi implements MarketPriceApi {
 
   @override
   Future<List<MarketPriceVO>> getMarketPrice({
+    required String appCheckToken,
+    required String region,
     required String itemId,
     required int quality,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<MarketPriceVO>>(Options(
@@ -37,7 +40,7 @@ class _MarketPriceApi implements MarketPriceApi {
     )
             .compose(
               _dio.options,
-              '/api/v2/stats/prices/${itemId}.json?locations=Caerleon,Bridgewatch,Lymhurst,Thetford,Martlock,Fort Sterling&qualities=${quality}',
+              '/aod/${region}/item/${itemId}/price?locations=Caerleon,Bridgewatch,Lymhurst,Thetford,Martlock,Fort Sterling&qualities=${quality}',
               queryParameters: queryParameters,
               data: _data,
             )

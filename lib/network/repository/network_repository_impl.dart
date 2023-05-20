@@ -37,8 +37,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
-      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
-      final appCheckToken = "";
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      print("appCheck - $appCheckToken");
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response = await _albionClient
@@ -67,13 +67,13 @@ class NetworkRepositoryImpl implements NetworkRepository {
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
-      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
-      final appCheckToken = "";
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      // final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response = await _albionClient
           .openAlbionApi()
-          .getItemListBySubCategoryId(appCheckToken: "", apiToken: apiToken, subId: subId, path: path);
+          .getItemListBySubCategoryId(appCheckToken: appCheckToken, apiToken: apiToken, subId: subId, path: path);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
@@ -95,13 +95,13 @@ class NetworkRepositoryImpl implements NetworkRepository {
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
-      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
-      final appCheckToken = "";
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      // final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response = await _albionClient
           .openAlbionApi()
-          .getItemDetailById(appCheckToken: "", apiToken: apiToken, itemType: itemType, itemId: itemId);
+          .getItemDetailById(appCheckToken: appCheckToken, apiToken: apiToken, itemType: itemType, itemId: itemId);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
@@ -123,13 +123,13 @@ class NetworkRepositoryImpl implements NetworkRepository {
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
-      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
-      final appCheckToken = "";
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      // final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response = await _albionClient
           .openAlbionApi()
-          .getSpellDetailById(appCheckToken: "", apiToken: apiToken, itemType: itemType, itemId: itemId);
+          .getSpellDetailById(appCheckToken: appCheckToken, apiToken: apiToken, itemType: itemType, itemId: itemId);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
@@ -152,12 +152,12 @@ class NetworkRepositoryImpl implements NetworkRepository {
       // var apiToken = dotenv.env['API_TOKEN'];
       // if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
-      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
       // final appCheckToken = "";
-      // if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
+      if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response =
-          await _albionClient.marketPriceApi().getMarketPrice(itemId: itemId, quality: quality);
+          await _albionClient.marketPriceApi().getMarketPrice(appCheckToken: appCheckToken,region: "east",itemId: itemId, quality: quality);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 

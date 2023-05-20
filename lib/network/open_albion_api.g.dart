@@ -13,7 +13,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://api.openalbion.com/api/v1';
+    baseUrl ??= 'https://api.openalbion.com/api/weaponry';
   }
 
   final Dio _dio;

@@ -7,7 +7,7 @@ class ApiConstants {
   // static const ALBION_TOOL_URL = "https://gameinfo.albiononline.com/api";
   // static const ALBION_WIKI_URL = "https://wiki.albiononline.com";
 
-  static const OPEN_ALBION_URL = "https://api.openalbion.com/api/v1";
+  static const OPEN_ALBION_URL = "https://api.openalbion.com/api/weaponry";
 
   static const DEFAULT_NETWORK_CONNECT_TIMEOUT = Duration.millisecondsPerMinute;
   static const DEFAULT_NETWORK_RECEIVE_TIMEOUT = Duration.microsecondsPerMinute;

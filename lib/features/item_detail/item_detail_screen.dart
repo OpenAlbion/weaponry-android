@@ -19,7 +19,7 @@ class ItemDetailScreen extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ItemDetailProvider>(create: (_) => ItemDetailProvider()..getItemDetail(args.type, args.item.id)),
-        ChangeNotifierProvider(create: (_) => MarketPriceProvider()..initializeIdAndMarket("T7_MEAL_PIE"))
+        ChangeNotifierProvider(create: (_) => MarketPriceProvider()..initializeIdAndMarket(args.item.identifier))
       ],
       child: Scaffold(
         body: SafeArea(
