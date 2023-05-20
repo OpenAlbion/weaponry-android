@@ -3,6 +3,7 @@ import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
+import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
 import 'package:openalbion_weaponry/data/vos/spell_vo.dart';
 
@@ -13,12 +14,19 @@ abstract class NetworkRepository {
     int subId,
     String path,
   );
+
   Future<Either<AppError, List<EnchantmentVO>>> getItemDetailById(
     String itemType,
     int itemId,
   );
+
   Future<Either<AppError, List<SlotVO>>> getSpellDetailById(
     String itemType,
     int itemId,
   );
+
+  Future<Either<AppError, List<MarketPriceVO>>> getMarketPrice({
+    required String itemId,
+    required int quality
+  });
 }

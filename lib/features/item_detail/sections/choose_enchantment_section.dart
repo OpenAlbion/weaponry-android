@@ -12,6 +12,7 @@ import 'package:openalbion_weaponry/features/item_detail/sections/gear_stat_sect
 import 'package:openalbion_weaponry/features/item_detail/widgets/enchantment_loading.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
+import 'package:openalbion_weaponry/providers/market_price_provider.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
@@ -126,6 +127,10 @@ class EnchantmentItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<ItemDetailProvider>().selectEnchantment(enchantItem);
+        context.read<MarketPriceProvider>().selectedEnchantment = enchantItem.enchantment;
+        context.read<MarketPriceProvider>().selectedQuality = 1;
+
+        context.read<MarketPriceProvider>().getMarketPrice();
       },
       child: Padding(
         padding: const EdgeInsets.only(left: MARGIN_MEDIUM),

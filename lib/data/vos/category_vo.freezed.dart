@@ -153,7 +153,7 @@ class __$$_CategoryVOCopyWithImpl<$Res>
 class _$_CategoryVO implements _CategoryVO {
   _$_CategoryVO(
       {required this.id,
-      this.path = "armors",
+      this.path = "weapons",
       this.name = "",
       this.type = "",
       final List<SubCategoryVO> subcategories = const []})

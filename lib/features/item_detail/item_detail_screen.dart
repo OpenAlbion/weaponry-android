@@ -3,8 +3,10 @@ import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/features/item_detail/sections/choose_enchantment_section.dart';
 import 'package:openalbion_weaponry/features/item_detail/sections/gear_stat_section.dart';
+import 'package:openalbion_weaponry/features/item_detail/sections/market_section.dart';
 import 'package:openalbion_weaponry/features/item_detail/sections/spell_section.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
+import 'package:openalbion_weaponry/providers/market_price_provider.dart';
 import 'package:provider/provider.dart';
 
 class ItemDetailScreen extends StatelessWidget {
@@ -14,28 +16,31 @@ class ItemDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ItemDetailProvider>(
-        create: (context) => ItemDetailProvider()..getItemDetail(args.type, args.item.id),
-        builder: (context, child) {
-          return Scaffold(
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BackButton(),
-                    SizedBox(height: MARGIN_MEDIUM_2),
-                    ChooseEnchantmentSection(item: args.item),
-                    SizedBox(height: MARGIN_LARGE),
-                    GearStatSection(),
-                    SpellSection(),
-                    SizedBox(height: MARGIN_LARGE),
-                  ],
-                ),
-              ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ItemDetailProvider>(create: (_) => ItemDetailProvider()..getItemDetail(args.type, args.item.id)),
+        ChangeNotifierProvider(create: (_) => MarketPriceProvider()..initializeIdAndMarket("T7_MEAL_PIE"))
+      ],
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BackButton(),
+                SizedBox(height: MARGIN_MEDIUM_2),
+                ChooseEnchantmentSection(item: args.item),
+                SizedBox(height: MARGIN_LARGE),
+                GearStatSection(),
+                MarketSection(),
+                SpellSection(),
+                SizedBox(height: MARGIN_LARGE),
+              ],
             ),
-          );
-        });
+          ),
+        ),
+      ),
+    );
   }
 }
 

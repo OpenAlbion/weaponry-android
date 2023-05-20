@@ -22,7 +22,7 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //  await NetworkRepositoryImpl().getSpellDetailById("weapon",2);
+  //  await NetworkRepositoryImpl().getMarketPrice(itemId: "T4_BAG",quality: 0);
   _handleFirebaseCloudMessaging();
   _initializeAppCheck();
   // Run the app and pass in the SettingsController. The app listens to the

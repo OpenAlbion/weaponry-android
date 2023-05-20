@@ -1,4 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 import 'package:openalbion_weaponry/data/vos/double_stat_vo.dart.dart';
 import 'package:openalbion_weaponry/data/vos/stat_vo.dart';
 
@@ -27,10 +29,46 @@ extension StatVOExtension on List<StatVO> {
       currentList.add(StatVO(name: "", value: ""));
     }
 
-    for (int i = 0; i < currentList.length - 1; i = i +2) {
+    for (int i = 0; i < currentList.length - 1; i = i + 2) {
       doubleStatList.add(DoubleStatVO(firstStat: currentList[i], secondStat: currentList[i + 1]));
     }
 
     return doubleStatList;
   }
+}
+
+int convertQualityNameToQualityId(String name) {
+  switch (name) {
+    case "Normal":
+      return 1;
+
+    case "Good":
+      return 2;
+
+    case "Outstanding":
+      return 3;
+
+    case "Excellent":
+      return 4;
+
+    case "Masterpiece":
+      return 5;
+
+    default:
+      return 1;
+  }
+}
+
+String convertToCurrency(int price) {
+  final oCcy = NumberFormat.simpleCurrency();
+  return oCcy.format(price).replaceAll("\$", "");
+}
+
+DateTime convertStringToDateTime(String dateString) {
+  DateTime dateTime = DateTime.parse(dateString);
+  // DateTime now = DateTime.now();
+  
+  // Duration duration = dateTime.difference(now);
+  
+  return dateTime;
 }

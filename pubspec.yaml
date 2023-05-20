@@ -39,6 +39,8 @@ dependencies:
   change_app_package_name: ^1.1.0
   package_info_plus: ^4.0.0
   flutter_dotenv: ^5.0.2
+  intl: ^0.18.0
+  timeago: ^3.4.0
 
   #local notification
   flutter_local_notifications: ^14.0.0+2

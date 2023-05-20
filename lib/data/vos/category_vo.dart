@@ -10,7 +10,7 @@ part 'category_vo.g.dart';
 class CategoryVO with _$CategoryVO {
   factory CategoryVO(
       {required int id,
-      @Default("armors") String path,
+      @Default("weapons") String path,
       @Default("") String name,
       @Default("") String type,
       @Default([]) List<SubCategoryVO> subcategories}) = _CategoryVO;

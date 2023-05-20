@@ -9,7 +9,7 @@ part of 'category_vo.dart';
 _$_CategoryVO _$$_CategoryVOFromJson(Map<String, dynamic> json) =>
     _$_CategoryVO(
       id: json['id'] as int,
-      path: json['path'] as String? ?? "armors",
+      path: json['path'] as String? ?? "weapons",
       name: json['name'] as String? ?? "",
       type: json['type'] as String? ?? "",
       subcategories: (json['subcategories'] as List<dynamic>?)

@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:openalbion_weaponry/network/market_price_api.dart';
 import 'package:openalbion_weaponry/network/open_albion_api.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioClient {
-  late Dio dio;
-  late OpenAlbionApi mApi;
+  late Dio _dio;
+  late OpenAlbionApi _mApi;
+  late MarketPriceApi _marketApi;
   static final DioClient _singleton = DioClient.internal();
 
   factory DioClient() {
@@ -12,31 +14,31 @@ class DioClient {
   }
 
   DioClient.internal() {
-    dio = Dio();
-    dio.options.connectTimeout = Duration(seconds: 10);
-    dio.interceptors.add(PrettyDioLogger());
+    _dio = Dio();
+    _dio.options.connectTimeout = Duration(seconds: 10);
+    _dio.interceptors.add(PrettyDioLogger());
   }
 
   OpenAlbionApi openAlbionApi() {
-    dio.options.headers = {
+    _dio.options.headers = {
       "Content-Type": Headers.jsonContentType,
       "Accept": Headers.jsonContentType,
     };
 
-    mApi = OpenAlbionApi(dio);
-    return mApi;
+    _mApi = OpenAlbionApi(_dio);
+    return _mApi;
   }
 
-  // OpenAlbionApi dataProjectApi(){
-  //       dio.options.headers = {
-  //     "Content-Type": Headers.jsonContentType,
-  //     "Accept": Headers.jsonContentType,
-  //   };
+  MarketPriceApi marketPriceApi() {
+    _dio.options.headers = {
+      "Content-Type": Headers.jsonContentType,
+      "Accept": Headers.jsonContentType,
+    };
 
-  //   mApi = OpenAlbionApi(dio);
+    _marketApi = MarketPriceApi(_dio);
 
-  //   return mApi;
-  // }
+    return _marketApi;
+  }
 
   //   OpenAlbionApi toolApi(){
   //       dio.options.headers = {

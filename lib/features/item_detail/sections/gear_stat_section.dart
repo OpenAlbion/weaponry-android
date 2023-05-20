@@ -5,9 +5,11 @@ import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/quality_vo.dart';
 import 'package:openalbion_weaponry/data/vos/stat_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
+import 'package:openalbion_weaponry/features/item_detail/sections/market_section.dart';
 import 'package:openalbion_weaponry/features/item_detail/widgets/gear_stat_loading.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
+import 'package:openalbion_weaponry/providers/market_price_provider.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -85,60 +87,64 @@ class GearStatTitleAndDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ItemDetailProvider>(builder: (context, provider, child) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          InterText(AppLocalizations.of(context)!.gear_stats),
-          provider.enchanmentList.isNotEmpty && provider.selectedEnchantment.stats.isNotEmpty
-              ? SizedBox(
-                  width: 150,
-                  child: DropdownButtonFormField2(
-                    value: provider.selectedQuality.quality,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: getCardColor(context),
+    return Consumer<MarketPriceProvider>(builder: (context, marketProvider, child) {
+      return Consumer<ItemDetailProvider>(builder: (context, provider, child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InterText(AppLocalizations.of(context)!.gear_stats),
+            provider.enchanmentList.isNotEmpty && provider.selectedEnchantment.stats.isNotEmpty
+                ? SizedBox(
+                    width: 150,
+                    child: DropdownButtonFormField2(
+                      value: provider.selectedQuality.quality,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: getCardColor(context),
 
-                      //Add isDense true and zero Padding.
-                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                      isDense: true,
-                      contentPadding: EdgeInsets.zero,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4), borderSide: BorderSide.none),
-                      //Add more decoration as you want here
-                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                    ),
-                    buttonStyleData: const ButtonStyleData(
-                      height: 40,
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                      offset: Offset(0, -10),
-                      decoration: BoxDecoration(
-                          color: getCardColor(context),
-                          borderRadius: BorderRadius.circular(4),
-                          boxShadow: []),
-                    ),
-                    onChanged: (quality) {
-                      if (quality != null) {
-                        provider.selectQuality(provider.selectedEnchantment.searchQualityVO(quality));
-                      }
-                    },
-                    items: provider.selectedEnchantment.stats
-                        .map(
-                          (stats) => DropdownMenuItem(
-                            value: stats.quality,
-                            child: InterText(
-                              stats.quality,
-                              TextStyle(fontSize: TEXT_SMALL),
+                        //Add isDense true and zero Padding.
+                        //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                        isDense: true,
+                        contentPadding: EdgeInsets.zero,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4), borderSide: BorderSide.none),
+                        //Add more decoration as you want here
+                        //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                      ),
+                      buttonStyleData: const ButtonStyleData(
+                        height: 40,
+                      ),
+                      dropdownStyleData: DropdownStyleData(
+                        offset: Offset(0, -10),
+                        decoration: BoxDecoration(
+                            color: getCardColor(context),
+                            borderRadius: BorderRadius.circular(4),
+                            boxShadow: []),
+                      ),
+                      onChanged: (quality) {
+                        if (quality != null) {
+                          provider.selectQuality(provider.selectedEnchantment.searchQualityVO(quality));
+                          marketProvider.selectedQuality = convertQualityNameToQualityId(quality);
+                          marketProvider.getMarketPrice();
+                        }
+                      },
+                      items: provider.selectedEnchantment.stats
+                          .map(
+                            (stats) => DropdownMenuItem(
+                              value: stats.quality,
+                              child: InterText(
+                                stats.quality,
+                                TextStyle(fontSize: TEXT_SMALL),
+                              ),
                             ),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                )
-              : SizedBox(),
-        ],
-      );
+                          )
+                          .toList(),
+                    ),
+                  )
+                : SizedBox(),
+          ],
+        );
+      });
     });
   }
 }

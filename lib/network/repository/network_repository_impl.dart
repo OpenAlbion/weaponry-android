@@ -8,6 +8,7 @@ import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
+import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
 import 'package:openalbion_weaponry/network/dio/dio_client.dart';
 import 'package:openalbion_weaponry/network/error/error_mapper.dart';
@@ -36,7 +37,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
-      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response = await _albionClient
@@ -65,7 +67,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
-      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response = await _albionClient
@@ -92,7 +95,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
-      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response = await _albionClient
@@ -119,7 +123,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
-      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response = await _albionClient
@@ -130,6 +135,34 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       // final Map<String, dynamic> mappedJson = await jsonDecode(response);
       return Right(response.data);
+    } on DioError catch (e) {
+      return Left(ErrorMapper.mapDioToAppError(e));
+    } on JsonUnsupportedObjectError catch (_) {
+      return Left(AppError(code: "-", message: "Respond is not Json"));
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<MarketPriceVO>>> getMarketPrice(
+      {required String itemId, required int quality}) async {
+    try {
+      // await Future.delayed(Duration(seconds: 2));
+      // var apiToken = dotenv.env['API_TOKEN'];
+      // if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
+
+      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      // final appCheckToken = "";
+      // if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
+
+      var response =
+          await _albionClient.marketPriceApi().getMarketPrice(itemId: itemId, quality: quality);
+      // final String response =
+      //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
+
+      // final Map<String, dynamic> mappedJson = await jsonDecode(response);
+      return Right(response);
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
     } on JsonUnsupportedObjectError catch (_) {
