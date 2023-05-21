@@ -64,11 +64,11 @@ String convertToCurrency(int price) {
   return oCcy.format(price);
 }
 
-DateTime convertStringToDateTime(String dateString) {
-  DateTime dateTime = DateTime.parse(dateString);
-  // DateTime now = DateTime.now();
+// DateTime convertStringToDateTime(String dateString) {
+//   DateTime dateTime = DateTime.parse(dateString);
+//   // DateTime now = DateTime.now();
   
-  // Duration duration = dateTime.difference(now);
+//   // Duration duration = dateTime.difference(now);
   
-  return dateTime;
-}
+//   return dateTime;
+// }

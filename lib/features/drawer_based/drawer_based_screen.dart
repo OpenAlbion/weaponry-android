@@ -35,13 +35,10 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
               child: Column(
                 children: [
                   DrawerHeaderSection(),
-                  DrawerCategorySection(),
-                  DrawerAboutScreen(),
-                  Divider(
-                      color: get80PercentColor(context).withOpacity(0.2),
-                      endIndent: MARGIN_MEDIUM_2,
-                      height: 2),
-                  DrawerSettingSection(),
+                  Expanded(
+                      child: SingleChildScrollView(
+                    child: ScrollableDrawerSection(),
+                  )),
                 ],
               ),
             ),
@@ -59,5 +56,24 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
             }),
           );
         });
+  }
+}
+
+class ScrollableDrawerSection extends StatelessWidget {
+  const ScrollableDrawerSection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        DrawerCategorySection(),
+        DrawerAboutScreen(),
+        Divider(
+            color: get80PercentColor(context).withOpacity(0.2), endIndent: MARGIN_MEDIUM_2, height: 2),
+        DrawerSettingSection(),
+      ],
+    );
   }
 }

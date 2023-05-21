@@ -17,6 +17,9 @@
   "about_app_description": "OpenAlbion Weaponry is also an open-source mobile project to showcase our api data and help the beginner player to learn about the variety of Albion Online items. You can checkout in github link below. You can support by giving star to our github repositories.",
   "about_us_title": "About Us",
   "about_us_description": "OpenAlbion Project is created by two developer in their free time. We love to play Albion Online game and want to provide comprehensive Albion Online data and unlimited API for developers.\n\nIf you have any idea to improve our project, you can contact us from our discord channel. If you want to play with us, please message directly in discord channel or in-game message box.",
+  "about_credits_title": "Credits",
+  "about_credits_description": "All of the market price in the application are from the from the exceptional efforts of \"The Albion Online Data Project\" which offers a client designed for the collection of price information, along with an API for accessing that valuable data. This project serves as an invaluable resource for players, enabling them to stay informed about item prices within the game.",
   "dark_mode" : "Dark Mode",
   "market_price_server": "Market Price Server"
+  
 }

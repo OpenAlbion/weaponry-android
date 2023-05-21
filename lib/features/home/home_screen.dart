@@ -47,8 +47,28 @@ class _HomeScreenState extends State<HomeScreen> {
               onDimissSearch: () {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
+              onChanged: (text) {
+                print(text);
+              },
             ),
           ),
+          SubCategoryAndItemListSection(),
+        ],
+      ),
+    );
+  }
+}
+
+class SubCategoryAndItemListSection extends StatelessWidget {
+  const SubCategoryAndItemListSection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        children: [
           SizedBox(height: MARGIN_MEDIUM_2),
           SubCategoryListSection(),
           SizedBox(height: MARGIN_MEDIUM_2),
@@ -61,3 +81,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+

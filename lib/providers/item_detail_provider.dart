@@ -42,8 +42,6 @@ class ItemDetailProvider extends BasedProvider {
       _selectedEnchantment = _enchanmentList.first;
       _selectedQuality = _selectedEnchantment.stats.first;
       }
-
-
       _getSpellDetail(type, id);
       setState(ViewState.COMPLETE);
     });

@@ -5,8 +5,10 @@ import 'package:flutter/widgets.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/quality_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
+import 'package:openalbion_weaponry/features/item_detail/widgets/dash_border_text.dart';
 import 'package:openalbion_weaponry/providers/market_price_provider.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
+import 'package:openalbion_weaponry/utils/timezone_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -19,12 +21,12 @@ class MarketSection extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
         child: provider.marketPriceList.isNotEmpty &&
-                provider.marketPriceList.where((element) => element.sellPriceMin == 0).toList().length !=
-                    6
+                provider.marketPriceList.where(
+                  (element) => element.sellPriceMin == 0).toList().length != 6
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: MARGIN_MEDIUM_2),
+                  SizedBox(height: MARGIN_LARGE),
                   InterText("Market Price"),
                   SizedBox(height: MARGIN_MEDIUM_2),
                   Row(
@@ -61,7 +63,10 @@ class MarketSection extends StatelessWidget {
                   )
                 ],
               )
-            : SizedBox(),
+            : provider.marketPriceList.isNotEmpty ? Padding(
+              padding: const EdgeInsets.only(top: MARGIN_LARGE),
+              child: DashBorderText(text: "Market Not Available."),
+            ) : SizedBox(),
       );
     });
   }
@@ -94,7 +99,7 @@ class MarketPriceRow extends StatelessWidget {
                   SizedBox(width: MARGIN_MEDIUM_3),
                   SizedBox(
                       width: 100,
-                      child: InterText(timeago.format(convertStringToDateTime(updatedTime)),
+                      child: InterText(timeago.format(TimezoneUtils().convertToCurrentTimeZone(dateTimeString: updatedTime)),
                           TextStyle(fontSize: TEXT_SMALL), TextAlign.end)),
                 ],
               ),

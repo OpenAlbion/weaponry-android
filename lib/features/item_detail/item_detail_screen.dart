@@ -28,9 +28,7 @@ class ItemDetailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BackButton(),
-                SizedBox(height: MARGIN_MEDIUM_2),
                 ChooseEnchantmentSection(item: args.item),
-                SizedBox(height: MARGIN_LARGE),
                 GearStatSection(),
                 MarketSection(),
                 SpellSection(),

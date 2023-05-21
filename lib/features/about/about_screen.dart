@@ -9,6 +9,7 @@ import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   static const routeName = 'about_screen';
@@ -35,6 +36,11 @@ class AboutScreen extends StatelessWidget {
               height: MARGIN_XLARGE,
               color: get80PercentColor(context).withOpacity(0.2),
             ),
+            AboutCreditsSection(),
+            Divider(
+              height: MARGIN_XLARGE,
+              color: get80PercentColor(context).withOpacity(0.2),
+            ),
             AboutUsSection(),
             SizedBox(height: MARGIN_XLARGE)
           ],
@@ -48,10 +54,12 @@ class WebLauncherButton extends StatelessWidget {
   final String text;
   final String svgIcon;
   final bool enableDarkModeColor;
+  final Function onTap;
   const WebLauncherButton({
     required this.text,
     required this.svgIcon,
     required this.enableDarkModeColor,
+    required this.onTap,
     super.key,
   });
 
@@ -60,7 +68,9 @@ class WebLauncherButton extends StatelessWidget {
     return SizedBox(
       width: 100,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          onTap();
+        },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM, vertical: MARGIN_MEDIUM),
           decoration: BoxDecoration(
@@ -192,6 +202,9 @@ class AboutProjectSection extends StatelessWidget {
             text: 'Github',
             svgIcon: 'assets/images/svgs/ic_github_dark.svg',
             enableDarkModeColor: true,
+            onTap: () async {
+              await launchUrl(Uri.parse("https://openalbion.com/"),mode: LaunchMode.externalApplication);
+            },
           )
         ],
       ),
@@ -228,6 +241,9 @@ class AboutAppSection extends StatelessWidget {
             text: 'Github',
             svgIcon: 'assets/images/svgs/ic_github_dark.svg',
             enableDarkModeColor: true,
+            onTap: () async {
+              await launchUrl(Uri.parse("https://github.com/OpenAlbion/weaponry-android"),mode: LaunchMode.externalApplication);
+            },
           )
         ],
       ),
@@ -284,6 +300,54 @@ class AboutUsSection extends StatelessWidget {
             text: 'Discord',
             svgIcon: 'assets/images/svgs/ic_discord.svg',
             enableDarkModeColor: false,
+            onTap: () async {
+              await launchUrl(Uri.parse("https://www.albion-online-data.com/"));
+            },
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class AboutCreditsSection extends StatelessWidget {
+  const AboutCreditsSection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+          child: InterText(
+            AppLocalizations.of(context)!.about_credits_title,
+            TextStyle(fontSize: TEXT_REGULAR_2X - 1, fontWeight: FontWeight.w500),
+          ),
+        ),
+        SizedBox(height: MARGIN_MEDIUM),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+          child: InterText(
+            AppLocalizations.of(context)!.about_credits_description,
+            TextStyle(
+              height: 1.4,
+              fontSize: TEXT_REGULAR,
+            ),
+          ),
+        ),
+        SizedBox(height: MARGIN_MEDIUM_2),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+          child: WebLauncherButton(
+            text: 'Github',
+            svgIcon: 'assets/images/svgs/ic_github_dark.svg',
+            enableDarkModeColor: true,
+            onTap: () async {
+              await launchUrl(Uri.parse("https://www.albion-online-data.com/"),mode: LaunchMode.externalApplication);
+            },
           ),
         )
       ],

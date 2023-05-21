@@ -56,9 +56,12 @@ class SlotView extends StatelessWidget {
                 leading: CachedNetworkImage(
                   imageUrl: slot.spells[index].icon,
                   width: MARGIN_XXLARGE,
+                  errorWidget: (context, url, error) => Opacity(
+                    opacity: 0.5,
+                    child: Image.asset('assets/images/pngs/ic_placeholder_spell.png')),
                   filterQuality: FilterQuality.high,
                 ),
-                title: InterText(slot.spells[index].name, TextStyle(fontSize: TEXT_REGULAR)),
+                title: InterText(slot.spells[index].name.isNotEmpty ? slot.spells[index].name : "-", TextStyle(fontSize: TEXT_REGULAR)),
                 children: [
                   SizedBox(height: MARGIN_CARD_MEDIUM),
                   Padding(

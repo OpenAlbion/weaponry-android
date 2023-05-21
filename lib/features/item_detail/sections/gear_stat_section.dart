@@ -6,6 +6,7 @@ import 'package:openalbion_weaponry/data/vos/quality_vo.dart';
 import 'package:openalbion_weaponry/data/vos/stat_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/features/item_detail/sections/market_section.dart';
+import 'package:openalbion_weaponry/features/item_detail/widgets/dash_border_text.dart';
 import 'package:openalbion_weaponry/features/item_detail/widgets/gear_stat_loading.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
@@ -22,7 +23,14 @@ class GearStatSection extends StatelessWidget {
     return Consumer<ItemDetailProvider>(builder: (context, provider, child) {
       switch (provider.state) {
         case ViewState.COMPLETE:
-          return _buildCompleteGearStat(provider);
+          if (provider.enchanmentList.isNotEmpty) {
+            return _buildCompleteGearStat(provider);
+          } else {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+              child: DashBorderText(text: "Gear Stats Not Available"),
+            );
+          }
 
         case ViewState.LOADING:
           return GearStatLoading();
