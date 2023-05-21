@@ -13,6 +13,7 @@ import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
 import 'package:openalbion_weaponry/network/dio/dio_client.dart';
 import 'package:openalbion_weaponry/network/error/error_mapper.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
+import 'package:openalbion_weaponry/persistent/shared_preference.dart';
 
 class NetworkRepositoryImpl implements NetworkRepository {
   static final NetworkRepositoryImpl _singleton = NetworkRepositoryImpl.internal();
@@ -29,6 +30,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
   void _initializeEnv() async {
     await dotenv.load(fileName: ".env");
   }
+
+  final SharedPreference _preference = SharedPreference();
 
   @override
   Future<Either<AppError, List<CategoryVO>>> getCategoryList() async {
@@ -57,6 +60,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
       return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
     }
   }
 
@@ -71,9 +76,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       // final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
-      var response = await _albionClient
-          .openAlbionApi()
-          .getItemListBySubCategoryId(appCheckToken: appCheckToken, apiToken: apiToken, subId: subId, path: path);
+      var response = await _albionClient.openAlbionApi().getItemListBySubCategoryId(
+          appCheckToken: appCheckToken, apiToken: apiToken, subId: subId, path: path);
       // final String response =
       //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
 
@@ -85,27 +89,23 @@ class NetworkRepositoryImpl implements NetworkRepository {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
       return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
     }
   }
 
   @override
   Future<Either<AppError, List<EnchantmentVO>>> getItemDetailById(String itemType, int itemId) async {
     try {
-      // await Future.delayed(Duration(seconds: 2));
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
       final appCheckToken = await FirebaseAppCheck.instance.getToken();
-      // final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
-      var response = await _albionClient
-          .openAlbionApi()
-          .getItemDetailById(appCheckToken: appCheckToken, apiToken: apiToken, itemType: itemType, itemId: itemId);
-      // final String response =
-      //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
+      var response = await _albionClient.openAlbionApi().getItemDetailById(
+          appCheckToken: appCheckToken, apiToken: apiToken, itemType: itemType, itemType2: itemType,itemId: itemId);
 
-      // final Map<String, dynamic> mappedJson = await jsonDecode(response);
       return Right(response.data);
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
@@ -113,27 +113,23 @@ class NetworkRepositoryImpl implements NetworkRepository {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
       return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
     }
   }
 
   @override
   Future<Either<AppError, List<SlotVO>>> getSpellDetailById(String itemType, int itemId) async {
     try {
-      // await Future.delayed(Duration(seconds: 2));
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
 
       final appCheckToken = await FirebaseAppCheck.instance.getToken();
-      // final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
-      var response = await _albionClient
-          .openAlbionApi()
-          .getSpellDetailById(appCheckToken: appCheckToken, apiToken: apiToken, itemType: itemType, itemId: itemId);
-      // final String response =
-      //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
+      var response = await _albionClient.openAlbionApi().getSpellDetailById(
+          appCheckToken: appCheckToken, apiToken: apiToken, itemType: itemType, itemId: itemId);
 
-      // final Map<String, dynamic> mappedJson = await jsonDecode(response);
       return Right(response.data);
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
@@ -141,6 +137,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
       return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
     }
   }
 
@@ -148,20 +146,13 @@ class NetworkRepositoryImpl implements NetworkRepository {
   Future<Either<AppError, List<MarketPriceVO>>> getMarketPrice(
       {required String itemId, required int quality}) async {
     try {
-      // await Future.delayed(Duration(seconds: 2));
-      // var apiToken = dotenv.env['API_TOKEN'];
-      // if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
-
+      final server = await _preference.getMarketServer();
       final appCheckToken = await FirebaseAppCheck.instance.getToken();
-      // final appCheckToken = "";
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
-      var response =
-          await _albionClient.marketPriceApi().getMarketPrice(appCheckToken: appCheckToken,region: "east",itemId: itemId, quality: quality);
-      // final String response =
-      //     await rootBundle.loadString("assets/mock_json/response_category_list.json");
+      var response = await _albionClient.marketPriceApi().getMarketPrice(
+          appCheckToken: appCheckToken, region: server, itemId: itemId, quality: quality);
 
-      // final Map<String, dynamic> mappedJson = await jsonDecode(response);
       return Right(response);
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
@@ -169,20 +160,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
       return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
     }
   }
-
-  // @override
-  // Future<Either<AppError, ItemDetailVO>> getItemDetail(String itemId) async {
-  //   try {
-  //     var data = await _albionClient.toolApi().getItemDetail(itemId);
-  //     return Right(data);
-  //   } on DioError catch (e) {
-  //     return Left(ErrorMapper.mapDioToAppError(e));
-  //   } on JsonUnsupportedObjectError catch (_) {
-  //     return Left(AppError(code: "-", message: "Respond is not Json"));
-  //   } on TypeError catch (_) {
-  //     return Left(AppError(code: "-", message: "Invalid Json Type"));
-  //   }
-  // }
 }

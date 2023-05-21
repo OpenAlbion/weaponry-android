@@ -26,6 +26,16 @@ class ItemListSection extends StatelessWidget {
       return ItemListLoading();
     } else if (provider.itemComplete) {
       return _completeUI(provider, context);
+    } else if (provider.appError != null) {
+      return Expanded(
+        child: Center(
+          child: InterText(
+            "${provider.appError?.code}\n${provider.appError?.message}",
+            TextStyle(),
+            TextAlign.center,
+          ),
+        ),
+      );
     }
 
     return SizedBox();
@@ -38,7 +48,7 @@ class ItemListSection extends StatelessWidget {
             return TierGroupView(
               tierGroup: provider.tierGroupList[index],
               onTap: (item) {
-                onTap(provider.selectedSubCategory.type,item);
+                onTap(provider.selectedSubCategory.type, item);
               },
             );
           },

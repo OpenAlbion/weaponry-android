@@ -4,6 +4,8 @@ import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
+import 'package:openalbion_weaponry/theme/app_color.dart';
+import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class SpellSection extends StatelessWidget {
@@ -47,6 +49,8 @@ class SlotView extends StatelessWidget {
             itemCount: slot.spells.length,
             itemBuilder: (context, index) {
               return ExpansionTile(
+                collapsedIconColor: get80PercentColor(context),
+                iconColor: secondaryRed,
                 expandedCrossAxisAlignment: CrossAxisAlignment.start,
                 tilePadding: EdgeInsets.only(left: MARGIN_CARD_MEDIUM, right: MARGIN_MEDIUM_2),
                 leading: CachedNetworkImage(
@@ -60,7 +64,7 @@ class SlotView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
                     child: InterText(slot.spells[index].description),
-                  ),                  
+                  ),
                 ],
               );
             })

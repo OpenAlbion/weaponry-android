@@ -52,11 +52,13 @@ class HomeProvider extends BasedProvider {
     Either<AppError, List<CategoryVO>> data = await _repository.getCategoryList();
     data.fold((L) {
       appError = L;
-      print(state);
+      itemLoading = false;
       setState(ViewState.ERROR);
+      print(appError);
     }, (R) {
       _categoryList = R;
       _selectedCategoryType = _categoryList.first.type;
+      appError = null;
       _setInitialCategoryAndSubCategory();
       setState(ViewState.COMPLETE);
     });
@@ -85,6 +87,7 @@ class HomeProvider extends BasedProvider {
       _tierGroupList = _itemList.convertToTierGroupList();
       itemLoading = false;
       itemComplete = true;
+      appError = null;
       notifyListeners();
     });
   }

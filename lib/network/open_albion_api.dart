@@ -25,11 +25,12 @@ abstract class OpenAlbionApi {
     @Path() required int subId,
   });
 
-  @GET("/weapon-stats/{itemType}/{itemId}?api_token={apiToken}")
+  @GET("/{itemType}-stats/{itemType2}/{itemId}?api_token={apiToken}")
   Future<ResponseEnchantmentList> getItemDetailById({
     @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
     @Path() required String apiToken,
     @Path() required String itemType,
+    @Path() required String itemType2,
     @Path() required int itemId,
   });
 

@@ -5,7 +5,6 @@ import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
-import 'package:openalbion_weaponry/data/vos/spell_vo.dart';
 
 abstract class NetworkRepository {
   // Future<Either<AppError, ItemDetailVO>> getItemDetail(String itemId);

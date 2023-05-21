@@ -38,8 +38,11 @@ class ItemDetailProvider extends BasedProvider {
       setState(ViewState.ERROR);
     }, (R) {
       _enchanmentList = R;
+      if (_enchanmentList.isNotEmpty) {
       _selectedEnchantment = _enchanmentList.first;
       _selectedQuality = _selectedEnchantment.stats.first;
+      }
+
 
       _getSpellDetail(type, id);
       setState(ViewState.COMPLETE);

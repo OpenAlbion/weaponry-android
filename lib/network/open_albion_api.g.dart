@@ -81,6 +81,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     required String appCheckToken,
     required String apiToken,
     required String itemType,
+    required String itemType2,
     required int itemId,
   }) async {
     const _extra = <String, dynamic>{};
@@ -96,7 +97,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     )
             .compose(
               _dio.options,
-              '/weapon-stats/${itemType}/${itemId}?api_token=${apiToken}',
+              '/${itemType}-stats/${itemType2}/${itemId}?api_token=${apiToken}',
               queryParameters: queryParameters,
               data: _data,
             )
