@@ -30,7 +30,6 @@ class HomeScreen extends StatelessWidget {
               },
               onChanged: (text) {
                 context.read<SearchProvider>().shouldShowSearchSection(true);
-                print(text);
                 context.read<SearchProvider>().searchItem(text: text);
               },
             ),

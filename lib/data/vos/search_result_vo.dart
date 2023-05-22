@@ -27,6 +27,6 @@ class SearchResultVO with _$SearchResultVO {
 extension SearchResultVOExtenstion on SearchResultVO {
   ItemVO convertToItemVO() {
     return ItemVO(
-        id: 2, name: name, tier: tier, identifier: identifier, itemPower: itemPower, icon: icon);
+        id: typeId ?? 2, name: name, tier: tier, identifier: identifier, itemPower: itemPower, icon: icon);
   }
 }

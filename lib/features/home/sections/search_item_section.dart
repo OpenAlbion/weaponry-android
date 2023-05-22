@@ -5,6 +5,7 @@ import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/features/home/sections/item_list_section.dart';
 import 'package:openalbion_weaponry/features/home/widgets/history_view.dart';
+import 'package:openalbion_weaponry/features/item_detail/item_detail_screen.dart';
 import 'package:openalbion_weaponry/persistent/dao/search_result_dao.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/search_provider.dart';
@@ -87,6 +88,8 @@ class SearchResultSection extends StatelessWidget {
                         item: provider.searchResultList[index].convertToItemVO(),
                         onTap: () {
                           provider.addSearchResult(provider.searchResultList[index]);
+                                      Navigator.pushNamed(context, ItemDetailScreen.routeName,
+                arguments: ItemDetailArgs(item: provider.searchResultList[index].convertToItemVO(), type: provider.searchResultList[index].type));
                         });
                   }),
             ],
