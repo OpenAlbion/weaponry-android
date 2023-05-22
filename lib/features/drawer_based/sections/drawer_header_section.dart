@@ -31,8 +31,8 @@ class DrawerHeaderSection extends StatelessWidget {
                   SvgPicture.asset(
                     'assets/images/svgs/ic_logo_transparent.svg',
                     // filterQuality: FilterQuality.high,
-                    width: 60,
-                    height: 60,
+                    width: 50,
+                    height: 50,
                   ),
                   SizedBox(height: MARGIN_MEDIUM_2),
                   InterText(
