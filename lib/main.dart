@@ -4,32 +4,28 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/firebase_options.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository_impl.dart';
+import 'package:openalbion_weaponry/persistent/dao/search_result_dao.dart';
+import 'package:openalbion_weaponry/persistent/hive_constants.dart';
 
 import 'app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
 
 Future<void> main() async {
-  // Set up the SettingsController, which will glue user settings to multiple
-  // Flutter Widgets.
-
-  // Load the user's preferred theme while the splash screen is displayed.
-  // This prevents a sudden theme change when the app is first displayed.
-
   WidgetsFlutterBinding.ensureInitialized();
   final settingsController = SettingsController(SettingsService());
-
   settingsController.loadSettings();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //  await NetworkRepositoryImpl().getMarketPrice(itemId: "T4_BAG",quality: 0);
   _handleFirebaseCloudMessaging();
   _initializeAppCheck();
-  // Run the app and pass in the SettingsController. The app listens to the
-  // SettingsController for changes, then passes it further down to the
-  // SettingsView.
+  await _initializeHive();
+  // await NetworkRepositoryImpl().searchItem(text: "scholar");
+
   runApp(MyApp(settingsController: settingsController));
 }
 
@@ -78,4 +74,12 @@ void _initializeAppCheck() async {
     // 3. play integrity provider
     androidProvider: AndroidProvider.debug,
   );
+}
+
+_initializeHive() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(SeachResultVOAdapter());
+
+  await Hive.openBox<SearchResultVO>(HiveConstants.BOX_NAME_SEARCH_RESULT_VO);
+  SearchResultDao().deleteSearchResult();
 }

@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/network/api_constants.dart';
 import 'package:openalbion_weaponry/network/response/response_category_list.dart';
 import 'package:openalbion_weaponry/network/response/response_enchantment_list.dart';
 import 'package:openalbion_weaponry/network/response/response_item_list.dart';
+import 'package:openalbion_weaponry/network/response/response_search_result_list.dart';
 import 'package:openalbion_weaponry/network/response/response_slot_list.dart';
 import 'package:retrofit/http.dart';
 part 'open_albion_api.g.dart';
@@ -40,5 +42,11 @@ abstract class OpenAlbionApi {
     @Path() required String apiToken,
     @Path() required String itemType,
     @Path() required int itemId,
+  });
+
+  @GET("/search?search={text}")
+  Future<ResponseSearchResultList> searchItem({
+    @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    @Path() required String text,
   });
 }

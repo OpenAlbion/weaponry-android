@@ -4,7 +4,7 @@ class Debouncer {
   final Duration delay;
   Timer? _timer;
 
-  Debouncer({this.delay = const Duration(milliseconds: 500)});
+  Debouncer({this.delay = const Duration(milliseconds: 800)});
 
   void call(void Function() callback) {
     _timer?.cancel();

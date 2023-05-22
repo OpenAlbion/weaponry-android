@@ -9,6 +9,7 @@ import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
+import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
 import 'package:openalbion_weaponry/network/dio/dio_client.dart';
 import 'package:openalbion_weaponry/network/error/error_mapper.dart';
@@ -154,6 +155,26 @@ class NetworkRepositoryImpl implements NetworkRepository {
           appCheckToken: appCheckToken, region: server, itemId: itemId, quality: quality);
 
       return Right(response);
+    } on DioError catch (e) {
+      return Left(ErrorMapper.mapDioToAppError(e));
+    } on JsonUnsupportedObjectError catch (_) {
+      return Left(AppError(code: "-", message: "Respond is not Json"));
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
+    }
+  }
+  
+  @override
+  Future<Either<AppError, List<SearchResultVO>>> searchItem({required String text}) async{
+    try {
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
+
+      var response = await _albionClient.openAlbionApi().searchItem(appCheckToken: appCheckToken, text: text);
+
+      return Right(response.data);
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
     } on JsonUnsupportedObjectError catch (_) {

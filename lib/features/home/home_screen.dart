@@ -1,84 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:openalbion_weaponry/constants/app_fonts.dart';
-import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/features/home/sections/app_name_section.dart';
-import 'package:openalbion_weaponry/features/home/sections/item_list_section.dart';
-import 'package:openalbion_weaponry/features/home/sections/search_section.dart';
-import 'package:openalbion_weaponry/features/home/sections/sub_category_list_section.dart';
-import 'package:openalbion_weaponry/features/item_detail/item_detail_screen.dart';
-import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository_impl.dart';
-import 'package:openalbion_weaponry/providers/based_provider.dart';
+import 'package:openalbion_weaponry/features/home/sections/search_bar_section.dart';
+import 'package:openalbion_weaponry/features/home/sections/search_item_section.dart';
+import 'package:openalbion_weaponry/features/home/sections/sub_category_and_item_list_section.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
-import 'package:openalbion_weaponry/theme/app_color.dart';
+import 'package:openalbion_weaponry/providers/search_provider.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   static const routeName = 'home_screen';
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late TextEditingController? _searchController;
-  @override
-  void initState() {
-    _searchController = TextEditingController();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppNameSection(),
           SizedBox(height: MARGIN_CARD_MEDIUM),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-            child: SearchSection(
-              controller: _searchController,
-              onDimissSearch: () {
+            child: SearchBarSection(
+              onDimissSearch: (text) {
                 FocusScope.of(context).requestFocus(FocusNode());
+                context.read<SearchProvider>().shouldShowSearchSection(text.isNotEmpty);
               },
               onChanged: (text) {
+                context.read<SearchProvider>().shouldShowSearchSection(true);
                 print(text);
+                context.read<SearchProvider>().searchItem(text: text);
               },
             ),
           ),
-          SubCategoryAndItemListSection(),
+          Consumer<SearchProvider>(builder: (context, provider, child) {
+            if (provider.showSearchSection) {
+              // return SubCategoryAndItemListSection();
+
+              return SearchItemSection();
+            } else {
+              // return SearchItemSection();
+
+              return SubCategoryAndItemListSection();
+            }
+          }),
         ],
       ),
     );
   }
 }
-
-class SubCategoryAndItemListSection extends StatelessWidget {
-  const SubCategoryAndItemListSection({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          SizedBox(height: MARGIN_MEDIUM_2),
-          SubCategoryListSection(),
-          SizedBox(height: MARGIN_MEDIUM_2),
-          ItemListSection(onTap: (type, item) {
-            Navigator.pushNamed(context, ItemDetailScreen.routeName,
-                arguments: ItemDetailArgs(item: item, type: type));
-          })
-        ],
-      ),
-    );
-  }
-}
-

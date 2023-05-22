@@ -5,28 +5,32 @@ import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:openalbion_weaponry/utils/debouncer.dart';
 
-class SearchSection extends StatefulWidget {
-  final TextEditingController? controller;
-  final Function onDimissSearch;
+class SearchBarSection extends StatefulWidget {
+  final Function(String text) onDimissSearch;
   final Function(String text) onChanged;
 
-  const SearchSection(
-      {super.key, required this.controller, required this.onDimissSearch, required this.onChanged});
+  const SearchBarSection({super.key, required this.onDimissSearch, required this.onChanged});
 
   @override
-  State<SearchSection> createState() => _SearchSectionState();
+  State<SearchBarSection> createState() => _SearchBarSectionState();
 }
 
-class _SearchSectionState extends State<SearchSection> {
+class _SearchBarSectionState extends State<SearchBarSection> {
   final Debouncer _debouncer = Debouncer();
   bool showClearButton = false;
+  late TextEditingController? _searchController;
 
   @override
   void initState() {
-    widget.controller?.addListener(() {
+    _searchController = TextEditingController();
+
+    _searchController?.addListener(() {
       setState(() {
-        showClearButton = widget.controller?.text.isNotEmpty == true;
+        showClearButton = _searchController?.text.isNotEmpty == true;
       });
+      if (_searchController?.text.isEmpty == true) {
+        widget.onDimissSearch("");
+      }
     });
     super.initState();
   }
@@ -37,15 +41,17 @@ class _SearchSectionState extends State<SearchSection> {
       height: 50,
       child: TextField(
         cursorColor: primaryRed,
-        controller: widget.controller,
+        controller: _searchController,
         style: TextStyle(fontSize: TEXT_REGULAR),
         onTapOutside: (event) {
-          widget.onDimissSearch();
+          widget.onDimissSearch(_searchController?.text ?? "");
         },
         onChanged: (value) {
           _debouncer.call(
             () {
-              widget.onChanged(value);
+              if (value.isNotEmpty) {
+                widget.onChanged(value);
+              }
             },
           );
         },
@@ -69,8 +75,8 @@ class _SearchSectionState extends State<SearchSection> {
             child: showClearButton
                 ? GestureDetector(
                     onTap: () {
-                      widget.controller?.clear();
-                      widget.onDimissSearch();
+                      _searchController?.clear();
+                      widget.onDimissSearch("");
                     },
                     child: SvgPicture.asset(
                       'assets/images/svgs/ic_close.svg',

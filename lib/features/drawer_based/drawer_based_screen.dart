@@ -9,6 +9,7 @@ import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_settin
 import 'package:openalbion_weaponry/features/home/home_screen.dart';
 import 'package:openalbion_weaponry/features/setting/setting_screen.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
+import 'package:openalbion_weaponry/providers/search_provider.dart';
 import 'package:openalbion_weaponry/src/settings/settings_controller.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -26,36 +27,38 @@ class DrawerBasedScreen extends StatefulWidget {
 class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<HomeProvider>(
-        create: (context) => HomeProvider(),
-        builder: (context, child) {
-          return Scaffold(
-            drawer: Drawer(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              child: Column(
-                children: [
-                  DrawerHeaderSection(),
-                  Expanded(
-                      child: SingleChildScrollView(
-                    child: ScrollableDrawerSection(),
-                  )),
-                ],
-              ),
-            ),
-            body: Consumer<HomeProvider>(builder: (context, provider, child) {
-              switch (provider.selectedCategoryType) {
-                case AppConstants.CATEGORY_TYPE_SETTING:
-                  return SettingScreen(settingsController: widget.settingsController);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => SearchProvider()..getSearchResult()),
+      ],
+      child: Scaffold(
+        drawer: Drawer(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          child: Column(
+            children: [
+              DrawerHeaderSection(),
+              Expanded(
+                  child: SingleChildScrollView(
+                child: ScrollableDrawerSection(),
+              )),
+            ],
+          ),
+        ),
+        body: Consumer<HomeProvider>(builder: (context, provider, child) {
+          switch (provider.selectedCategoryType) {
+            case AppConstants.CATEGORY_TYPE_SETTING:
+              return SettingScreen(settingsController: widget.settingsController);
 
-                case AppConstants.CATEGORY_TYPE_ABOUT:
-                  return AboutScreen();
+            case AppConstants.CATEGORY_TYPE_ABOUT:
+              return AboutScreen();
 
-                default:
-                  return HomeScreen();
-              }
-            }),
-          );
-        });
+            default:
+              return HomeScreen();
+          }
+        }),
+      ),
+    );
   }
 }
 
