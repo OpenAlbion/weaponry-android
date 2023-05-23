@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
-import 'package:openalbion_weaponry/constants/app_fonts.dart';
 import 'package:openalbion_weaponry/features/home/widgets/sub_category_loading.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 class SubCategoryListSection extends StatefulWidget {
   const SubCategoryListSection({

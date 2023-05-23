@@ -5,7 +5,6 @@ import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/quality_vo.dart';
 import 'package:openalbion_weaponry/data/vos/stat_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
-import 'package:openalbion_weaponry/features/item_detail/sections/market_section.dart';
 import 'package:openalbion_weaponry/features/item_detail/widgets/dash_border_text.dart';
 import 'package:openalbion_weaponry/features/item_detail/widgets/gear_stat_loading.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';

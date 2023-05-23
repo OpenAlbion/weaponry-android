@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:openalbion_weaponry/theme/app_theme.dart';
 
 class AppNameSection extends StatefulWidget {
   const AppNameSection({

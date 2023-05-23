@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/features/home/sections/app_name_section.dart';
 import 'package:openalbion_weaponry/features/home/sections/search_bar_section.dart';
 import 'package:openalbion_weaponry/features/home/sections/search_item_section.dart';
 import 'package:openalbion_weaponry/features/home/sections/sub_category_and_item_list_section.dart';
-import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/providers/search_provider.dart';
 import 'package:provider/provider.dart';
 

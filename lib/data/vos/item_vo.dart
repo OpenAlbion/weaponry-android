@@ -22,12 +22,12 @@ extension ItemVOListExtension on List<ItemVO> {
   List<TierGroupVO> convertToTierGroupList() {
     var tierSet = map((item) => item.tier).toList().toSet();
     List<TierGroupVO> tierGroupList = [];
-    tierSet.forEach((tier) {
+    for (var tier in tierSet) {
       tierGroupList.add(TierGroupVO(
           name: convertTierToReadableName(tier),
           tier: tier,
           itemList: where((item) => item.tier == tier).toList()));
-    });
+    }
     return tierGroupList;
   }
 }

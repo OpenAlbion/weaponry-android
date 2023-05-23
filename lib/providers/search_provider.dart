@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
-import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
 import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository_impl.dart';

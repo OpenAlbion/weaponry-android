@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/network/api_constants.dart';
 import 'package:openalbion_weaponry/network/response/response_category_list.dart';
 import 'package:openalbion_weaponry/network/response/response_enchantment_list.dart';

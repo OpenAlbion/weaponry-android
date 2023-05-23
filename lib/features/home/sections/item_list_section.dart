@@ -5,7 +5,6 @@ import 'package:openalbion_weaponry/data/vos/tier_group_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:openalbion_weaponry/features/home/widgets/item_list_loading.dart';
-import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';

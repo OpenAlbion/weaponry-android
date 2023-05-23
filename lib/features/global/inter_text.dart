@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:openalbion_weaponry/constants/app_fonts.dart';
 
 class InterText extends StatelessWidget {

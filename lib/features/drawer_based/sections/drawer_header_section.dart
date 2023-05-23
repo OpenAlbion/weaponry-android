@@ -5,7 +5,6 @@ import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class DrawerHeaderSection extends StatelessWidget {

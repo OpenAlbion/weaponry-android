@@ -29,7 +29,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ResponseCategoryList>(Options(
       method: 'GET',
@@ -58,7 +58,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ResponseItemList>(Options(
       method: 'GET',
@@ -88,7 +88,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ResponseEnchantmentList>(Options(
       method: 'GET',
@@ -117,7 +117,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ResponseSlotList>(Options(
       method: 'GET',
@@ -144,7 +144,7 @@ class _OpenAlbionApi implements OpenAlbionApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ResponseSearchResultList>(Options(
       method: 'GET',

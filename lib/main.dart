@@ -1,4 +1,3 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -7,8 +6,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/firebase_options.dart';
-import 'package:openalbion_weaponry/network/repository/network_repository_impl.dart';
-import 'package:openalbion_weaponry/persistent/dao/search_result_dao.dart';
 import 'package:openalbion_weaponry/persistent/hive_constants.dart';
 
 import 'app.dart';
@@ -72,7 +69,7 @@ void _initializeAppCheck() async {
     // 1. debug provider
     // 2. safety net provider
     // 3. play integrity provider
-    androidProvider: AndroidProvider.playIntegrity,
+    androidProvider: AndroidProvider.debug,
   );
 }
 

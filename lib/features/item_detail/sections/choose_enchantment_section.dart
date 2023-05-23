@@ -1,21 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
-import 'package:openalbion_weaponry/data/vos/quality_vo.dart';
-import 'package:openalbion_weaponry/data/vos/stat_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:openalbion_weaponry/features/item_detail/sections/gear_stat_section.dart';
 import 'package:openalbion_weaponry/features/item_detail/widgets/dash_border_text.dart';
 import 'package:openalbion_weaponry/features/item_detail/widgets/enchantment_loading.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
 import 'package:openalbion_weaponry/providers/market_price_provider.dart';
-import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class ChooseEnchantmentSection extends StatelessWidget {
