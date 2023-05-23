@@ -19,7 +19,7 @@ Future<void> main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   _handleFirebaseCloudMessaging();
-  _initializeAppCheck();
+  await _initializeAppCheck();
   await _initializeHive();
   // await NetworkRepositoryImpl().searchItem(text: "scholar");
 
@@ -61,7 +61,7 @@ void _showLocalNotification(String title, String message) async {
   await flutterLocalNotificationsPlugin.show(10, title, message, notificationDetails, payload: 'item x');
 }
 
-void _initializeAppCheck() async {
+ _initializeAppCheck() async {
   await FirebaseAppCheck.instance.activate(
     webRecaptchaSiteKey: 'recaptcha-v3-site-key',
     // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose

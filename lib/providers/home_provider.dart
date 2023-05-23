@@ -36,7 +36,6 @@ class HomeProvider extends BasedProvider {
   List<TierGroupVO> _tierGroupList = [];
   List<TierGroupVO> get tierGroupList => _tierGroupList;
 
-
   HomeProvider() {
     _fireRepository.reportOpenApp();
     _getFCMToken();
@@ -58,7 +57,9 @@ class HomeProvider extends BasedProvider {
       print(appError);
     }, (R) {
       _categoryList = R;
-      _selectedCategoryType = _categoryList.first.type;
+      if (_categoryList.isNotEmpty) {
+        _selectedCategoryType = _categoryList.first.type;
+      }
       appError = null;
       _setInitialCategoryAndSubCategory();
       setState(ViewState.COMPLETE);
@@ -145,5 +146,4 @@ class HomeProvider extends BasedProvider {
     _selectedCategoryType = type;
     notifyListeners();
   }
-
 }

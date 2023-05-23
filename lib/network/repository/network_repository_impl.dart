@@ -40,7 +40,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
       // await Future.delayed(Duration(seconds: 2));
       var apiToken = dotenv.env['API_TOKEN'];
       if (apiToken == null) return Left(AppError(code: "-", message: "Env Token Null"));
-
+  
       final appCheckToken = await FirebaseAppCheck.instance.getToken();
       print("appCheck - $appCheckToken");
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
