@@ -27,7 +27,7 @@ class HistoryView extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(MARGIN_SMALL),
               border: Border.all(
-                color: get80PercentColor(context).withOpacity(0.2),
+                color: get60PercentColor(context),
               ),
             ),
             child: Center(

@@ -27,7 +27,7 @@ class SettingScreen extends StatelessWidget {
                 IconAndNameSection(),
                 SwitchListTile(
                   title: InterText(
-                      AppLocalizations.of(context)!.dark_mode, TextStyle(fontSize: TEXT_REGULAR + 1)),
+                      AppLocalizations.of(context)!.dark_mode, style: TextStyle(fontSize: TEXT_REGULAR + 1)),
                   value: settingsController.themeMode == ThemeMode.dark,
                   activeColor: primaryRed,
                   contentPadding:
@@ -70,14 +70,14 @@ class ChooseServerSection extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
                     child: InterText(AppLocalizations.of(context)!.market_price_server,
-                        TextStyle(fontSize: TEXT_REGULAR + 1, color: get80PercentColor(context))),
+                       style:  TextStyle(fontSize: TEXT_REGULAR + 1, color: get80PercentColor(context))),
                   ),
                   SizedBox(height: MARGIN_MEDIUM),
                   RadioListTile(
                       value: AppConstants.SERVER_EAST,
                       groupValue: provider.selectedServer,
                       title: InterText(
-                          "East", TextStyle(fontSize: TEXT_REGULAR, color: get80PercentColor(context))),
+                          "East", style: TextStyle(fontSize: TEXT_REGULAR, color: get80PercentColor(context))),
                       activeColor: primaryRed,
                       dense: true,
                       controlAffinity: ListTileControlAffinity.trailing,
@@ -90,7 +90,7 @@ class ChooseServerSection extends StatelessWidget {
                       groupValue: provider.selectedServer,
                       dense: true,
                       title: InterText(
-                          "West", TextStyle(fontSize: TEXT_REGULAR, color: get80PercentColor(context))),
+                          "West",style:  TextStyle(fontSize: TEXT_REGULAR, color: get80PercentColor(context))),
                       activeColor: primaryRed,
                       controlAffinity: ListTileControlAffinity.trailing,
                       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: MARGIN_MEDIUM_2),

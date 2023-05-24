@@ -6,7 +6,6 @@ part of 'search_result_vo.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-
 class SeachResultVOAdapter extends TypeAdapter<SearchResultVO> {
   @override
   final int typeId = 1;
@@ -58,9 +57,9 @@ class SeachResultVOAdapter extends TypeAdapter<SearchResultVO> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-
-
-// **************************************************************************
+//
+//
+//// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

@@ -16,7 +16,7 @@ class DashBorderText extends StatelessWidget {
   Widget build(BuildContext context) {
     return DottedBorder(
       dashPattern: [5,1],
-      color: get80PercentColor(context).withOpacity(0.2),
+      color: get60PercentColor(context),
       radius: Radius.circular(MARGIN_SMALL),
       borderType: BorderType.RRect,
       child: Padding(

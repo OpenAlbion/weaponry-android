@@ -36,7 +36,7 @@ class DrawerHeaderSection extends StatelessWidget {
                   SizedBox(height: MARGIN_MEDIUM_2),
                   InterText(
                     AppLocalizations.of(context)!.appName,
-                    TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500, color: whiteText),
+                    style: TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500, color: whiteText),
                   ),
                 ],
               ),
@@ -46,7 +46,7 @@ class DrawerHeaderSection extends StatelessWidget {
               child: Consumer<HomeProvider>(builder: (context, provider, child) {
                 return InterText(
                   'Version ${provider.versionName}',
-                  TextStyle(fontSize: TEXT_SMALL, fontWeight: FontWeight.w500, color: whiteText),
+                  style: TextStyle(fontSize: TEXT_SMALL, fontWeight: FontWeight.w500, color: whiteText),
                 );
               }),
             ),

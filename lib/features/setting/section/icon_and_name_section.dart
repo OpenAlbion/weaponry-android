@@ -32,7 +32,7 @@ class IconAndNameSection extends StatelessWidget {
         ),
         // SizedBox(width: MARGIN_MEDIUM),
         InterText(AppLocalizations.of(context)!.setting,
-            TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500)),
+            style: TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500)),
       ],
     );
   }

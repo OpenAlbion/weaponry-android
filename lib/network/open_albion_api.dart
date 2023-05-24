@@ -12,33 +12,29 @@ part 'open_albion_api.g.dart';
 abstract class OpenAlbionApi {
   factory OpenAlbionApi(Dio dio, {String baseUrl}) = _OpenAlbionApi;
 
-  @GET("/categories?api_token={apiToken}")
+  @GET("/categories")
   Future<ResponseCategoryList> getCategoryList({
     @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
-    @Path() required String apiToken,
   });
 
-  @GET("/{path}?subcategory_id={subId}&api_token={apiToken}")
+  @GET("/{path}?subcategory_id={subId}")
   Future<ResponseItemList> getItemListBySubCategoryId({
     @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
-    @Path() required String apiToken,
     @Path() required String path,
     @Path() required int subId,
   });
 
-  @GET("/{itemType}-stats/{itemType2}/{itemId}?api_token={apiToken}")
+  @GET("/{itemType}-stats/{itemType2}/{itemId}")
   Future<ResponseEnchantmentList> getItemDetailById({
     @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
-    @Path() required String apiToken,
     @Path() required String itemType,
     @Path() required String itemType2,
     @Path() required int itemId,
   });
 
-  @GET("/spells/{itemType}/{itemId}?api_token={apiToken}")
+  @GET("/spells/{itemType}/{itemId}")
   Future<ResponseSlotList> getSpellDetailById({
     @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
-    @Path() required String apiToken,
     @Path() required String itemType,
     @Path() required int itemId,
   });

@@ -29,25 +29,25 @@ class MarketSection extends StatelessWidget {
                   Row(
                     children: [
                       InterText("Royal City",
-                          TextStyle(fontSize: TEXT_REGULAR - 1, fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontSize: TEXT_REGULAR - 1, fontWeight: FontWeight.bold)),
                       Spacer(),
                       SizedBox(
                           width: 100,
                           child: InterText(
                               "Sell Price",
-                              TextStyle(fontSize: TEXT_REGULAR - 1, fontWeight: FontWeight.bold),
-                              TextAlign.end)),
+                              style: TextStyle(fontSize: TEXT_REGULAR - 1, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.end)),
                       SizedBox(width: MARGIN_MEDIUM_3),
                       SizedBox(
                           width: 100,
                           child: InterText(
                               "Updated Time",
-                              TextStyle(fontSize: TEXT_REGULAR - 1, fontWeight: FontWeight.bold),
-                              TextAlign.end)),
+                              style: TextStyle(fontSize: TEXT_REGULAR - 1, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.end)),
                     ],
                   ),
                   Divider(
-                    color: get80PercentColor(context).withOpacity(0.2),
+                    color: get60PercentColor(context),
                   ),
                   Column(
                     children: provider.marketPriceList
@@ -87,22 +87,22 @@ class MarketPriceRow extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  InterText(royalCity, TextStyle(fontSize: TEXT_SMALL)),
+                  InterText(royalCity, style: TextStyle(fontSize: TEXT_SMALL)),
                   Spacer(),
                   SizedBox(
                       width: 100,
                       child: InterText(
-                          convertToCurrency(sellPrice), TextStyle(fontSize: TEXT_SMALL), TextAlign.end)),
+                          convertToCurrency(sellPrice), style: TextStyle(fontSize: TEXT_SMALL), textAlign: TextAlign.end)),
                   SizedBox(width: MARGIN_MEDIUM_3),
                   SizedBox(
                       width: 100,
                       child: InterText(timeago.format(TimezoneUtils().convertToCurrentTimeZone(dateTimeString: updatedTime)),
-                          TextStyle(fontSize: TEXT_SMALL), TextAlign.end)),
+                          style: TextStyle(fontSize: TEXT_SMALL), textAlign: TextAlign.end)),
                 ],
               ),
               Divider(
                 height: MARGIN_LARGE,
-                color: get80PercentColor(context).withOpacity(0.2),
+                color: get60PercentColor(context),
               ),
             ],
           )

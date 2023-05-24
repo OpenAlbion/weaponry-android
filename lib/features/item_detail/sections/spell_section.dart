@@ -61,7 +61,7 @@ class SlotView extends StatelessWidget {
                     child: Image.asset('assets/images/pngs/ic_placeholder_spell.png')),
                   filterQuality: FilterQuality.high,
                 ),
-                title: InterText(slot.spells[index].name.isNotEmpty ? slot.spells[index].name : "-", TextStyle(fontSize: TEXT_REGULAR)),
+                title: InterText(slot.spells[index].name.isNotEmpty ? slot.spells[index].name : "-", style: TextStyle(fontSize: TEXT_REGULAR)),
                 children: [
                   SizedBox(height: MARGIN_CARD_MEDIUM),
                   Padding(

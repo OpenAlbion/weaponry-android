@@ -7,8 +7,8 @@ import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DrawerAboutScreen extends StatelessWidget {
-  const DrawerAboutScreen({super.key});
+class DrawerAboutSection extends StatelessWidget {
+  const DrawerAboutSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class DrawerAboutScreen extends StatelessWidget {
             selected: provider.selectedCategoryType == AppConstants.CATEGORY_TYPE_ABOUT,
             title: InterText(
                 AppLocalizations.of(context)!.about,
-                TextStyle(
+                style: TextStyle(
                     color: provider.selectedCategoryType == AppConstants.CATEGORY_TYPE_ABOUT
                         ? secondaryRed
                         : get80PercentColor(context))),

@@ -54,7 +54,7 @@ class _DrawerCategorySection extends State<DrawerCategorySection> {
                     selected: provider.selectedCategory.id == category.id,
                     title: InterText(
                         category.name,
-                        TextStyle(
+                        style: TextStyle(
                             color: provider.selectedCategory.id == category.id &&
                                     provider.selectedCategoryType == provider.selectedCategory.type
                                 ? secondaryRed
@@ -67,7 +67,7 @@ class _DrawerCategorySection extends State<DrawerCategorySection> {
                 }).toList(),
               ),
               Divider(
-                  color: get80PercentColor(context).withOpacity(0.2),
+                  color: get60PercentColor(context),
                   endIndent: MARGIN_MEDIUM_2,
                   height: 2),
             ],

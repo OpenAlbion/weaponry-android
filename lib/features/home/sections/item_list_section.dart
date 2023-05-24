@@ -30,8 +30,8 @@ class ItemListSection extends StatelessWidget {
         child: Center(
           child: InterText(
             "${provider.appError?.code}\n${provider.appError?.message}",
-            TextStyle(),
-            TextAlign.center,
+            style: TextStyle(),
+            textAlign: TextAlign.center,
           ),
         ),
       );

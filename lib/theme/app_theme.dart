@@ -31,6 +31,10 @@ Color get80PercentColor(BuildContext context) {
   return Theme.of(context).textTheme.bodyMedium!.color!;
 }
 
+Color get60PercentColor(BuildContext context) {
+  return Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.2);
+}
+
 Color getFullColor(BuildContext context) {
   return Theme.of(context).textTheme.displayMedium!.color!;
 }

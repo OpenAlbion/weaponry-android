@@ -27,17 +27,17 @@ class AboutScreen extends StatelessWidget {
             AboutProjectSection(),
             Divider(
               height: MARGIN_XLARGE,
-              color: get80PercentColor(context).withOpacity(0.2),
+              color: get60PercentColor(context),
             ),
             AboutAppSection(),
             Divider(
               height: MARGIN_XLARGE,
-              color: get80PercentColor(context).withOpacity(0.2),
+              color: get60PercentColor(context),
             ),
             AboutCreditsSection(),
             Divider(
               height: MARGIN_XLARGE,
-              color: get80PercentColor(context).withOpacity(0.2),
+              color: get60PercentColor(context),
             ),
             AboutUsSection(),
             SizedBox(height: MARGIN_XLARGE)
@@ -74,7 +74,7 @@ class WebLauncherButton extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(MARGIN_SMALL),
             border: Border.all(
-              color: get80PercentColor(context).withOpacity(0.2),
+              color: get60PercentColor(context),
             ),
           ),
           child: Row(
@@ -89,7 +89,7 @@ class WebLauncherButton extends StatelessWidget {
               SizedBox(width: MARGIN_MEDIUM),
               InterText(
                 text,
-                TextStyle(
+                style: TextStyle(
                   fontSize: TEXT_REGULAR,
                 ),
               ),
@@ -122,7 +122,7 @@ class DeveloperView extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(MARGIN_SMALL),
             border: Border.all(
-              color: get80PercentColor(context).withOpacity(0.2),
+              color: get60PercentColor(context),
             ),
           ),
           child: Column(
@@ -185,12 +185,12 @@ class AboutProjectSection extends StatelessWidget {
         children: [
           InterText(
             AppLocalizations.of(context)!.about_project_title,
-            TextStyle(fontSize: TEXT_REGULAR_2X - 1, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: TEXT_REGULAR_2X - 1, fontWeight: FontWeight.w500),
           ),
           SizedBox(height: MARGIN_MEDIUM),
           InterText(
             AppLocalizations.of(context)!.about_project_description,
-            TextStyle(
+            style: TextStyle(
               height: 1.4,
               fontSize: TEXT_REGULAR,
             ),
@@ -224,12 +224,12 @@ class AboutAppSection extends StatelessWidget {
         children: [
           InterText(
             AppLocalizations.of(context)!.about_app_title,
-            TextStyle(fontSize: TEXT_REGULAR_2X - 1, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: TEXT_REGULAR_2X - 1, fontWeight: FontWeight.w500),
           ),
           SizedBox(height: MARGIN_MEDIUM),
           InterText(
             AppLocalizations.of(context)!.about_app_description,
-            TextStyle(
+            style: TextStyle(
               height: 1.4,
               fontSize: TEXT_REGULAR,
             ),
@@ -263,7 +263,7 @@ class AboutUsSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: InterText(
             AppLocalizations.of(context)!.about_us_title,
-            TextStyle(fontSize: TEXT_REGULAR_2X - 1, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: TEXT_REGULAR_2X - 1, fontWeight: FontWeight.w500),
           ),
         ),
         SizedBox(height: MARGIN_MEDIUM),
@@ -271,7 +271,7 @@ class AboutUsSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: InterText(
             AppLocalizations.of(context)!.about_us_description,
-            TextStyle(
+            style: TextStyle(
               height: 1.4,
               fontSize: TEXT_REGULAR,
             ),
@@ -322,7 +322,7 @@ class AboutCreditsSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: InterText(
             AppLocalizations.of(context)!.about_credits_title,
-            TextStyle(fontSize: TEXT_REGULAR_2X - 1, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: TEXT_REGULAR_2X - 1, fontWeight: FontWeight.w500),
           ),
         ),
         SizedBox(height: MARGIN_MEDIUM),
@@ -330,7 +330,7 @@ class AboutCreditsSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: InterText(
             AppLocalizations.of(context)!.about_credits_description,
-            TextStyle(
+            style: TextStyle(
               height: 1.4,
               fontSize: TEXT_REGULAR,
             ),

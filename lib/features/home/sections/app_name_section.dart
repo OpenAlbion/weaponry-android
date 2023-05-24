@@ -4,23 +4,10 @@ import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AppNameSection extends StatefulWidget {
+class AppNameSection extends StatelessWidget {
   const AppNameSection({
     super.key,
   });
-
-  @override
-  State<AppNameSection> createState() => _AppNameSectionState();
-}
-
-class _AppNameSectionState extends State<AppNameSection> with TickerProviderStateMixin {
-  late AnimationController _dayNightController;
-
-  @override
-  void initState() {
-    _dayNightController = AnimationController(vsync: this, duration: const Duration(seconds: 1));
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +31,7 @@ class _AppNameSectionState extends State<AppNameSection> with TickerProviderStat
         ),
         // SizedBox(width: MARGIN_MEDIUM),
         InterText(AppLocalizations.of(context)!.appName,
-            TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500)),
+            style: TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500)),
       ],
     );
   }

@@ -58,7 +58,7 @@ class IconWithImage extends StatelessWidget {
             ),
           ),
           SizedBox(height: MARGIN_MEDIUM),
-          InterText(item.name, TextStyle(fontSize: TEXT_REGULAR_2X - 2)),
+          InterText(item.name, style:TextStyle(fontSize: TEXT_REGULAR_2X - 2)),
         ],
       );
     });
@@ -101,7 +101,7 @@ class EnchantmentRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: InterText(
             AppLocalizations.of(context)!.choose_enchantment_level,
-            TextStyle(
+            style: TextStyle(
               fontSize: TEXT_REGULAR,
             ),
           ),

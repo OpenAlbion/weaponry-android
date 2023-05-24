@@ -3,6 +3,7 @@ import 'package:openalbion_weaponry/constants/app_constants.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/features/about/about_screen.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_about_section.dart';
+import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_body_section.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_category_section.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_header_section.dart';
 import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_setting_section.dart';
@@ -38,10 +39,7 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
           child: Column(
             children: [
               DrawerHeaderSection(),
-              Expanded(
-                  child: SingleChildScrollView(
-                child: ScrollableDrawerSection(),
-              )),
+              DrawerBodyScreen(),
             ],
           ),
         ),
@@ -58,25 +56,6 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
           }
         }),
       ),
-    );
-  }
-}
-
-class ScrollableDrawerSection extends StatelessWidget {
-  const ScrollableDrawerSection({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DrawerCategorySection(),
-        DrawerAboutScreen(),
-        Divider(
-            color: get80PercentColor(context).withOpacity(0.2), endIndent: MARGIN_MEDIUM_2, height: 2),
-        DrawerSettingSection(),
-      ],
     );
   }
 }

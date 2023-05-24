@@ -141,7 +141,7 @@ class GearStatTitleAndDropDown extends StatelessWidget {
                               value: stats.quality,
                               child: InterText(
                                 stats.quality,
-                                TextStyle(fontSize: TEXT_SMALL),
+                                style: TextStyle(fontSize: TEXT_SMALL),
                               ),
                             ),
                           )
@@ -178,25 +178,25 @@ class GearStatRow extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                      width: 100, child: InterText(firstStat.name, TextStyle(fontSize: TEXT_SMALL))),
-                  SizedBox(width: 20, child: InterText(":", TextStyle(fontSize: TEXT_SMALL))),
+                      width: 100, child: InterText(firstStat.name, style: TextStyle(fontSize: TEXT_SMALL))),
+                  SizedBox(width: 20, child: InterText(":", style: TextStyle(fontSize: TEXT_SMALL))),
                   SizedBox(
                       width: 40,
-                      child: InterText(firstStat.value, TextStyle(fontSize: TEXT_SMALL), TextAlign.end))
+                      child: InterText(firstStat.value, style: TextStyle(fontSize: TEXT_SMALL), textAlign: TextAlign.end))
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                      width: 100, child: InterText(secondStat.name, TextStyle(fontSize: TEXT_SMALL))),
+                      width: 100, child: InterText(secondStat.name, style: TextStyle(fontSize: TEXT_SMALL))),
                   Visibility(
                     visible: secondStat.name.isNotEmpty,
-                    child: SizedBox(width: 20, child: InterText(":", TextStyle(fontSize: TEXT_SMALL))),
+                    child: SizedBox(width: 20, child: InterText(":",style:  TextStyle(fontSize: TEXT_SMALL))),
                   ),
                   SizedBox(
                       width: 40,
-                      child: InterText(secondStat.value, TextStyle(fontSize: TEXT_SMALL), TextAlign.end))
+                      child: InterText(secondStat.value, style: TextStyle(fontSize: TEXT_SMALL), textAlign: TextAlign.end))
                 ],
               ),
             ],

@@ -19,7 +19,7 @@ class DrawerSettingSection extends StatelessWidget {
             selected: provider.selectedCategoryType == AppConstants.CATEGORY_TYPE_SETTING,
             title: InterText(
                 AppLocalizations.of(context)!.setting,
-                TextStyle(
+                style: TextStyle(
                     color: provider.selectedCategoryType == AppConstants.CATEGORY_TYPE_SETTING
                         ? secondaryRed
                         : get80PercentColor(context))),
