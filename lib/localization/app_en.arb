@@ -20,6 +20,7 @@
   "about_credits_title": "Credits",
   "about_credits_description": "All of the market price in the application are from the from the exceptional efforts of \"The Albion Online Data Project\" which offers a client designed for the collection of price information, along with an API for accessing that valuable data. This project serves as an invaluable resource for players, enabling them to stay informed about item prices within the game.",
   "dark_mode" : "Dark Mode",
-  "market_price_server": "Market Price Server"
+  "market_price_server": "Market Price Server",
+  "search_hint": "Search swords & ..."
   
 }

@@ -4,6 +4,7 @@ import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:openalbion_weaponry/utils/debouncer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchBarSection extends StatefulWidget {
   final Function(String text) onDimissSearch;
@@ -59,7 +60,7 @@ class _SearchBarSectionState extends State<SearchBarSection> {
           filled: true,
           isDense: true,
           fillColor: getCardColor(context),
-          hintText: "Search swords & ...",
+          hintText: AppLocalizations.of(context).search_hint,
           hintStyle: TextStyle(fontSize: 14, color: get80PercentColor(context)),
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
