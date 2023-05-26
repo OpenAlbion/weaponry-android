@@ -7,12 +7,14 @@ part of 'report_vo.dart';
 // **************************************************************************
 
 _$_ReportVO _$$_ReportVOFromJson(Map<String, dynamic> json) => _$_ReportVO(
-      title: json['title'] as String? ?? "",
-      detail: json['detail'] as String? ?? "",
+      category: json['category'] as String? ?? "",
+      description: json['description'] as String? ?? "",
+      debug: DebugVO.fromJson(json['debug'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ReportVOToJson(_$_ReportVO instance) =>
     <String, dynamic>{
-      'title': instance.title,
-      'detail': instance.detail,
+      'category': instance.category,
+      'description': instance.description,
+      'debug': instance.debug,
     };

@@ -46,7 +46,7 @@ abstract class OpenAlbionApi {
     @Path() required String text,
   });
 
-    @GET("/search?search=")
+  @POST("/bug-report")
   Future<void> reportbug({
     @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
     @Body() required ReportVO reportVO,

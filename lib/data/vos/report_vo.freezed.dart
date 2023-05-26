@@ -20,8 +20,9 @@ ReportVO _$ReportVOFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ReportVO {
-  String get title => throw _privateConstructorUsedError;
-  String get detail => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  DebugVO get debug => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,9 @@ abstract class $ReportVOCopyWith<$Res> {
   factory $ReportVOCopyWith(ReportVO value, $Res Function(ReportVO) then) =
       _$ReportVOCopyWithImpl<$Res, ReportVO>;
   @useResult
-  $Res call({String title, String detail});
+  $Res call({String category, String description, DebugVO debug});
+
+  $DebugVOCopyWith<$Res> get debug;
 }
 
 /// @nodoc
@@ -50,19 +53,32 @@ class _$ReportVOCopyWithImpl<$Res, $Val extends ReportVO>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
-    Object? detail = null,
+    Object? category = null,
+    Object? description = null,
+    Object? debug = null,
   }) {
     return _then(_value.copyWith(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String,
-      detail: null == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
+      debug: null == debug
+          ? _value.debug
+          : debug // ignore: cast_nullable_to_non_nullable
+              as DebugVO,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DebugVOCopyWith<$Res> get debug {
+    return $DebugVOCopyWith<$Res>(_value.debug, (value) {
+      return _then(_value.copyWith(debug: value) as $Val);
+    });
   }
 }
 
@@ -73,7 +89,10 @@ abstract class _$$_ReportVOCopyWith<$Res> implements $ReportVOCopyWith<$Res> {
       __$$_ReportVOCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, String detail});
+  $Res call({String category, String description, DebugVO debug});
+
+  @override
+  $DebugVOCopyWith<$Res> get debug;
 }
 
 /// @nodoc
@@ -87,18 +106,23 @@ class __$$_ReportVOCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
-    Object? detail = null,
+    Object? category = null,
+    Object? description = null,
+    Object? debug = null,
   }) {
     return _then(_$_ReportVO(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String,
-      detail: null == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
+      debug: null == debug
+          ? _value.debug
+          : debug // ignore: cast_nullable_to_non_nullable
+              as DebugVO,
     ));
   }
 }
@@ -106,21 +130,23 @@ class __$$_ReportVOCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ReportVO implements _ReportVO {
-  _$_ReportVO({this.title = "", this.detail = ""});
+  _$_ReportVO({this.category = "", this.description = "", required this.debug});
 
   factory _$_ReportVO.fromJson(Map<String, dynamic> json) =>
       _$$_ReportVOFromJson(json);
 
   @override
   @JsonKey()
-  final String title;
+  final String category;
   @override
   @JsonKey()
-  final String detail;
+  final String description;
+  @override
+  final DebugVO debug;
 
   @override
   String toString() {
-    return 'ReportVO(title: $title, detail: $detail)';
+    return 'ReportVO(category: $category, description: $description, debug: $debug)';
   }
 
   @override
@@ -128,13 +154,16 @@ class _$_ReportVO implements _ReportVO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ReportVO &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.detail, detail) || other.detail == detail));
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.debug, debug) || other.debug == debug));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, detail);
+  int get hashCode => Object.hash(runtimeType, category, description, debug);
 
   @JsonKey(ignore: true)
   @override
@@ -151,14 +180,19 @@ class _$_ReportVO implements _ReportVO {
 }
 
 abstract class _ReportVO implements ReportVO {
-  factory _ReportVO({final String title, final String detail}) = _$_ReportVO;
+  factory _ReportVO(
+      {final String category,
+      final String description,
+      required final DebugVO debug}) = _$_ReportVO;
 
   factory _ReportVO.fromJson(Map<String, dynamic> json) = _$_ReportVO.fromJson;
 
   @override
-  String get title;
+  String get category;
   @override
-  String get detail;
+  String get description;
+  @override
+  DebugVO get debug;
   @override
   @JsonKey(ignore: true)
   _$$_ReportVOCopyWith<_$_ReportVO> get copyWith =>

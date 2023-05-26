@@ -169,13 +169,13 @@ class _OpenAlbionApi implements OpenAlbionApi {
     final _data = <String, dynamic>{};
     _data.addAll(reportVO.toJson());
     await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/search?search=',
+          '/bug-report',
           queryParameters: queryParameters,
           data: _data,
         )

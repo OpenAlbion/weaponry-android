@@ -5,6 +5,7 @@ import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
+import 'package:openalbion_weaponry/data/vos/debug_vo.dart';
 import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/features/global/simple_dropdown.dart';
@@ -13,6 +14,7 @@ import 'package:openalbion_weaponry/providers/app_start_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 class DialogUtils {
@@ -145,7 +147,16 @@ class DialogUtils {
                       if (!hasNetwork) {
                         Fluttertoast.showToast(msg: AppLocalizations.of(context)!.no_internet);
                       } else if (selectedCategory.isNotEmpty && selectedDescription.isNotEmpty) {
-                        onSubmited(ReportVO(title: selectedCategory, detail: selectedDescription));
+                        var version = await PackageInfo.fromPlatform();
+                        onSubmited(
+                          ReportVO(
+                              category: selectedCategory,
+                              description: selectedDescription,
+                              debug: DebugVO(
+                                screen: 'itemList',
+                                version: version.toString(),
+                              )),
+                        );
                         yyDialog.dismiss();
                       } else {
                         Fluttertoast.showToast(msg: AppLocalizations.of(context)!.invalid_information);

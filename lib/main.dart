@@ -79,5 +79,4 @@ _initializeHive() async {
   Hive.registerAdapter(SeachResultVOAdapter());
 
   await Hive.openBox<SearchResultVO>(HiveConstants.BOX_NAME_SEARCH_RESULT_VO);
-  SearchResultDao().deleteSearchResult();
 }

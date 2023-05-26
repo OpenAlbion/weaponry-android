@@ -21,24 +21,19 @@ class AppStartProvider extends BasedProvider {
   }
 
   void _getBugCategoryList() async {
-    await Future.delayed(Duration(seconds: 3));
-    _bugCategoryList = ["Category A", "Category B"];
+    _bugCategoryList = ["Item Missing", "Item Wrong Info", "Other"];
     notifyListeners();
   }
 
   void reportBug({required ReportVO report}) async {
     if (await handleConnectionView(isReplaceView: false)) {
-      // setNotifyMessage("No Internet Connection");
       return;
     }
-    // Either<AppError, String> data = await _repository.reportBug(report: report);
-    // data.fold((L) {
-    //   appError = L;
-
-    // }, (R) {
-
-    // });
-    await Future.delayed(Duration(seconds: 3));
-    setNotifyMessage("Thanks For Your Report.");
+    Either<AppError, String> data = await _repository.reportBug(report: report);
+    data.fold((L) {
+      appError = L;
+    }, (R) {
+      setNotifyMessage("Thanks For Your Report.");
+    });
   }
 }
