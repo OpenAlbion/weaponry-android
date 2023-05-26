@@ -29,4 +29,14 @@ class SharedPreference {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(AppConstants.PREF_MARKET_SERVER) ?? AppConstants.SERVER_EAST;
   }
+
+  void setShakeToReport({required bool isEnable}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(AppConstants.PREF_SHAKE_TO_BUG_REPORT, isEnable);
+  }
+
+  Future<bool> getShakeToReport() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(AppConstants.PREF_SHAKE_TO_BUG_REPORT) ?? true;
+  }
 }

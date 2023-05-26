@@ -26,8 +26,8 @@ class SettingScreen extends StatelessWidget {
               children: [
                 IconAndNameSection(),
                 SwitchListTile(
-                  title: InterText(
-                      AppLocalizations.of(context)!.dark_mode, style: TextStyle(fontSize: TEXT_REGULAR + 1)),
+                  title: InterText(AppLocalizations.of(context)!.dark_mode,
+                      style: TextStyle(fontSize: TEXT_REGULAR + 1)),
                   value: settingsController.themeMode == ThemeMode.dark,
                   activeColor: primaryRed,
                   contentPadding:
@@ -36,6 +36,11 @@ class SettingScreen extends StatelessWidget {
                     settingsController.updateThemeMode(isDarkMode ? ThemeMode.dark : ThemeMode.light);
                   },
                 ),
+                Divider(
+                  height: 1,
+                  color: get80PercentColor(context).withOpacity(0.3),
+                ),
+                BugReportSection(settingsController: settingsController),
                 Divider(
                   height: 1,
                   color: get80PercentColor(context).withOpacity(0.3),
@@ -49,6 +54,31 @@ class SettingScreen extends StatelessWidget {
             );
           }),
     );
+  }
+}
+
+class BugReportSection extends StatelessWidget {
+  const BugReportSection({
+    super.key,
+    required this.settingsController,
+  });
+
+  final SettingsController settingsController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<SettingProvider>(builder: (context, provider, child) {
+      return SwitchListTile(
+        title: InterText(AppLocalizations.of(context)!.shake_to_report,
+            style: TextStyle(fontSize: TEXT_REGULAR + 1)),
+        value: provider.enableShakeToReport == true,
+        activeColor: primaryRed,
+        contentPadding: EdgeInsets.symmetric(vertical: MARGIN_SMALLER, horizontal: MARGIN_MEDIUM_2),
+        onChanged: (isEnabled) {
+          provider.changeShakeToReport(isEnabled);
+        },
+      );
+    });
   }
 }
 
@@ -70,14 +100,14 @@ class ChooseServerSection extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
                     child: InterText(AppLocalizations.of(context)!.market_price_server,
-                       style:  TextStyle(fontSize: TEXT_REGULAR + 1, color: get80PercentColor(context))),
+                        style: TextStyle(fontSize: TEXT_REGULAR + 1, color: get80PercentColor(context))),
                   ),
                   SizedBox(height: MARGIN_MEDIUM),
                   RadioListTile(
                       value: AppConstants.SERVER_EAST,
                       groupValue: provider.selectedServer,
-                      title: InterText(
-                          "East", style: TextStyle(fontSize: TEXT_REGULAR, color: get80PercentColor(context))),
+                      title: InterText("East",
+                          style: TextStyle(fontSize: TEXT_REGULAR, color: get80PercentColor(context))),
                       activeColor: primaryRed,
                       dense: true,
                       controlAffinity: ListTileControlAffinity.trailing,
@@ -89,8 +119,8 @@ class ChooseServerSection extends StatelessWidget {
                       value: AppConstants.SERVER_WEST,
                       groupValue: provider.selectedServer,
                       dense: true,
-                      title: InterText(
-                          "West",style:  TextStyle(fontSize: TEXT_REGULAR, color: get80PercentColor(context))),
+                      title: InterText("West",
+                          style: TextStyle(fontSize: TEXT_REGULAR, color: get80PercentColor(context))),
                       activeColor: primaryRed,
                       controlAffinity: ListTileControlAffinity.trailing,
                       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: MARGIN_MEDIUM_2),

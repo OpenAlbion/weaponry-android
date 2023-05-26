@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
@@ -7,6 +9,7 @@ import 'package:openalbion_weaponry/network/firebase/firebase_analytics_reposito
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository_impl.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository_impl.dart';
+import 'package:openalbion_weaponry/persistent/shared_preference.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/utils/dialog_utils.dart';
 import 'package:shake/shake.dart';
@@ -15,6 +18,7 @@ class AppStartProvider extends BasedProvider {
   AppError? appError;
   final NetworkRepository _repository = NetworkRepositoryImpl();
   final FirebaseAnalyticsRepository _fireRepository = FirebaseAnalyticsRepositoryImpl();
+  final SharedPreference _preference = SharedPreference();
 
   // bug title list
   List<String> _bugCategoryList = [];
@@ -27,13 +31,20 @@ class AppStartProvider extends BasedProvider {
     _bugCategoryList = ["Item Missing", "Item Wrong Info", "Other"];
     _detector = ShakeDetector.autoStart(
         minimumShakeCount: 2,
-        onPhoneShake: () {
-          DialogUtils.showDebugReport(
-              context: context,
-              titleList: _bugCategoryList,
-              onSubmited: (report) {
-                reportBug(report: report);
-              });
+        onPhoneShake: () async {
+          var shakeEnabled = await _preference.getShakeToReport();
+          if (shakeEnabled && !isShaking) {
+            isShaking = true;
+            DialogUtils.showDebugReport(
+                context: context,
+                titleList: _bugCategoryList,
+                onDimissied: () {
+                  isShaking = false;
+                },
+                onSubmited: (report) {
+                  reportBug(report: report);
+                });
+          }
         });
   }
 

@@ -96,6 +96,7 @@ class FabSection extends StatelessWidget {
                   DialogUtils.showDebugReport(
                       context: context,
                       titleList: startProvider.bugCategoryList,
+                      onDimissied: (){},
                       onSubmited: (report) {
                         startProvider.reportBug(report: report);
                       });

@@ -29,5 +29,6 @@
   "no_internet" : "No Internet Connection",
   "cancel" : "Cancel",
   "submit" : "Submit",
-  "invalid_information" : "Invalid Information"  
+  "invalid_information" : "Invalid Information",
+  "shake_to_report" : "Shake To Report"
 }

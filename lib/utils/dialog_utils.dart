@@ -21,6 +21,7 @@ class DialogUtils {
   static YYDialog showDebugReport(
       {required BuildContext context,
       required List<String> titleList,
+      required Function onDimissied,
       required Function(ReportVO reportVO) onSubmited}) {
     var yyDialog = YYDialog();
     var selectedCategory = titleList.first;
@@ -31,105 +32,105 @@ class DialogUtils {
       ..backgroundColor = Theme.of(context).scaffoldBackgroundColor
       ..borderRadius = MARGIN_MEDIUM
       ..showCallBack = () {}
-      ..dismissCallBack = () {}
-      ..widget(Builder(
-        builder: (context) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: MARGIN_MEDIUM_2, horizontal: MARGIN_MEDIUM_2),
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InterText(AppLocalizations.of(context)!.bug_report,
-                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: TEXT_REGULAR_2X)),
-                  SizedBox(height: MARGIN_MEDIUM),
-                  Divider(height: MARGIN_MEDIUM_2),
-                  InterText(
-                    AppLocalizations.of(context)!.bug_category,
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(height: MARGIN_MEDIUM_2),
-                  SimpleDropDown(
-                      itemList: titleList,
-                      onSelected: (item) {
-                        selectedCategory = item;
-                      }),
-                  SizedBox(height: MARGIN_MEDIUM_2),
-                  InterText(AppLocalizations.of(context)!.bug_detail,
-                      style: TextStyle(fontWeight: FontWeight.w600)),
-                  SizedBox(height: MARGIN_MEDIUM_2),
-                  SimpleTextField(
-                      hint: AppLocalizations.of(context)!.bug_detail_example,
-                      onChanged: (text) {
-                        selectedDescription = text;
-                      }),
-                  // SizedBox(height: MARGIN_MEDIUM_2),
-                  // InterText(AppLocalizations.of(context)!.bug_note,
-                  //     style: TextStyle(fontWeight: FontWeight.w600)),
-                  // SizedBox(height: MARGIN_MEDIUM),
-                  // InterText(
-                  //   AppLocalizations.of(context)!.bug_note_detail,
-                  //   style: TextStyle(fontSize: TEXT_REGULAR),
-                  // ),
-                  SizedBox(height: MARGIN_LARGE),
-                  Row(
-                    children: [
-                      Spacer(),
-                      TextButton(
-                        style: ButtonStyle(
-                          overlayColor:
-                              MaterialStateColor.resolveWith((states) => blackBackground.withOpacity(0.1)),
-                          shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(MARGIN_MEDIUM),
-                            ),
+      ..dismissCallBack = () {
+        onDimissied();
+      }
+      ..widget(Builder(builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: MARGIN_MEDIUM_2, horizontal: MARGIN_MEDIUM_2),
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InterText(AppLocalizations.of(context)!.bug_report,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: TEXT_REGULAR_2X)),
+                SizedBox(height: MARGIN_MEDIUM),
+                Divider(height: MARGIN_MEDIUM_2),
+                InterText(
+                  AppLocalizations.of(context)!.bug_category,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: MARGIN_MEDIUM_2),
+                SimpleDropDown(
+                    itemList: titleList,
+                    onSelected: (item) {
+                      selectedCategory = item;
+                    }),
+                SizedBox(height: MARGIN_MEDIUM_2),
+                InterText(AppLocalizations.of(context)!.bug_detail,
+                    style: TextStyle(fontWeight: FontWeight.w600)),
+                SizedBox(height: MARGIN_MEDIUM_2),
+                SimpleTextField(
+                    hint: AppLocalizations.of(context)!.bug_detail_example,
+                    onChanged: (text) {
+                      selectedDescription = text;
+                    }),
+                // SizedBox(height: MARGIN_MEDIUM_2),
+                // InterText(AppLocalizations.of(context)!.bug_note,
+                //     style: TextStyle(fontWeight: FontWeight.w600)),
+                // SizedBox(height: MARGIN_MEDIUM),
+                // InterText(
+                //   AppLocalizations.of(context)!.bug_note_detail,
+                //   style: TextStyle(fontSize: TEXT_REGULAR),
+                // ),
+                SizedBox(height: MARGIN_LARGE),
+                Row(
+                  children: [
+                    Spacer(),
+                    TextButton(
+                      style: ButtonStyle(
+                        overlayColor:
+                            MaterialStateColor.resolveWith((states) => blackBackground.withOpacity(0.1)),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(MARGIN_MEDIUM),
                           ),
                         ),
-                        onPressed: () {
+                      ),
+                      onPressed: () {
+                        yyDialog.dismiss();
+                      },
+                      child: InterText(AppLocalizations.of(context)!.cancel),
+                    ),
+                    SizedBox(width: MARGIN_MEDIUM_2),
+                    FilledButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(primaryRed),
+                          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(MARGIN_MEDIUM)))),
+                      onPressed: () async {
+                        var hasNetwork =
+                            await Connectivity().checkConnectivity() != ConnectivityResult.none;
+                        if (!hasNetwork) {
+                          Fluttertoast.showToast(msg: AppLocalizations.of(context)!.no_internet);
+                        } else if (selectedCategory.isNotEmpty && selectedDescription.isNotEmpty) {
+                          var packageInfo = await PackageInfo.fromPlatform();
+                          onSubmited(
+                            ReportVO(
+                                category: selectedCategory,
+                                description: selectedDescription,
+                                debug: DebugVO(
+                                  version: packageInfo.version.toString(),
+                                )),
+                          );
                           yyDialog.dismiss();
-                        },
-                        child: InterText(AppLocalizations.of(context)!.cancel),
+                        } else {
+                          Fluttertoast.showToast(msg: AppLocalizations.of(context)!.invalid_information);
+                        }
+                      },
+                      child: InterText(
+                        AppLocalizations.of(context)!.submit,
+                        style: TextStyle(color: whiteText, fontSize: TEXT_REGULAR - 1),
                       ),
-                      SizedBox(width: MARGIN_MEDIUM_2),
-                      FilledButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(primaryRed),
-                            shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(MARGIN_MEDIUM)))),
-                        onPressed: () async {
-                          var hasNetwork =
-                              await Connectivity().checkConnectivity() != ConnectivityResult.none;
-                          if (!hasNetwork) {
-                            Fluttertoast.showToast(msg: AppLocalizations.of(context)!.no_internet);
-                          } else if (selectedCategory.isNotEmpty && selectedDescription.isNotEmpty) {
-                            var packageInfo = await PackageInfo.fromPlatform();
-                            onSubmited(
-                              ReportVO(
-                                  category: selectedCategory,
-                                  description: selectedDescription,
-                                  debug: DebugVO(
-                                    version: packageInfo.version.toString(),
-                                  )),
-                            );
-                            yyDialog.dismiss();
-                          } else {
-                            Fluttertoast.showToast(msg: AppLocalizations.of(context)!.invalid_information);
-                          }
-                        },
-                        child: InterText(
-                          AppLocalizations.of(context)!.submit,
-                          style: TextStyle(color: whiteText, fontSize: TEXT_REGULAR - 1),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
-          );
-        }
-      ))
+          ),
+        );
+      }))
       // ..animatedFunc = (child, animation) {
       //   return ScaleTransition(
       //     scale: Tween(begin: 0.0, end: 1.0).animate(animation),
