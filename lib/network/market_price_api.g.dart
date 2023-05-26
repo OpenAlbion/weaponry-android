@@ -31,7 +31,7 @@ class _MarketPriceApi implements MarketPriceApi {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
     _headers.removeWhere((k, v) => v == null);
-    const Map<String, dynamic>? _data = null;
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<MarketPriceVO>>(Options(
       method: 'GET',

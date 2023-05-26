@@ -9,6 +9,7 @@ import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
+import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
 import 'package:openalbion_weaponry/network/dio/dio_client.dart';
@@ -31,14 +32,11 @@ class NetworkRepositoryImpl implements NetworkRepository {
   @override
   Future<Either<AppError, List<CategoryVO>>> getCategoryList() async {
     try {
-
       final appCheckToken = await FirebaseAppCheck.instance.getToken();
       debugPrint("appCheck - $appCheckToken");
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
-      var response = await _albionClient
-          .openAlbionApi()
-          .getCategoryList(appCheckToken: appCheckToken);
+      var response = await _albionClient.openAlbionApi().getCategoryList(appCheckToken: appCheckToken);
       return Right(response.data);
 
       // print("env --> ${dotenv.env['API_TOKEN']}");
@@ -60,12 +58,12 @@ class NetworkRepositoryImpl implements NetworkRepository {
   @override
   Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(int subId, String path) async {
     try {
-
       final appCheckToken = await FirebaseAppCheck.instance.getToken();
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
-      var response = await _albionClient.openAlbionApi().getItemListBySubCategoryId(
-          appCheckToken: appCheckToken, subId: subId, path: path);
+      var response = await _albionClient
+          .openAlbionApi()
+          .getItemListBySubCategoryId(appCheckToken: appCheckToken, subId: subId, path: path);
 
       return Right(response.data);
     } on DioError catch (e) {
@@ -86,10 +84,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
       var response = await _albionClient.openAlbionApi().getItemDetailById(
-          appCheckToken: appCheckToken,
-          itemType: itemType,
-          itemType2: itemType,
-          itemId: itemId);
+          appCheckToken: appCheckToken, itemType: itemType, itemType2: itemType, itemId: itemId);
 
       return Right(response.data);
     } on DioError catch (e) {
@@ -106,12 +101,12 @@ class NetworkRepositoryImpl implements NetworkRepository {
   @override
   Future<Either<AppError, List<SlotVO>>> getSpellDetailById(String itemType, int itemId) async {
     try {
-
       final appCheckToken = await FirebaseAppCheck.instance.getToken();
       if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
 
-      var response = await _albionClient.openAlbionApi().getSpellDetailById(
-          appCheckToken: appCheckToken, itemType: itemType, itemId: itemId);
+      var response = await _albionClient
+          .openAlbionApi()
+          .getSpellDetailById(appCheckToken: appCheckToken, itemType: itemType, itemId: itemId);
 
       return Right(response.data);
     } on DioError catch (e) {
@@ -158,6 +153,26 @@ class NetworkRepositoryImpl implements NetworkRepository {
           await _albionClient.openAlbionApi().searchItem(appCheckToken: appCheckToken, text: text);
 
       return Right(response.data);
+    } on DioError catch (e) {
+      return Left(ErrorMapper.mapDioToAppError(e));
+    } on JsonUnsupportedObjectError catch (_) {
+      return Left(AppError(code: "-", message: "Respond is not Json"));
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
+    }
+  }
+
+  @override
+  Future<Either<AppError, String>> reportBug({required ReportVO report}) async {
+    try {
+      final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
+
+      await _albionClient.openAlbionApi().reportbug(appCheckToken: appCheckToken, reportVO: report);
+
+      return Right("");
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
     } on JsonUnsupportedObjectError catch (_) {

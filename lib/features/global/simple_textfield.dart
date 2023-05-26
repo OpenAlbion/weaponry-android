@@ -12,10 +12,11 @@ class SimpleTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 90,
+      height: 110,
       child: TextField(
         cursorColor: primaryRed,
         maxLines: 10,
+        maxLength: 250,
         style: TextStyle(fontSize: TEXT_REGULAR),
         onChanged: (value) {
           onChanged(value);

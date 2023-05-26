@@ -26,7 +26,8 @@
   "bug_category": "Category",
   "bug_detail" : "Detail",
   "bug_detail_example": "In axe section, I didn't find battle axe.",
-  "bug_note": "Note",
-  "bug_note_detail": "In spell section, we are in the data collecting stage. Please understand some spell information might be missing (e.g cooldown, ranged). If you think some important information are missing, don't hesitate to report us."
-  
+  "no_internet" : "No Internet Connection",
+  "cancel" : "Cancel",
+  "submit" : "Submit",
+  "invalid_information" : "Invalid Information"  
 }

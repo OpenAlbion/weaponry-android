@@ -12,6 +12,7 @@ import 'package:openalbion_weaponry/features/drawer_based/sections/drawer_settin
 import 'package:openalbion_weaponry/features/global/debug_floating_action_button.dart';
 import 'package:openalbion_weaponry/features/home/home_screen.dart';
 import 'package:openalbion_weaponry/features/setting/setting_screen.dart';
+import 'package:openalbion_weaponry/providers/app_start_provider.dart';
 import 'package:openalbion_weaponry/providers/home_provider.dart';
 import 'package:openalbion_weaponry/providers/search_provider.dart';
 import 'package:openalbion_weaponry/src/settings/settings_controller.dart';
@@ -41,6 +42,7 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => AppStartProvider()),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => SearchProvider()..getSearchResult()),
       ],
@@ -54,20 +56,7 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
             ],
           ),
         ),
-        floatingActionButton: Consumer<HomeProvider>(builder: (context, provider, child) {
-          switch (provider.selectedCategoryType) {
-            case AppConstants.CATEGORY_TYPE_SETTING:
-            case AppConstants.CATEGORY_TYPE_ABOUT:
-              return SizedBox();
-
-            default:
-              return DebugFloatingActionButton(
-                onTap: () {
-                  DialogUtils.showDebugReport(context: context, titleList: ["Missing Item", "Missing Item Info", "Other"],onDimissed: (){});
-                },
-              );
-          }
-        }),
+        floatingActionButton: FabSection(),
         body: Consumer<HomeProvider>(builder: (context, provider, child) {
           switch (provider.selectedCategoryType) {
             case AppConstants.CATEGORY_TYPE_SETTING:
@@ -82,5 +71,40 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
         }),
       ),
     );
+  }
+}
+
+class FabSection extends StatelessWidget {
+  const FabSection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<HomeProvider>(builder: (context, provider, child) {
+      switch (provider.selectedCategoryType) {
+        case AppConstants.CATEGORY_TYPE_SETTING:
+        case AppConstants.CATEGORY_TYPE_ABOUT:
+          return SizedBox();
+
+        default:
+          return Consumer<AppStartProvider>(builder: (context, startProvider, child) {
+            if (startProvider.bugCategoryList.isNotEmpty) {
+              return DebugFloatingActionButton(
+                onTap: () {
+                  DialogUtils.showDebugReport(
+                      context: context,
+                      titleList: startProvider.bugCategoryList,
+                      onSubmited: (report) {
+                        startProvider.reportBug(report: report);
+                      });
+                },
+              );
+            } else {
+              return SizedBox();
+            }
+          });
+      }
+    });
   }
 }

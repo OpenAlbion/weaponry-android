@@ -1,14 +1,19 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
+import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/features/global/simple_dropdown.dart';
 import 'package:openalbion_weaponry/features/global/simple_textfield.dart';
+import 'package:openalbion_weaponry/providers/app_start_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class DialogUtils {
   static YYDialog YYTicketWinDialog(List<String> prizeList, BuildContext context, Function onDimissed) {
@@ -58,8 +63,12 @@ class DialogUtils {
   }
 
   static YYDialog showDebugReport(
-      {required BuildContext context, required List<String> titleList, required Function onDimissed}) {
-                              var yyDialog = YYDialog();
+      {required BuildContext context,
+      required List<String> titleList,
+      required Function(ReportVO reportVO) onSubmited}) {
+    var yyDialog = YYDialog();
+    var selectedCategory = titleList.first;
+    var selectedDescription = "";
 
     return yyDialog.build()
       ..width = 320
@@ -86,21 +95,25 @@ class DialogUtils {
               SimpleDropDown(
                   itemList: titleList,
                   onSelected: (item) {
-                    debugPrint(item);
+                    selectedCategory = item;
                   }),
               SizedBox(height: MARGIN_MEDIUM_2),
               InterText(AppLocalizations.of(context)!.bug_detail,
                   style: TextStyle(fontWeight: FontWeight.w600)),
               SizedBox(height: MARGIN_MEDIUM_2),
-              SimpleTextField(hint: 'In axe section, I didn\'t find battle axe.', onChanged: (text) {}),
-              SizedBox(height: MARGIN_MEDIUM_2),
-              InterText(AppLocalizations.of(context)!.bug_note,
-                  style: TextStyle(fontWeight: FontWeight.w600)),
-              SizedBox(height: MARGIN_MEDIUM),
-              InterText(
-                AppLocalizations.of(context)!.bug_note_detail,
-                style: TextStyle(fontSize: TEXT_REGULAR),
-              ),
+              SimpleTextField(
+                  hint: AppLocalizations.of(context)!.bug_detail_example,
+                  onChanged: (text) {
+                    selectedDescription = text;
+                  }),
+              // SizedBox(height: MARGIN_MEDIUM_2),
+              // InterText(AppLocalizations.of(context)!.bug_note,
+              //     style: TextStyle(fontWeight: FontWeight.w600)),
+              // SizedBox(height: MARGIN_MEDIUM),
+              // InterText(
+              //   AppLocalizations.of(context)!.bug_note_detail,
+              //   style: TextStyle(fontSize: TEXT_REGULAR),
+              // ),
               SizedBox(height: MARGIN_LARGE),
               Row(
                 children: [
@@ -118,7 +131,7 @@ class DialogUtils {
                     onPressed: () {
                       yyDialog.dismiss();
                     },
-                    child: InterText("Cancel"),
+                    child: InterText(AppLocalizations.of(context)!.cancel),
                   ),
                   SizedBox(width: MARGIN_MEDIUM_2),
                   FilledButton(
@@ -126,9 +139,20 @@ class DialogUtils {
                         backgroundColor: MaterialStatePropertyAll(primaryRed),
                         shape: MaterialStatePropertyAll(
                             RoundedRectangleBorder(borderRadius: BorderRadius.circular(MARGIN_MEDIUM)))),
-                    onPressed: () {},
+                    onPressed: () async {
+                      var hasNetwork =
+                          await Connectivity().checkConnectivity() != ConnectivityResult.none;
+                      if (!hasNetwork) {
+                        Fluttertoast.showToast(msg: AppLocalizations.of(context)!.no_internet);
+                      } else if (selectedCategory.isNotEmpty && selectedDescription.isNotEmpty) {
+                        onSubmited(ReportVO(title: selectedCategory, detail: selectedDescription));
+                        yyDialog.dismiss();
+                      } else {
+                        Fluttertoast.showToast(msg: AppLocalizations.of(context)!.invalid_information);
+                      }
+                    },
                     child: InterText(
-                      "Submit",
+                      AppLocalizations.of(context)!.submit,
                       style: TextStyle(color: whiteText, fontSize: TEXT_REGULAR - 1),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/network/api_constants.dart';
 import 'package:openalbion_weaponry/network/response/response_category_list.dart';
 import 'package:openalbion_weaponry/network/response/response_enchantment_list.dart';
@@ -43,5 +44,11 @@ abstract class OpenAlbionApi {
   Future<ResponseSearchResultList> searchItem({
     @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
     @Path() required String text,
+  });
+
+    @GET("/search?search=")
+  Future<void> reportbug({
+    @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    @Body() required ReportVO reportVO,
   });
 }

@@ -4,6 +4,7 @@ import 'package:openalbion_weaponry/data/vos/category_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
+import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
 
@@ -25,12 +26,14 @@ abstract class NetworkRepository {
     int itemId,
   );
 
-  Future<Either<AppError, List<MarketPriceVO>>> getMarketPrice({
-    required String itemId,
-    required int quality
+  Future<Either<AppError, List<MarketPriceVO>>> getMarketPrice(
+      {required String itemId, required int quality});
+
+  Future<Either<AppError, List<SearchResultVO>>> searchItem({
+    required String text,
   });
 
-    Future<Either<AppError, List<SearchResultVO>>> searchItem({
-    required String text,
+  Future<Either<AppError, String>> reportBug({
+    required ReportVO report,
   });
 }
