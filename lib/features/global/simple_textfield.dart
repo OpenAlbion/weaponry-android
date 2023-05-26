@@ -26,7 +26,7 @@ class SimpleTextField extends StatelessWidget {
           isDense: true,
           fillColor: getCardColor(context),
           hintText: hint,
-          hintStyle: TextStyle(fontSize: 14, color: get80PercentColor(context)),
+          hintStyle: TextStyle(fontSize: 14, color: get80PercentColor(context).withOpacity(0.4)),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(MARGIN_MEDIUM), borderSide: BorderSide.none),
         ),

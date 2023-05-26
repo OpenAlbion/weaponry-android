@@ -2,6 +2,7 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
   _handleFirebaseCloudMessaging();
   await _initializeAppCheck();
   await _initializeHive();
+  _initializeOrientation();
   // await NetworkRepositoryImpl().searchItem(text: "scholar");
 
   runApp(MyApp(settingsController: settingsController));
@@ -62,7 +64,7 @@ void _showLocalNotification(String title, String message) async {
   await flutterLocalNotificationsPlugin.show(10, title, message, notificationDetails, payload: 'item x');
 }
 
- _initializeAppCheck() async {
+_initializeAppCheck() async {
   await FirebaseAppCheck.instance.activate(
     webRecaptchaSiteKey: 'recaptcha-v3-site-key',
     // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose
@@ -79,4 +81,11 @@ _initializeHive() async {
   Hive.registerAdapter(SeachResultVOAdapter());
 
   await Hive.openBox<SearchResultVO>(HiveConstants.BOX_NAME_SEARCH_RESULT_VO);
+}
+
+void _initializeOrientation() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 }

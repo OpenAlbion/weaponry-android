@@ -35,6 +35,8 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
   @override
   void initState() {
     YYDialog.init(context);
+
+    context.read<AppStartProvider>().initializeShaker(context);
     super.initState();
   }
 
@@ -55,7 +57,6 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
             ],
           ),
         ),
-        floatingActionButton: FabSection(),
         body: Consumer<HomeProvider>(builder: (context, provider, child) {
           switch (provider.selectedCategoryType) {
             case AppConstants.CATEGORY_TYPE_SETTING:
@@ -94,7 +95,6 @@ class FabSection extends StatelessWidget {
                   startProvider.reportToFirebase("click_debug_report");
                   DialogUtils.showDebugReport(
                       context: context,
-                      screen: 'item_list',
                       titleList: startProvider.bugCategoryList,
                       onSubmited: (report) {
                         startProvider.reportBug(report: report);

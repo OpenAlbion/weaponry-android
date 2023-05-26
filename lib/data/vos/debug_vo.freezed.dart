@@ -21,7 +21,6 @@ DebugVO _$DebugVOFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DebugVO {
   String get version => throw _privateConstructorUsedError;
-  String get screen => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +32,7 @@ abstract class $DebugVOCopyWith<$Res> {
   factory $DebugVOCopyWith(DebugVO value, $Res Function(DebugVO) then) =
       _$DebugVOCopyWithImpl<$Res, DebugVO>;
   @useResult
-  $Res call({String version, String screen});
+  $Res call({String version});
 }
 
 /// @nodoc
@@ -50,16 +49,11 @@ class _$DebugVOCopyWithImpl<$Res, $Val extends DebugVO>
   @override
   $Res call({
     Object? version = null,
-    Object? screen = null,
   }) {
     return _then(_value.copyWith(
       version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
-              as String,
-      screen: null == screen
-          ? _value.screen
-          : screen // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -72,7 +66,7 @@ abstract class _$$_DebugVOCopyWith<$Res> implements $DebugVOCopyWith<$Res> {
       __$$_DebugVOCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String version, String screen});
+  $Res call({String version});
 }
 
 /// @nodoc
@@ -86,16 +80,11 @@ class __$$_DebugVOCopyWithImpl<$Res>
   @override
   $Res call({
     Object? version = null,
-    Object? screen = null,
   }) {
     return _then(_$_DebugVO(
       version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
-              as String,
-      screen: null == screen
-          ? _value.screen
-          : screen // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -104,7 +93,7 @@ class __$$_DebugVOCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_DebugVO implements _DebugVO {
-  _$_DebugVO({this.version = "", this.screen = ""});
+  _$_DebugVO({this.version = ""});
 
   factory _$_DebugVO.fromJson(Map<String, dynamic> json) =>
       _$$_DebugVOFromJson(json);
@@ -112,13 +101,10 @@ class _$_DebugVO implements _DebugVO {
   @override
   @JsonKey()
   final String version;
-  @override
-  @JsonKey()
-  final String screen;
 
   @override
   String toString() {
-    return 'DebugVO(version: $version, screen: $screen)';
+    return 'DebugVO(version: $version)';
   }
 
   @override
@@ -126,13 +112,12 @@ class _$_DebugVO implements _DebugVO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DebugVO &&
-            (identical(other.version, version) || other.version == version) &&
-            (identical(other.screen, screen) || other.screen == screen));
+            (identical(other.version, version) || other.version == version));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, version, screen);
+  int get hashCode => Object.hash(runtimeType, version);
 
   @JsonKey(ignore: true)
   @override
@@ -149,14 +134,12 @@ class _$_DebugVO implements _DebugVO {
 }
 
 abstract class _DebugVO implements DebugVO {
-  factory _DebugVO({final String version, final String screen}) = _$_DebugVO;
+  factory _DebugVO({final String version}) = _$_DebugVO;
 
   factory _DebugVO.fromJson(Map<String, dynamic> json) = _$_DebugVO.fromJson;
 
   @override
   String get version;
-  @override
-  String get screen;
   @override
   @JsonKey(ignore: true)
   _$$_DebugVOCopyWith<_$_DebugVO> get copyWith =>

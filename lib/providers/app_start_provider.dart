@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository.dart';
@@ -6,6 +8,8 @@ import 'package:openalbion_weaponry/network/firebase/firebase_analytics_reposito
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository_impl.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
+import 'package:openalbion_weaponry/utils/dialog_utils.dart';
+import 'package:shake/shake.dart';
 
 class AppStartProvider extends BasedProvider {
   AppError? appError;
@@ -15,18 +19,26 @@ class AppStartProvider extends BasedProvider {
   // bug title list
   List<String> _bugCategoryList = [];
   List<String> get bugCategoryList => _bugCategoryList;
+  bool isShaking = false;
 
-  AppStartProvider() {
-    _getBugCategoryList();
+  late ShakeDetector _detector;
+
+  void initializeShaker(BuildContext context) {
+    _bugCategoryList = ["Item Missing", "Item Wrong Info", "Other"];
+    _detector = ShakeDetector.autoStart(
+        minimumShakeCount: 2,
+        onPhoneShake: () {
+          DialogUtils.showDebugReport(
+              context: context,
+              titleList: _bugCategoryList,
+              onSubmited: (report) {
+                reportBug(report: report);
+              });
+        });
   }
 
   void reportToFirebase(String message) {
     _fireRepository.reportToFirebase(message);
-  }
-
-  void _getBugCategoryList() async {
-    _bugCategoryList = ["Item Missing", "Item Wrong Info", "Other"];
-    notifyListeners();
   }
 
   void reportBug({required ReportVO report}) async {
@@ -39,5 +51,11 @@ class AppStartProvider extends BasedProvider {
     }, (R) {
       setNotifyMessage("Thanks For Your Report.");
     });
+  }
+
+  @override
+  void dispose() {
+    _detector.stopListening();
+    super.dispose();
   }
 }

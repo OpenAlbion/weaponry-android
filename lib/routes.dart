@@ -14,7 +14,11 @@ class Routes {
             return HomeScreen();
 
           case DrawerBasedScreen.routeName:
-            return DrawerBasedScreen(settingsController: controller);
+            return Builder(
+              builder: (context) {
+                return DrawerBasedScreen(settingsController: controller);
+              }
+            );
 
           case ItemDetailScreen.routeName:
             final args = ModalRoute.of(context)!.settings.arguments as ItemDetailArgs;
