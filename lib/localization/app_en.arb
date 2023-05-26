@@ -5,7 +5,7 @@
   },
   "appName": "OpenAlbion Weaponry",
   "weaponType": "Weapon Type",
-  "armorType": "ArmorType",
+  "armorType": "Armor Type",
   "accessories": "Accessories",
   "choose_enchantment_level": "Choose Enchantment Level",
   "gear_stats": "Gear Stats",
@@ -21,6 +21,12 @@
   "about_credits_description": "All of the market price in the application are from the from the exceptional efforts of \"The Albion Online Data Project\" which offers a client designed for the collection of price information, along with an API for accessing that valuable data. This project serves as an invaluable resource for players, enabling them to stay informed about item prices within the game.",
   "dark_mode" : "Dark Mode",
   "market_price_server": "Market Price Server",
-  "search_hint": "Search swords & ..."
+  "search_hint": "Search swords & ...",
+  "bug_report": "Bug Report",
+  "bug_category": "Category",
+  "bug_detail" : "Detail",
+  "bug_detail_example": "In axe section, I didn't find battle axe.",
+  "bug_note": "Note",
+  "bug_note_detail": "In spell section, we are in the data collecting stage. Please understand some spell information might be missing (e.g cooldown, ranged). If you think some important information are missing, don't hesitate to report us."
   
 }

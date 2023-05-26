@@ -63,38 +63,36 @@ class WebLauncherButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 100,
-      child: InkWell(
-        onTap: () {
-          onTap();
-        },
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM, vertical: MARGIN_MEDIUM),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(MARGIN_SMALL),
-            border: Border.all(
-              color: get60PercentColor(context),
-            ),
+    return InkWell(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM, vertical: MARGIN_MEDIUM),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(MARGIN_SMALL),
+          border: Border.all(
+            color: get60PercentColor(context),
           ),
-          child: Row(
-            children: [
-              enableDarkModeColor
-                  ? SvgPicture.asset(
-                      svgIcon,
-                      width: 19,
-                      colorFilter: ColorFilter.mode(Theme.of(context).iconTheme.color!, BlendMode.srcIn),
-                    )
-                  : SvgPicture.asset(svgIcon, width: 19),
-              SizedBox(width: MARGIN_MEDIUM),
-              InterText(
-                text,
-                style: TextStyle(
-                  fontSize: TEXT_REGULAR,
-                ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            enableDarkModeColor
+                ? SvgPicture.asset(
+                    svgIcon,
+                    width: 19,
+                    colorFilter: ColorFilter.mode(Theme.of(context).iconTheme.color!, BlendMode.srcIn),
+                  )
+                : SvgPicture.asset(svgIcon, width: 19),
+            SizedBox(width: MARGIN_MEDIUM),
+            InterText(
+              text,
+              style: TextStyle(
+                fontSize: TEXT_REGULAR,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -197,11 +195,12 @@ class AboutProjectSection extends StatelessWidget {
           ),
           SizedBox(height: MARGIN_MEDIUM_2),
           WebLauncherButton(
-            text: 'Github',
-            svgIcon: 'assets/images/svgs/ic_github_dark.svg',
+            text: 'Documentation',
+            svgIcon: 'assets/images/svgs/ic_document.svg',
             enableDarkModeColor: true,
             onTap: () async {
-              await launchUrl(Uri.parse("https://openalbion.com/"),mode: LaunchMode.externalApplication);
+              await launchUrl(Uri.parse("https://openalbion.com/"),
+                  mode: LaunchMode.externalApplication);
             },
           )
         ],
@@ -240,7 +239,8 @@ class AboutAppSection extends StatelessWidget {
             svgIcon: 'assets/images/svgs/ic_github_dark.svg',
             enableDarkModeColor: true,
             onTap: () async {
-              await launchUrl(Uri.parse("https://github.com/OpenAlbion/weaponry-android"),mode: LaunchMode.externalApplication);
+              await launchUrl(Uri.parse("https://github.com/OpenAlbion/weaponry-android"),
+                  mode: LaunchMode.externalApplication);
             },
           )
         ],
@@ -344,7 +344,8 @@ class AboutCreditsSection extends StatelessWidget {
             svgIcon: 'assets/images/svgs/ic_github_dark.svg',
             enableDarkModeColor: true,
             onTap: () async {
-              await launchUrl(Uri.parse("https://www.albion-online-data.com/"),mode: LaunchMode.externalApplication);
+              await launchUrl(Uri.parse("https://www.albion-online-data.com/"),
+                  mode: LaunchMode.externalApplication);
             },
           ),
         )

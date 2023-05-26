@@ -53,7 +53,7 @@ class _DrawerCategorySection extends State<DrawerCategorySection> {
                   return ListTile(
                     selected: provider.selectedCategory.id == category.id,
                     title: InterText(
-                        category.name,
+                        "-  ${category.name}",
                         style: TextStyle(
                             color: provider.selectedCategory.id == category.id &&
                                     provider.selectedCategoryType == provider.selectedCategory.type

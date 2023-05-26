@@ -11,13 +11,17 @@ class ImageLoadingPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(MARGIN_MEDIUM),
-      child: Opacity(
-        opacity: 0.8,
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(MARGIN_MEDIUM),
-            child: SvgPicture.asset('assets/images/svgs/ic_app_logo_greyscale.svg', width: size)),
+    return SizedBox(
+      width: size,
+      height: size,
+      child: Padding(
+        padding: const EdgeInsets.all(MARGIN_MEDIUM),
+        child: Opacity(
+          opacity: 0.8,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(MARGIN_MEDIUM),
+              child: SvgPicture.asset('assets/images/svgs/ic_app_logo_greyscale.svg', width: size)),
+        ),
       ),
     );
   }
