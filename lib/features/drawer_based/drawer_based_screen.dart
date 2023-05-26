@@ -42,7 +42,6 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AppStartProvider()),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => SearchProvider()..getSearchResult()),
       ],
@@ -95,6 +94,7 @@ class FabSection extends StatelessWidget {
                   startProvider.reportToFirebase("click_debug_report");
                   DialogUtils.showDebugReport(
                       context: context,
+                      screen: 'item_list',
                       titleList: startProvider.bugCategoryList,
                       onSubmited: (report) {
                         startProvider.reportBug(report: report);

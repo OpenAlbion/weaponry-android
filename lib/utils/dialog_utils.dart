@@ -67,6 +67,7 @@ class DialogUtils {
   static YYDialog showDebugReport(
       {required BuildContext context,
       required List<String> titleList,
+      required String screen,
       required Function(ReportVO reportVO) onSubmited}) {
     var yyDialog = YYDialog();
     var selectedCategory = titleList.first;
@@ -153,7 +154,7 @@ class DialogUtils {
                               category: selectedCategory,
                               description: selectedDescription,
                               debug: DebugVO(
-                                screen: 'itemList',
+                                screen: screen,
                                 version: version.toString(),
                               )),
                         );
