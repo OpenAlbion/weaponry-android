@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:openalbion_weaponry/data/vos/attribute_vo.dart';
 
 part 'spell_vo.freezed.dart';
 part 'spell_vo.g.dart';
@@ -13,6 +14,7 @@ class SpellVO with _$SpellVO {
     @Default("") String icon,
     @Default("") String description,
     @JsonKey(name: "description_html") @Default("") String descriptionHtml,
+    @Default([]) List<AttributeVO> attributes,
   }) = _SpellVO;
 
   factory SpellVO.fromJson(Map<String, dynamic> json) => _$SpellVOFromJson(json);

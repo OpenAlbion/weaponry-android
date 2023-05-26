@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
+import 'package:openalbion_weaponry/data/vos/attribute_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
@@ -57,21 +58,55 @@ class SlotView extends StatelessWidget {
                   imageUrl: slot.spells[index].icon,
                   width: MARGIN_XXLARGE,
                   errorWidget: (context, url, error) => Opacity(
-                    opacity: 0.5,
-                    child: Image.asset('assets/images/pngs/ic_placeholder_spell.png')),
+                      opacity: 0.5, child: Image.asset('assets/images/pngs/ic_placeholder_spell.png')),
                   filterQuality: FilterQuality.high,
                 ),
-                title: InterText(slot.spells[index].name.isNotEmpty ? slot.spells[index].name : "-", style: TextStyle(fontSize: TEXT_REGULAR)),
+                title: InterText(slot.spells[index].name.isNotEmpty ? slot.spells[index].name : "-",
+                    style: TextStyle(fontSize: TEXT_REGULAR)),
                 children: [
                   SizedBox(height: MARGIN_CARD_MEDIUM),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-                    child: InterText(slot.spells[index].description),
+                    child: InterText(slot.spells[index].description.trim()),
                   ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: slot.spells[index].attributes.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, attrIndex) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+                          child: AttributeRow(attributeVO: slot.spells[index].attributes[attrIndex]),
+                        );
+                      }),
+                  SizedBox(height: MARGIN_MEDIUM_2),
                 ],
               );
             })
       ],
+    );
+  }
+}
+
+class AttributeRow extends StatelessWidget {
+  final AttributeVO attributeVO;
+  const AttributeRow({super.key, required this.attributeVO});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: MARGIN_MEDIUM_2),
+      child: Row(
+        children: [
+          SizedBox(
+              width: 100, child: InterText(attributeVO.name, style: TextStyle(fontSize: TEXT_SMALL))),
+          SizedBox(width: 20, child: InterText(":", style: TextStyle(fontSize: TEXT_SMALL))),
+          SizedBox(
+              width: 80,
+              child: InterText(attributeVO.value,
+                  style: TextStyle(fontSize: TEXT_SMALL), textAlign: TextAlign.end))
+        ],
+      ),
     );
   }
 }

@@ -28,6 +28,7 @@ mixin _$SpellVO {
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: "description_html")
   String get descriptionHtml => throw _privateConstructorUsedError;
+  List<AttributeVO> get attributes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +47,8 @@ abstract class $SpellVOCopyWith<$Res> {
       String preview,
       String icon,
       String description,
-      @JsonKey(name: "description_html") String descriptionHtml});
+      @JsonKey(name: "description_html") String descriptionHtml,
+      List<AttributeVO> attributes});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$SpellVOCopyWithImpl<$Res, $Val extends SpellVO>
     Object? icon = null,
     Object? description = null,
     Object? descriptionHtml = null,
+    Object? attributes = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -99,6 +102,10 @@ class _$SpellVOCopyWithImpl<$Res, $Val extends SpellVO>
           ? _value.descriptionHtml
           : descriptionHtml // ignore: cast_nullable_to_non_nullable
               as String,
+      attributes: null == attributes
+          ? _value.attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as List<AttributeVO>,
     ) as $Val);
   }
 }
@@ -117,7 +124,8 @@ abstract class _$$_SpellVOCopyWith<$Res> implements $SpellVOCopyWith<$Res> {
       String preview,
       String icon,
       String description,
-      @JsonKey(name: "description_html") String descriptionHtml});
+      @JsonKey(name: "description_html") String descriptionHtml,
+      List<AttributeVO> attributes});
 }
 
 /// @nodoc
@@ -137,6 +145,7 @@ class __$$_SpellVOCopyWithImpl<$Res>
     Object? icon = null,
     Object? description = null,
     Object? descriptionHtml = null,
+    Object? attributes = null,
   }) {
     return _then(_$_SpellVO(
       id: null == id
@@ -167,6 +176,10 @@ class __$$_SpellVOCopyWithImpl<$Res>
           ? _value.descriptionHtml
           : descriptionHtml // ignore: cast_nullable_to_non_nullable
               as String,
+      attributes: null == attributes
+          ? _value._attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as List<AttributeVO>,
     ));
   }
 }
@@ -181,7 +194,9 @@ class _$_SpellVO implements _SpellVO {
       this.preview = "",
       this.icon = "",
       this.description = "",
-      @JsonKey(name: "description_html") this.descriptionHtml = ""});
+      @JsonKey(name: "description_html") this.descriptionHtml = "",
+      final List<AttributeVO> attributes = const []})
+      : _attributes = attributes;
 
   factory _$_SpellVO.fromJson(Map<String, dynamic> json) =>
       _$$_SpellVOFromJson(json);
@@ -206,10 +221,18 @@ class _$_SpellVO implements _SpellVO {
   @override
   @JsonKey(name: "description_html")
   final String descriptionHtml;
+  final List<AttributeVO> _attributes;
+  @override
+  @JsonKey()
+  List<AttributeVO> get attributes {
+    if (_attributes is EqualUnmodifiableListView) return _attributes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_attributes);
+  }
 
   @override
   String toString() {
-    return 'SpellVO(id: $id, name: $name, slot: $slot, preview: $preview, icon: $icon, description: $description, descriptionHtml: $descriptionHtml)';
+    return 'SpellVO(id: $id, name: $name, slot: $slot, preview: $preview, icon: $icon, description: $description, descriptionHtml: $descriptionHtml, attributes: $attributes)';
   }
 
   @override
@@ -225,13 +248,23 @@ class _$_SpellVO implements _SpellVO {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.descriptionHtml, descriptionHtml) ||
-                other.descriptionHtml == descriptionHtml));
+                other.descriptionHtml == descriptionHtml) &&
+            const DeepCollectionEquality()
+                .equals(other._attributes, _attributes));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, name, slot, preview, icon, description, descriptionHtml);
+      runtimeType,
+      id,
+      name,
+      slot,
+      preview,
+      icon,
+      description,
+      descriptionHtml,
+      const DeepCollectionEquality().hash(_attributes));
 
   @JsonKey(ignore: true)
   @override
@@ -249,14 +282,14 @@ class _$_SpellVO implements _SpellVO {
 
 abstract class _SpellVO implements SpellVO {
   factory _SpellVO(
-          {required final int id,
-          final String name,
-          final String slot,
-          final String preview,
-          final String icon,
-          final String description,
-          @JsonKey(name: "description_html") final String descriptionHtml}) =
-      _$_SpellVO;
+      {required final int id,
+      final String name,
+      final String slot,
+      final String preview,
+      final String icon,
+      final String description,
+      @JsonKey(name: "description_html") final String descriptionHtml,
+      final List<AttributeVO> attributes}) = _$_SpellVO;
 
   factory _SpellVO.fromJson(Map<String, dynamic> json) = _$_SpellVO.fromJson;
 
@@ -275,6 +308,8 @@ abstract class _SpellVO implements SpellVO {
   @override
   @JsonKey(name: "description_html")
   String get descriptionHtml;
+  @override
+  List<AttributeVO> get attributes;
   @override
   @JsonKey(ignore: true)
   _$$_SpellVOCopyWith<_$_SpellVO> get copyWith =>

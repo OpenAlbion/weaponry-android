@@ -14,6 +14,10 @@ _$_SpellVO _$$_SpellVOFromJson(Map<String, dynamic> json) => _$_SpellVO(
       icon: json['icon'] as String? ?? "",
       description: json['description'] as String? ?? "",
       descriptionHtml: json['description_html'] as String? ?? "",
+      attributes: (json['attributes'] as List<dynamic>?)
+              ?.map((e) => AttributeVO.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$_SpellVOToJson(_$_SpellVO instance) =>
@@ -25,4 +29,5 @@ Map<String, dynamic> _$$_SpellVOToJson(_$_SpellVO instance) =>
       'icon': instance.icon,
       'description': instance.description,
       'description_html': instance.descriptionHtml,
+      'attributes': instance.attributes,
     };
