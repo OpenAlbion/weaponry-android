@@ -90,7 +90,7 @@ class ItemView extends StatelessWidget {
               Row(
                 children: [
                   Hero(
-                    tag: 'item${item.id}',
+                    tag: 'item${item.name}',
                     child: CachedNetworkImage(
                       imageUrl: item.icon,
                       placeholder: (context, url) => ImageLoadingPlaceholder(size: 70),

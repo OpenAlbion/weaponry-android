@@ -24,13 +24,14 @@
 //       icon: fields[4] as String,
 //       itemPower: fields[5] as int?,
 //       typeId: fields[6] as int?,
+//       createdAt: fields[7] as int,
 //     );
 //   }
 
 //   @override
 //   void write(BinaryWriter writer, SearchResultVO obj) {
 //     writer
-//       ..writeByte(7)
+//       ..writeByte(8)
 //       ..writeByte(0)
 //       ..write(obj.type)
 //       ..writeByte(1)
@@ -44,7 +45,9 @@
 //       ..writeByte(5)
 //       ..write(obj.itemPower)
 //       ..writeByte(6)
-//       ..write(obj.typeId);
+//       ..write(obj.typeId)
+//       ..writeByte(7)
+//       ..write(obj.createdAt);
 //   }
 
 //   @override
@@ -53,7 +56,5 @@
 //   @override
 //   bool operator ==(Object other) =>
 //       identical(this, other) ||
-//       other is SeachResultVOAdapter &&
-//           runtimeType == other.runtimeType &&
-//           typeId == other.typeId;
+//       other is SeachResultVOAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 // }

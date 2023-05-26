@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/firebase_options.dart';
+import 'package:openalbion_weaponry/persistent/dao/search_result_dao.dart';
 import 'package:openalbion_weaponry/persistent/hive_constants.dart';
 
 import 'app.dart';
@@ -78,5 +79,5 @@ _initializeHive() async {
   Hive.registerAdapter(SeachResultVOAdapter());
 
   await Hive.openBox<SearchResultVO>(HiveConstants.BOX_NAME_SEARCH_RESULT_VO);
-  // SearchResultDao().deleteSearchResult();
+  SearchResultDao().deleteSearchResult();
 }

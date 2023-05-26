@@ -51,7 +51,7 @@ class IconWithImage extends StatelessWidget {
         children: [
           SizedBox(width: double.infinity),
           Hero(
-            tag: 'item${item.id}',
+            tag: 'item${item.name}',
             child: CachedNetworkImage(
               imageUrl: provider.enchanmentList.isEmpty ? item.icon : provider.selectedEnchantment.icon,
               width: 110,

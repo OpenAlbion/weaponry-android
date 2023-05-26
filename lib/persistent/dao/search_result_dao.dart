@@ -4,7 +4,8 @@ import 'package:openalbion_weaponry/persistent/hive_constants.dart';
 
 class SearchResultDao {
   void addSearchResult(SearchResultVO searchResultVO) {
-    openSearchResultBox().put(searchResultVO.name, searchResultVO);
+    var resultVO = searchResultVO.copyWith(createdAt: DateTime.now().microsecondsSinceEpoch);
+    openSearchResultBox().put(resultVO.name, resultVO);
   }
 
   void deleteSearchResult() {
@@ -12,7 +13,9 @@ class SearchResultDao {
   }
 
   List<SearchResultVO> getSearchResultList() {
-    return openSearchResultBox().values.toList();
+    var resultList = openSearchResultBox().values.toList();
+    resultList.sort(((a, b) => a.createdAt.compareTo(b.createdAt)));
+    return resultList.reversed.toList();
   }
 
   Box<SearchResultVO> openSearchResultBox() {
