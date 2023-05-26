@@ -13,7 +13,7 @@ import 'package:shake/shake.dart';
 import 'src/settings/settings_controller.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
     required this.settingsController,
@@ -21,16 +21,6 @@ class MyApp extends StatefulWidget {
 
   final SettingsController settingsController;
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    YYDialog.init(context);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +29,7 @@ class _MyAppState extends State<MyApp> {
     // The AnimatedBuilder Widget listens to the SettingsController for changes.
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return AnimatedBuilder(
-      animation: widget.settingsController,
+      animation: settingsController,
       builder: (BuildContext context, Widget? child) {
         return MultiProvider(
           providers: [
@@ -78,12 +68,12 @@ class _MyAppState extends State<MyApp> {
               // SettingsController to display the correct theme.
               theme: lightThemeData(context),
               darkTheme: darkThemeData(context),
-              themeMode: widget.settingsController.themeMode,
+              themeMode: settingsController.themeMode,
 
               // Define a function to handle named routes in order to support
               // Flutter web url navigation and deep linking.
               onGenerateRoute: (routeSetting) {
-                return Routes.generateRoutes(routeSetting, widget.settingsController);
+                return Routes.generateRoutes(routeSetting, settingsController);
               },
             );
           }),
