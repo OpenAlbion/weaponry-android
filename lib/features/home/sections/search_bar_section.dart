@@ -60,7 +60,7 @@ class _SearchBarSectionState extends State<SearchBarSection> {
           filled: true,
           isDense: true,
           fillColor: getCardColor(context),
-          hintText: AppLocalizations.of(context).search_hint,
+          hintText: AppLocalizations.of(context)?.search_hint,
           hintStyle: TextStyle(fontSize: 14, color: get80PercentColor(context)),
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),

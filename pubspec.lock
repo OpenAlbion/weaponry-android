@@ -414,6 +414,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
+  flutter_custom_dialog:
+    dependency: "direct main"
+    description:
+      name: flutter_custom_dialog
+      sha256: a30febb3e04f90e848296a313868be3fe490a42ae9cbc6afe0f1f64ad4390b93
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
   flutter_dotenv:
     dependency: "direct main"
     description:

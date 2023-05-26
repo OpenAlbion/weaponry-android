@@ -299,7 +299,7 @@ class AboutUsSection extends StatelessWidget {
             svgIcon: 'assets/images/svgs/ic_discord.svg',
             enableDarkModeColor: false,
             onTap: () async {
-              await launchUrl(Uri.parse("https://www.albion-online-data.com/"));
+              await launchUrl(Uri.parse("https://discord.gg/CsUYDy5Mc6"));
             },
           ),
         )

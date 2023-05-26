@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
+import 'package:openalbion_weaponry/features/global/image_loading_placeholder.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:openalbion_weaponry/features/item_detail/widgets/dash_border_text.dart';
@@ -58,7 +59,7 @@ class IconWithImage extends StatelessWidget {
             ),
           ),
           SizedBox(height: MARGIN_MEDIUM),
-          InterText(item.name, style:TextStyle(fontSize: TEXT_REGULAR_2X - 2)),
+          InterText(item.name, style: TextStyle(fontSize: TEXT_REGULAR_2X - 2)),
         ],
       );
     });
@@ -148,6 +149,7 @@ class EnchantmentItem extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: enchantItem.icon,
                 width: 75,
+                placeholder: (context, url) => ImageLoadingPlaceholder(size: 75),
                 filterQuality: FilterQuality.high,
               ),
             ),

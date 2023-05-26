@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/tier_group_vo.dart';
+import 'package:openalbion_weaponry/features/global/image_loading_placeholder.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:openalbion_weaponry/features/home/widgets/item_list_loading.dart';
@@ -91,6 +93,7 @@ class ItemView extends StatelessWidget {
                     tag: 'item${item.id}',
                     child: CachedNetworkImage(
                       imageUrl: item.icon,
+                      placeholder: (context, url) => ImageLoadingPlaceholder(size: 70),
                       width: 70,
                     ),
                   ),
@@ -113,6 +116,7 @@ class ItemView extends StatelessWidget {
     );
   }
 }
+
 
 class TierGroupView extends StatelessWidget {
   final TierGroupVO tierGroup;

@@ -120,6 +120,8 @@ class GearStatTitleAndDropDown extends StatelessWidget {
                       ),
                       buttonStyleData: const ButtonStyleData(
                         height: 40,
+                        padding: EdgeInsets.only(right: MARGIN_MEDIUM)
+
                       ),
                       dropdownStyleData: DropdownStyleData(
                         offset: Offset(0, -10),
