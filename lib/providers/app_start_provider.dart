@@ -20,6 +20,10 @@ class AppStartProvider extends BasedProvider {
     _getBugCategoryList();
   }
 
+  void reportToFirebase(String message) {
+    _fireRepository.reportToFirebase(message);
+  }
+
   void _getBugCategoryList() async {
     _bugCategoryList = ["Item Missing", "Item Wrong Info", "Other"];
     notifyListeners();

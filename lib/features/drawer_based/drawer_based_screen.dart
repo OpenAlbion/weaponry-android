@@ -92,6 +92,7 @@ class FabSection extends StatelessWidget {
             if (startProvider.bugCategoryList.isNotEmpty) {
               return DebugFloatingActionButton(
                 onTap: () {
+                  startProvider.reportToFirebase("click_debug_report");
                   DialogUtils.showDebugReport(
                       context: context,
                       titleList: startProvider.bugCategoryList,

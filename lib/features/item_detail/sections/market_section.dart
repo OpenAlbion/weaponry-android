@@ -24,7 +24,7 @@ class MarketSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: MARGIN_LARGE),
-                  InterText("Market Price"),
+                  InterText("Market Price(${provider.selectedMarketServer})"),
                   SizedBox(height: MARGIN_MEDIUM_2),
                   Row(
                     children: [
