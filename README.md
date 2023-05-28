@@ -3,17 +3,78 @@
 ## OpenAlbion Weaponry Application
 This project is open-source mobile project to showcase our api data and help the begineer players to learn about the variety of Albion Online items. You can also checkout api repository which is also open-source and you can generate api token for your own application. All of the market price in the application are from the from the exceptional efforts of [The Albion Online Data Project](https://www.albion-online-data.com/) which offers a client designed for the collection of price information, along with an API for accessing that valuable data. This project serves as an invaluable resource for players, enabling them to stay informed about item prices within the game.
 
-## About OpenAlbion
-OpenAlbion is a free and open-source project that provides Albion Online data and an API for developers to create their own applications. Our mission is to empower the Albion Online community by offering access to valuable game data, allowing developers to build innovative tools and services.
+## Installation
+1. Create your API token at [api.openalbion.com](https://openalbion.com/).
+2. Crate `.env` file in root folder of the project. In the `.env` file, create API_TOKEN variable.
+```
+API_TOKEN = '...Your API Key...'
+```
+3. In `api_constants.dart` file, update based url.
+```
+// change api/weaponry to api/v1
+static const OPEN_ALBION_URL = "https://api.openalbion.com/api/v1";
+```
+4. Remove _initializeAppCheck() function in main and analytics function in providers if you don't use Firebase App Check And Analytics.
+5. Modify `network_repository_impl.dart` to add API token. And replace appCheckToken in network call with apiToken.
+```
+// import necessary library
+..
+..
+  NetworkRepositoryImpl.internal() {
+    // load .env file
+    _initializeEnv();
+  }
+  
+  void _initializeEnv() async {
+    await dotenv.load(fileName: ".env");
+    var apiToken = dotenv.env['API_TOKEN'];
+  }
+  
+  ..
+  ..
+  
+    @override
+  Future<Either<AppError, List<CategoryVO>>> getCategoryList() async {
+    try {
+      // remove appCheckToken
+      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      // if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
+            
+      // remove appCheckToken and pass apiToken
+      // var response = await _albionClient.openAlbionApi().getCategoryList(appCheckToken: appCheckToken);
+      final apiToken = dotenv.env['API_TOKEN'];
+      var response = await _albionClient.openAlbionApi().getCategoryList(apiToken: apiToken);
+      return Right(response.data);
+      
+    } on DioError catch (e) {
+      return Left(ErrorMapper.mapDioToAppError(e));
+    } on JsonUnsupportedObjectError catch (_) {
+      return Left(AppError(code: "-", message: "Respond is not Json"));
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
+    }
+  }
 
-## Repository Highlights
-Here are some of the key repositories within our organization:
+```
+6. Create apiToken argument in `market_price_api.dart` and `open_albion_api.dart`.
+```
+  @GET("/categories")
+  Future<ResponseCategoryList> getCategoryList();
+  @GET("/categories?api_token={apiToken}")
+  Future<ResponseCategoryList> getCategoryList(
+    // @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    @Path() apiToken,
+  );
+```
+7. Run pub get and build_runner in terminal
+```
+flutter pub get
+flutter packages run build_runner build --delete-conflicting-outputs
+```
 
-- [OpenAlbion API](https://github.com/OpenAlbion/api): The official API repository, where you can find the code for accessing Albion Online data.
-- [OpenAlbion Android App](https://github.com/OpenAlbion/weaponry-android): The repository for our Android application, offering a mobile interface to explore Albion Online data on the go.
 
-## Support Us
+## License
 
-Running a project like OpenAlbion incurs server and maintenance costs. If you find our project useful and would like to support us, you can make a [donation](https://ko-fi.com/openalbion). Your support will help us keep the project running smoothly and continue providing free access to Albion Online data.
-
-Thank you for being a part of the OpenAlbion community!
+The OpenAlbion is open-sourced software licensed under the [MIT license](https://opensource.org/license/mit/).
