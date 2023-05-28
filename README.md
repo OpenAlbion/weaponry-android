@@ -74,6 +74,9 @@ flutter pub get
 flutter packages run build_runner build --delete-conflicting-outputs
 ```
 
+## API Documentation
+
+Read the full documentation at [openalbion.com](https://openalbion.com).
 
 ## License
 
