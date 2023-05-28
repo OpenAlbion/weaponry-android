@@ -199,7 +199,7 @@ class AboutProjectSection extends StatelessWidget {
             svgIcon: 'assets/images/svgs/ic_document.svg',
             enableDarkModeColor: true,
             onTap: () async {
-              await launchUrl(Uri.parse("https://openalbion.com/"),
+              await launchUrl(Uri.parse("https://openalbion.com?ref=com.openalbion.weaponry"),
                   mode: LaunchMode.externalApplication);
             },
           )
@@ -328,20 +328,39 @@ class AboutCreditsSection extends StatelessWidget {
         SizedBox(height: MARGIN_MEDIUM),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-          child: InterText(
-            AppLocalizations.of(context)!.about_credits_description,
-            style: TextStyle(
-              height: 1.4,
-              fontSize: TEXT_REGULAR,
-            ),
+          child: RichText(
+            text: TextSpan(children: [
+              TextSpan(
+                text: AppLocalizations.of(context)!.about_credits_description_part_1,
+                style: TextStyle(
+                    height: 1.4,
+                    fontSize: TEXT_REGULAR,
+                    color: Theme.of(context).textTheme.displayMedium!.color),
+              ),
+              TextSpan(
+                text: AppLocalizations.of(context)!.about_credits_description_part_2,
+                style: TextStyle(
+                    height: 1.4,
+                    fontSize: TEXT_REGULAR,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).textTheme.displayMedium!.color),
+              ),
+              TextSpan(
+                text: AppLocalizations.of(context)!.about_credits_description_part_3,
+                style: TextStyle(
+                    height: 1.4,
+                    fontSize: TEXT_REGULAR,
+                    color: Theme.of(context).textTheme.displayMedium!.color),
+              ),
+            ]),
           ),
         ),
         SizedBox(height: MARGIN_MEDIUM_2),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: WebLauncherButton(
-            text: 'Github',
-            svgIcon: 'assets/images/svgs/ic_github_dark.svg',
+            text: 'Documentation',
+            svgIcon: 'assets/images/svgs/ic_document.svg',
             enableDarkModeColor: true,
             onTap: () async {
               await launchUrl(Uri.parse("https://www.albion-online-data.com/"),
