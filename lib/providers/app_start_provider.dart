@@ -87,7 +87,7 @@ class AppStartProvider extends BasedProvider {
       if (currentVersionExtanded < latestVersionExtended) {
         DialogUtils.showVersionUpdateDialog(
             context: context,
-            versionResult: R.copyWith(force: false),
+            versionResult: R,
             onUpdate: () async {
               await launchUrl(
                   Uri.parse("https://play.google.com/store/apps/details?id=com.openalbion.weaponry"),
