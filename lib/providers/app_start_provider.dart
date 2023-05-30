@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/report_vo.dart';
+import 'package:openalbion_weaponry/data/vos/version_result_vo.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository.dart';
 import 'package:openalbion_weaponry/network/firebase/firebase_analytics_repository_impl.dart';
 import 'package:openalbion_weaponry/network/repository/network_repository.dart';
@@ -12,7 +13,9 @@ import 'package:openalbion_weaponry/network/repository/network_repository_impl.d
 import 'package:openalbion_weaponry/persistent/shared_preference.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/utils/dialog_utils.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shake/shake.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppStartProvider extends BasedProvider {
   AppError? appError;
@@ -27,6 +30,7 @@ class AppStartProvider extends BasedProvider {
 
   late ShakeDetector _detector;
 
+  // bug report
   void initializeShaker(BuildContext context) {
     _bugCategoryList = ["Item Missing", "Item Wrong Info", "Other"];
     _detector = ShakeDetector.autoStart(
@@ -62,6 +66,41 @@ class AppStartProvider extends BasedProvider {
     }, (R) {
       setNotifyMessage("Thanks For Your Report.");
     });
+  }
+
+  // check version
+  void checkVersion(BuildContext context) async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String currentVersion = packageInfo.version;
+    int currentVersionExtanded = getExtendedVersionNumber(currentVersion);
+
+    if (await handleConnectionView(isReplaceView: true)) {
+      return;
+    }
+    Either<AppError, VersionResultVO> data = await _repository.checkVersion();
+    data.fold((L) {
+      appError = L;
+    }, (R) {
+      String latestVersion = R.version;
+      int latestVersionExtended = getExtendedVersionNumber(latestVersion);
+      if (currentVersionExtanded < latestVersionExtended) {
+        DialogUtils.showVersionUpdateDialog(
+            context: context,
+            versionResult: R.copyWith(force: false),
+            onUpdate: () async {
+              await launchUrl(
+                  Uri.parse("https://play.google.com/store/apps/details?id=com.openalbion.weaponry"),
+                  mode: LaunchMode.externalApplication);
+            });
+      }
+    });
+  }
+
+  int getExtendedVersionNumber(String version) {
+    List versionCells = version.split('.');
+    versionCells = versionCells.map((i) => int.parse(i)).toList();
+    return versionCells[0] * 100000 + versionCells[1] * 1000 + versionCells[2];
   }
 
   @override

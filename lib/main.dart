@@ -1,12 +1,13 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/firebase_options.dart';
+import 'package:openalbion_weaponry/network/repository/network_repository_impl.dart';
 import 'package:openalbion_weaponry/persistent/dao/search_result_dao.dart';
 import 'package:openalbion_weaponry/persistent/hive_constants.dart';
 
@@ -20,11 +21,12 @@ Future<void> main() async {
   settingsController.loadSettings();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  _handleFirebaseCloudMessaging();
-  await _initializeAppCheck();
   await _initializeHive();
+  await _initializeEnv();
+  await NetworkRepositoryImpl().checkVersion();
+
+  _handleFirebaseCloudMessaging();
   _initializeOrientation();
-  // await NetworkRepositoryImpl().searchItem(text: "scholar");
 
   runApp(MyApp(settingsController: settingsController));
 }
@@ -64,16 +66,8 @@ void _showLocalNotification(String title, String message) async {
   await flutterLocalNotificationsPlugin.show(10, title, message, notificationDetails, payload: 'item x');
 }
 
-_initializeAppCheck() async {
-  await FirebaseAppCheck.instance.activate(
-    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-    // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose
-    // your preferred provider. Choose from:
-    // 1. debug provider
-    // 2. safety net provider
-    // 3. play integrity provider
-    androidProvider: AndroidProvider.playIntegrity,
-  );
+Future<void> _initializeEnv() async {
+  await dotenv.load(fileName: ".env");
 }
 
 _initializeHive() async {

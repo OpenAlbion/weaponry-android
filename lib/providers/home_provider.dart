@@ -47,6 +47,11 @@ class HomeProvider extends BasedProvider {
   void _getCategoryList() async {
     setState(ViewState.LOADING);
     if (await handleConnectionView(isReplaceView: false)) {
+      itemLoading = false;
+      itemComplete = false;
+      appError = AppError(code: "-", message: "No Internet Connection.");
+      setState(ViewState.ERROR);
+
       return;
     }
     Either<AppError, List<CategoryVO>> data = await _repository.getCategoryList();
@@ -75,6 +80,10 @@ class HomeProvider extends BasedProvider {
     notifyListeners();
 
     if (await handleConnectionView(isReplaceView: false)) {
+      itemLoading = false;
+      itemComplete = false;
+      appError = AppError(code: "-", message: "No Internet Connection.");
+      setState(ViewState.ERROR);
       return;
     }
     Either<AppError, List<ItemVO>> data =
@@ -117,7 +126,6 @@ class HomeProvider extends BasedProvider {
     } else {
       throw Exception("Empty Category List");
     }
-    print(selectedSubCategory);
   }
 
   void setCategoryAndSubCategory({int? catId, int? subId, bool setFirstSubcategory = false}) {

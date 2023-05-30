@@ -21,11 +21,10 @@ class _OpenAlbionApi implements OpenAlbionApi {
   String? baseUrl;
 
   @override
-  Future<ResponseCategoryList> getCategoryList(
-      {required String appCheckToken}) async {
+  Future<ResponseCategoryList> getCategoryList({required String key}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    final _headers = <String, dynamic>{r'X-WEAPONRY-KEY': key};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -47,13 +46,13 @@ class _OpenAlbionApi implements OpenAlbionApi {
 
   @override
   Future<ResponseItemList> getItemListBySubCategoryId({
-    required String appCheckToken,
+    required String key,
     required String path,
     required int subId,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    final _headers = <String, dynamic>{r'X-WEAPONRY-KEY': key};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
@@ -75,14 +74,14 @@ class _OpenAlbionApi implements OpenAlbionApi {
 
   @override
   Future<ResponseEnchantmentList> getItemDetailById({
-    required String appCheckToken,
+    required String key,
     required String itemType,
     required String itemType2,
     required int itemId,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    final _headers = <String, dynamic>{r'X-WEAPONRY-KEY': key};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -104,13 +103,13 @@ class _OpenAlbionApi implements OpenAlbionApi {
 
   @override
   Future<ResponseSlotList> getSpellDetailById({
-    required String appCheckToken,
+    required String key,
     required String itemType,
     required int itemId,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    final _headers = <String, dynamic>{r'X-WEAPONRY-KEY': key};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
@@ -132,12 +131,12 @@ class _OpenAlbionApi implements OpenAlbionApi {
 
   @override
   Future<ResponseSearchResultList> searchItem({
-    required String appCheckToken,
+    required String key,
     required String text,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    final _headers = <String, dynamic>{r'X-WEAPONRY-KEY': key};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -159,12 +158,12 @@ class _OpenAlbionApi implements OpenAlbionApi {
 
   @override
   Future<void> reportbug({
-    required String appCheckToken,
+    required String key,
     required ReportVO reportVO,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    final _headers = <String, dynamic>{r'X-WEAPONRY-KEY': key};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(reportVO.toJson());
@@ -180,6 +179,30 @@ class _OpenAlbionApi implements OpenAlbionApi {
           data: _data,
         )
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<VersionResultVO> checkVersion({required String key}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'X-WEAPONRY-KEY': key};
+    _headers.removeWhere((k, v) => v == null);
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<VersionResultVO>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/version-check',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = VersionResultVO.fromJson(_result.data!);
+    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

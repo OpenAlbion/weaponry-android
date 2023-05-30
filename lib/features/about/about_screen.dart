@@ -195,8 +195,8 @@ class AboutProjectSection extends StatelessWidget {
           ),
           SizedBox(height: MARGIN_MEDIUM_2),
           WebLauncherButton(
-            text: 'Documentation',
-            svgIcon: 'assets/images/svgs/ic_document.svg',
+            text: 'Website',
+            svgIcon: 'assets/images/svgs/ic_web.svg',
             enableDarkModeColor: true,
             onTap: () async {
               await launchUrl(Uri.parse("https://openalbion.com?ref=com.openalbion.weaponry"),
@@ -292,16 +292,31 @@ class AboutUsSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: MARGIN_MEDIUM_2),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-          child: WebLauncherButton(
-            text: 'Discord',
-            svgIcon: 'assets/images/svgs/ic_discord.svg',
-            enableDarkModeColor: false,
-            onTap: () async {
-              await launchUrl(Uri.parse("https://discord.gg/CsUYDy5Mc6"));
-            },
-          ),
+        Wrap(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
+              child: WebLauncherButton(
+                text: 'Discord',
+                svgIcon: 'assets/images/svgs/ic_discord.svg',
+                enableDarkModeColor: false,
+                onTap: () async {
+                  await launchUrl(Uri.parse("https://discord.gg/CsUYDy5Mc6"));
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
+              child: WebLauncherButton(
+                text: 'Twitter',
+                svgIcon: 'assets/images/svgs/ic_twitter.svg',
+                enableDarkModeColor: false,
+                onTap: () async {
+                  await launchUrl(Uri.parse("https://discord.gg/CsUYDy5Mc6"));
+                },
+              ),
+            ),
+          ],
         )
       ],
     );
@@ -359,8 +374,8 @@ class AboutCreditsSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: WebLauncherButton(
-            text: 'Documentation',
-            svgIcon: 'assets/images/svgs/ic_document.svg',
+            text: 'Website',
+            svgIcon: 'assets/images/svgs/ic_web.svg',
             enableDarkModeColor: true,
             onTap: () async {
               await launchUrl(Uri.parse("https://www.albion-online-data.com/"),

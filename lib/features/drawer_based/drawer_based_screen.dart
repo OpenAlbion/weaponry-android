@@ -37,6 +37,8 @@ class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
     YYDialog.init(context);
 
     context.read<AppStartProvider>().initializeShaker(context);
+    context.read<AppStartProvider>().checkVersion(context);
+
     super.initState();
   }
 
@@ -96,7 +98,7 @@ class FabSection extends StatelessWidget {
                   DialogUtils.showDebugReport(
                       context: context,
                       titleList: startProvider.bugCategoryList,
-                      onDimissied: (){},
+                      onDimissied: () {},
                       onSubmited: (report) {
                         startProvider.reportBug(report: report);
                       });

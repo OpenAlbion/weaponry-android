@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/debug_vo.dart';
 import 'package:openalbion_weaponry/data/vos/report_vo.dart';
+import 'package:openalbion_weaponry/data/vos/version_result_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/features/global/simple_dropdown.dart';
 import 'package:openalbion_weaponry/features/global/simple_textfield.dart';
@@ -66,14 +67,6 @@ class DialogUtils {
                     onChanged: (text) {
                       selectedDescription = text;
                     }),
-                // SizedBox(height: MARGIN_MEDIUM_2),
-                // InterText(AppLocalizations.of(context)!.bug_note,
-                //     style: TextStyle(fontWeight: FontWeight.w600)),
-                // SizedBox(height: MARGIN_MEDIUM),
-                // InterText(
-                //   AppLocalizations.of(context)!.bug_note_detail,
-                //   style: TextStyle(fontSize: TEXT_REGULAR),
-                // ),
                 SizedBox(height: MARGIN_LARGE),
                 Row(
                   children: [
@@ -121,6 +114,97 @@ class DialogUtils {
                       },
                       child: InterText(
                         AppLocalizations.of(context)!.submit,
+                        style: TextStyle(color: whiteText, fontSize: TEXT_REGULAR - 1),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      }))
+      // ..animatedFunc = (child, animation) {
+      //   return ScaleTransition(
+      //     scale: Tween(begin: 0.0, end: 1.0).animate(animation),
+      //     child: child,
+      //   );
+      // }
+      ..animatedFunc = (child, animation) {
+        return FadeTransition(
+          opacity: Tween(begin: 0.0, end: 1.0).animate(animation),
+          child: child,
+        );
+      }
+      ..show();
+  }
+
+  static YYDialog showVersionUpdateDialog(
+      {required BuildContext context,
+      required VersionResultVO versionResult,
+      required Function onUpdate}) {
+    var yyDialog = YYDialog();
+    return yyDialog.build()
+      ..width = 320
+      ..barrierDismissible = !versionResult.force
+      ..backgroundColor = Theme.of(context).scaffoldBackgroundColor
+      ..borderRadius = MARGIN_MEDIUM
+      ..showCallBack = () {}
+      ..dismissCallBack = () {}
+      ..widget(Builder(builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: MARGIN_MEDIUM_2, horizontal: MARGIN_MEDIUM_2),
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InterText(versionResult.title,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: TEXT_REGULAR_2X)),
+                SizedBox(height: MARGIN_MEDIUM),
+                Divider(height: MARGIN_MEDIUM_2),
+                InterText(
+                  versionResult.description,
+                ),
+                SizedBox(height: MARGIN_MEDIUM_2),
+                versionResult.force ?Padding(
+                  padding: const EdgeInsets.only(bottom: MARGIN_MEDIUM_2),
+                  child: InterText(
+                    AppLocalizations.of(context)!.you_need_to_upgrade,
+                    style: TextStyle(fontSize: TEXT_SMALL),
+                  ),
+                ): SizedBox(),
+                Row(
+                  children: [
+                    Spacer(),
+                    !versionResult.force
+                        ? TextButton(
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateColor.resolveWith(
+                                  (states) => blackBackground.withOpacity(0.1)),
+                              shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(MARGIN_MEDIUM),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              yyDialog.dismiss();
+                            },
+                            child: InterText(AppLocalizations.of(context)!.cancel),
+                          )
+                        : SizedBox(),
+                    SizedBox(width: MARGIN_MEDIUM_2),
+                    FilledButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(primaryRed),
+                          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(MARGIN_MEDIUM)))),
+                      onPressed: () {
+                        onUpdate();
+                      },
+                      child: InterText(
+                        AppLocalizations.of(context)!.update,
                         style: TextStyle(color: whiteText, fontSize: TEXT_REGULAR - 1),
                       ),
                     ),

@@ -22,14 +22,14 @@ class _MarketPriceApi implements MarketPriceApi {
 
   @override
   Future<List<MarketPriceVO>> getMarketPrice({
-    required String appCheckToken,
+    required String key,
     required String region,
     required String itemId,
     required int quality,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'X-Firebase-AppCheck': appCheckToken};
+    final _headers = <String, dynamic>{r'X-WEAPONRY-KEY': key};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio

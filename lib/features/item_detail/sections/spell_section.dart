@@ -101,10 +101,11 @@ class AttributeRow extends StatelessWidget {
           SizedBox(
               width: 100, child: InterText(attributeVO.name, style: TextStyle(fontSize: TEXT_SMALL))),
           SizedBox(width: 20, child: InterText(":", style: TextStyle(fontSize: TEXT_SMALL))),
-          SizedBox(
-              width: 80,
-              child: InterText(attributeVO.value,
-                  style: TextStyle(fontSize: TEXT_SMALL), textAlign: TextAlign.end))
+          Expanded(
+            child: SizedBox(
+                child: InterText(attributeVO.value,
+                    style: TextStyle(fontSize: TEXT_SMALL), textAlign: TextAlign.start)),
+          )
         ],
       ),
     );

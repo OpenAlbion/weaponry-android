@@ -32,5 +32,7 @@
   "cancel" : "Cancel",
   "submit" : "Submit",
   "invalid_information" : "Invalid Information",
-  "shake_to_report" : "Shake To Report"
+  "shake_to_report" : "Shake To Report",
+  "update": "Update",
+  "you_need_to_upgrade": "** You need to upgrade latest version to continue using the application. **"
 }

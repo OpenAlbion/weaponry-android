@@ -12,7 +12,7 @@ abstract class MarketPriceApi {
   @GET(
       "/aod/{region}/item/{itemId}/price?locations=Caerleon,Bridgewatch,Lymhurst,Thetford,Martlock,Fort Sterling&qualities={quality}")
   Future<List<MarketPriceVO>> getMarketPrice({
-    @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    @Header(ApiConstants.X_WEAPONRY_KEY) required String key,
     @Path() required String region,
     @Path() required String itemId,
     @Path() required int quality,

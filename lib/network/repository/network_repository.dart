@@ -7,6 +7,7 @@ import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
 import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/data/vos/slot_vo.dart';
+import 'package:openalbion_weaponry/data/vos/version_result_vo.dart';
 
 abstract class NetworkRepository {
   // Future<Either<AppError, ItemDetailVO>> getItemDetail(String itemId);
@@ -36,4 +37,6 @@ abstract class NetworkRepository {
   Future<Either<AppError, String>> reportBug({
     required ReportVO report,
   });
+
+    Future<Either<AppError, VersionResultVO>> checkVersion();
 }

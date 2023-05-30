@@ -57,7 +57,7 @@ class DrawerHeaderSection extends StatelessWidget {
             child: IconButton(
               padding: EdgeInsets.zero,
               onPressed: () async {
-                await launchUrl(Uri.parse("https://github.com/OpenAlbion/api"),
+                await launchUrl(Uri.parse("https://github.com/OpenAlbion"),
                     mode: LaunchMode.externalApplication);
               },
               icon: SvgPicture.asset('assets/images/svgs/ic_github.svg', width: MARGIN_LARGE),
