@@ -301,7 +301,8 @@ class AboutUsSection extends StatelessWidget {
                 svgIcon: 'assets/images/svgs/ic_discord.svg',
                 enableDarkModeColor: false,
                 onTap: () async {
-                  await launchUrl(Uri.parse("https://discord.gg/CsUYDy5Mc6"));
+                  await launchUrl(Uri.parse("https://discord.gg/CsUYDy5Mc6"),
+                      mode: LaunchMode.externalApplication);
                 },
               ),
             ),
@@ -312,7 +313,8 @@ class AboutUsSection extends StatelessWidget {
                 svgIcon: 'assets/images/svgs/ic_twitter.svg',
                 enableDarkModeColor: false,
                 onTap: () async {
-                  await launchUrl(Uri.parse("https://discord.gg/CsUYDy5Mc6"));
+                  await launchUrl(Uri.parse("https://twitter.com/openalbion"),
+                      mode: LaunchMode.externalApplication);
                 },
               ),
             ),

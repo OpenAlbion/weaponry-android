@@ -54,8 +54,8 @@ void _showLocalNotification(String title, String message) async {
 
   const AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
     '100',
-    'your channel name',
-    channelDescription: 'your channel description',
+    'open_albion_channel',
+    channelDescription: 'Notification channel for OpenAlbion Weaponry application',
     importance: Importance.max,
     priority: Priority.high,
     ticker: 'ticker',
