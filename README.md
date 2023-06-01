@@ -5,70 +5,27 @@ This project is open-source mobile project to showcase our api data and help the
 
 ## Installation
 1. Create your API token at [api.openalbion.com](https://openalbion.com/).
-2. Crate `.env` file in root folder of the project. In the `.env` file, create API_TOKEN variable.
-```
-API_TOKEN = '...Your API Key...'
-```
-3. In `api_constants.dart` file, update based url.
+2. In `api_constants.dart` file, update based url.
 ```
 // change api/weaponry to api/v1
 static const OPEN_ALBION_URL = "https://api.openalbion.com/api/v1";
 ```
-4. Remove _initializeAppCheck() function in main and analytics function in providers if you don't use Firebase App Check And Analytics.
-5. Modify `network_repository_impl.dart` to add API token. And replace appCheckToken in network call with apiToken.
+3. Modify `network_repository_impl.dart` to add API token. And replace key in network call with apiToken.
+```   
+var response = await _albionClient.openAlbionApi().getCategoryList(apiToken: YOUR_API_TOKEN);
 ```
-// import necessary library
-..
-..
-  NetworkRepositoryImpl.internal() {
-    // load .env file
-    _initializeEnv();
-  }
-  
-  void _initializeEnv() async {
-    await dotenv.load(fileName: ".env");
-    var apiToken = dotenv.env['API_TOKEN'];
-  }
-  
-  ..
-  ..
-  
-    @override
-  Future<Either<AppError, List<CategoryVO>>> getCategoryList() async {
-    try {
-      // remove appCheckToken
-      // final appCheckToken = await FirebaseAppCheck.instance.getToken();
-      // if (appCheckToken == null) return Left(AppError(code: "-", message: "FireAppCheck Token Null"));
-            
-      // remove appCheckToken and pass apiToken
-      // var response = await _albionClient.openAlbionApi().getCategoryList(appCheckToken: appCheckToken);
-      final apiToken = dotenv.env['API_TOKEN'];
-      var response = await _albionClient.openAlbionApi().getCategoryList(apiToken: apiToken);
-      return Right(response.data);
-      
-    } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
-    } on JsonUnsupportedObjectError catch (_) {
-      return Left(AppError(code: "-", message: "Respond is not Json"));
-    } on TypeError catch (_) {
-      return Left(AppError(code: "-", message: "Invalid Json Type"));
-    } on FirebaseException catch (e) {
-      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
-    }
-  }
-
-```
-6. Create apiToken argument in `market_price_api.dart` and `open_albion_api.dart`.
+4. Create apiToken argument in `market_price_api.dart` and `open_albion_api.dart`.
 ```
   @GET("/categories")
   Future<ResponseCategoryList> getCategoryList();
   @GET("/categories?api_token={apiToken}")
   Future<ResponseCategoryList> getCategoryList(
-    // @Header(ApiConstants.X_Firebase_AppCheck) required String appCheckToken,
+    // Remove Auth Header
+    // @Header(ApiConstants.X_WEAPONRY_KEY) required String key,
     @Path() apiToken,
   );
 ```
-7. Run pub get and build_runner in terminal
+5. Run pub get and build_runner in terminal
 ```
 flutter pub get
 flutter packages run build_runner build --delete-conflicting-outputs
