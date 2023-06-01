@@ -1,4 +1,4 @@
-![OpenAlbion Weaponry](https://github.com/OpenAlbion/weaponry-android/blob/development/images/app_banner_full_resolution.png)<br>
+![OpenAlbion Weaponry](https://res.cloudinary.com/pyaesoneaung/image/upload/v1685415256/openalbion/android_preview.png)<br>
 
 ## OpenAlbion Weaponry Application
 This project is open-source mobile project to showcase our api data and help the begineer players to learn about the variety of Albion Online items. You can also checkout api repository which is also open-source and you can generate api token for your own application. All of the market price in the application are from the from the exceptional efforts of [The Albion Online Data Project](https://www.albion-online-data.com/) which offers a client designed for the collection of price information, along with an API for accessing that valuable data. This project serves as an invaluable resource for players, enabling them to stay informed about item prices within the game.
