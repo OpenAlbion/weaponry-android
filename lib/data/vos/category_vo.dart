@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:openalbion_weaponry/constants/app_constants.dart';
 import 'package:openalbion_weaponry/data/vos/sub_category_vo.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -23,8 +24,13 @@ extension CategoryListExtension on List<CategoryVO> {
     return where((category) => category.type == type).toList();
   }
 
+  List<CategoryVO> getAvailableTypeList() {
+    return where((category) => AppConstants.AVAILABLE_CATEGORY_LIST.contains(category.type)).toList();
+  }
+
   List<String> getUniqueTypeList() {
-    return map((category) => category.type).toSet().toList();
+    var availableList = getAvailableTypeList();
+    return availableList.map((category) => category.type).toSet().toList();
   }
 
   CategoryVO getCategoryById(int id) {

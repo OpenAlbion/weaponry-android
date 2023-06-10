@@ -16,4 +16,7 @@ class ApiConstants {
   static const STATUS_CODE_RECEIVE_TIMEOUT = "406";
 
   static const X_WEAPONRY_KEY = "X-WEAPONRY-KEY";
+
+  // PARAMETERS
+  static const AVAILABLE_MARKET_LOCATIONS = "Caerleon,Bridgewatch,Lymhurst,Thetford,Martlock,Fort Sterling";
 }

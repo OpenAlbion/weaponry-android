@@ -133,7 +133,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       var response = await _albionClient
           .marketPriceApi()
-          .getMarketPrice(key: key, region: server, itemId: itemId, quality: quality);
+          .getMarketPrice(key: key, region: server, itemId: itemId, quality: quality,locations: ApiConstants.AVAILABLE_MARKET_LOCATIONS);
 
       return Right(response);
     } on DioError catch (e) {

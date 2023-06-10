@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class AppConstants {
   static const CATEGORY_TYPE_SETTING = "setting";
   static const CATEGORY_TYPE_ABOUT = "about";
@@ -8,4 +10,6 @@ class AppConstants {
 
   static const SERVER_EAST = "east";
   static const SERVER_WEST = "west";
+
+  static const AVAILABLE_CATEGORY_LIST = ["weapon","armor","accessory"];
 }

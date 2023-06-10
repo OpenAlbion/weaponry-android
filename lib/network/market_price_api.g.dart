@@ -23,6 +23,7 @@ class _MarketPriceApi implements MarketPriceApi {
   @override
   Future<List<MarketPriceVO>> getMarketPrice({
     required String key,
+    required String locations,
     required String region,
     required String itemId,
     required int quality,
@@ -40,7 +41,7 @@ class _MarketPriceApi implements MarketPriceApi {
     )
             .compose(
               _dio.options,
-              '/aod/${region}/item/${itemId}/price?locations=Caerleon,Bridgewatch,Lymhurst,Thetford,Martlock,Fort Sterling&qualities=${quality}',
+              '/aod/${region}/item/${itemId}/price?locations=${locations}&qualities=${quality}',
               queryParameters: queryParameters,
               data: _data,
             )
