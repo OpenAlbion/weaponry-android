@@ -125,7 +125,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
   @override
   Future<Either<AppError, List<MarketPriceVO>>> getMarketPrice(
-      {required String itemId, required int quality}) async {
+      {required String itemId, required String quality}) async {
     try {
       final server = await _preference.getMarketServer();
       String? key = dotenv.env[ApiConstants.X_WEAPONRY_KEY];

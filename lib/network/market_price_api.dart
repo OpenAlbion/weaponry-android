@@ -15,6 +15,6 @@ abstract class MarketPriceApi {
     @Path() required String locations,
     @Path() required String region,
     @Path() required String itemId,
-    @Path() required int quality,
+    @Path() required String quality,
   });
 }

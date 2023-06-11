@@ -28,7 +28,7 @@ abstract class NetworkRepository {
   );
 
   Future<Either<AppError, List<MarketPriceVO>>> getMarketPrice(
-      {required String itemId, required int quality});
+      {required String itemId, required String quality});
 
   Future<Either<AppError, List<SearchResultVO>>> searchItem({
     required String text,

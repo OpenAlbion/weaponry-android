@@ -15,3 +15,33 @@ class MarketPriceVO with _$MarketPriceVO {
 
   factory MarketPriceVO.fromJson(Map<String, dynamic> json) => _$MarketPriceVOFromJson(json);
 }
+
+extension QualityNameMapperExtension on int {
+  String mapItemQualityName() {
+    switch (this) {
+      case 1:
+        return "Normal";
+
+      case 2:
+        return "Good";
+
+      case 3:
+        return "Outstanding";
+
+      case 4:
+        return "Excellent";
+
+      case 5:
+        return "Masterpiece";
+
+      default:
+        return "Unknown";
+    }
+  }
+}
+
+extension MarketPriceListExtension on List<MarketPriceVO> {
+  bool isMarketAvailable() {
+    return isNotEmpty && where((element) => element.sellPriceMin == 0).toList().length != length;
+  }
+}

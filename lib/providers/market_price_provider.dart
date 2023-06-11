@@ -14,7 +14,6 @@ class MarketPriceProvider extends BasedProvider {
   List<MarketPriceVO> get marketPriceList => _marketPriceList;
 
   String selectedId = "";
-  int selectedQuality = 1;
   int selectedEnchantment = 0;
   String selectedMarketServer = "";
 
@@ -43,13 +42,14 @@ class MarketPriceProvider extends BasedProvider {
     }
     Either<AppError, List<MarketPriceVO>> data = await _repository.getMarketPrice(
         itemId: selectedEnchantment != 0 ? "$selectedId@$selectedEnchantment" : selectedId,
-        quality: selectedQuality);
+        quality: AppConstants.AVAILABLE_MARKET_QUALITY);
     data.fold((L) {
       appError = L;
       print(appError);
       setState(ViewState.ERROR);
     }, (R) {
       _marketPriceList = R;
+      _marketPriceList.sort((a, b) => a.quality.compareTo(b.quality));
       // print("success $marketPriceList");
       // _selectedEnchantment = _enchanmentList.first;
       // _selectedQuality = _selectedEnchantment.stats.first;

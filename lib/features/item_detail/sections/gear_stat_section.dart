@@ -133,8 +133,8 @@ class GearStatTitleAndDropDown extends StatelessWidget {
                       onChanged: (quality) {
                         if (quality != null) {
                           provider.selectQuality(provider.selectedEnchantment.searchQualityVO(quality));
-                          marketProvider.selectedQuality = convertQualityNameToQualityId(quality);
-                          marketProvider.getMarketPrice();
+                          // marketProvider.selectedQuality = convertQualityNameToQualityId(quality);
+                          // marketProvider.getMarketPrice();
                         }
                       },
                       items: provider.selectedEnchantment.stats

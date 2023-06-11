@@ -136,8 +136,6 @@ class EnchantmentItem extends StatelessWidget {
       onTap: () {
         context.read<ItemDetailProvider>().selectEnchantment(enchantItem);
         context.read<MarketPriceProvider>().selectedEnchantment = enchantItem.enchantment;
-        context.read<MarketPriceProvider>().selectedQuality = 1;
-
         context.read<MarketPriceProvider>().getMarketPrice();
       },
       child: Padding(

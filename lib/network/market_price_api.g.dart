@@ -26,7 +26,7 @@ class _MarketPriceApi implements MarketPriceApi {
     required String locations,
     required String region,
     required String itemId,
-    required int quality,
+    required String quality,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
