@@ -53,6 +53,9 @@ String convertTypeToLocalizedName(String type, BuildContext context) {
     case 'accessory':
       return AppLocalizations.of(context)!.accessories;
 
+    case 'consumable':
+      return AppLocalizations.of(context)!.consumables;
+
     default:
       return AppLocalizations.of(context)!.weaponType;
   }

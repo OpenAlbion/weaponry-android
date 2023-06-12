@@ -6,6 +6,7 @@
   "appName": "OpenAlbion Weaponry",
   "weaponType": "Weapon Type",
   "armorType": "Armor Type",
+  "consumables": "Consumables",
   "accessories": "Accessories",
   "choose_enchantment_level": "Choose Enchantment Level",
   "gear_stats": "Gear Stats",
