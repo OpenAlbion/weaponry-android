@@ -13,7 +13,7 @@ class _MarketPriceApi implements MarketPriceApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://api.openalbion.com/api/weaponry';
+    baseUrl ??= 'https://api.openalbion.com/api/weaponryV2';
   }
 
   final Dio _dio;

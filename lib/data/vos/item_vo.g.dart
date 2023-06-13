@@ -11,6 +11,7 @@ _$_ItemVO _$$_ItemVOFromJson(Map<String, dynamic> json) => _$_ItemVO(
       name: json['name'] as String? ?? "",
       tier: json['tier'] as String? ?? "",
       identifier: json['identifier'] as String? ?? "",
+      info: json['info'] as String? ?? "",
       itemPower: json['item_power'] as int?,
       icon: json['icon'] as String? ?? "",
     );
@@ -20,6 +21,7 @@ Map<String, dynamic> _$$_ItemVOToJson(_$_ItemVO instance) => <String, dynamic>{
       'name': instance.name,
       'tier': instance.tier,
       'identifier': instance.identifier,
+      'info': instance.info,
       'item_power': instance.itemPower,
       'icon': instance.icon,
     };

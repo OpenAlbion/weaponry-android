@@ -35,5 +35,9 @@
   "invalid_information" : "Invalid Information",
   "shake_to_report" : "Shake To Report",
   "update": "Update",
-  "you_need_to_upgrade": "** You need to upgrade latest version to continue using the application. **"
+  "you_need_to_upgrade": "** You need to upgrade latest version to continue using the application. **",
+  "consumer_description": "Description",
+  "consumer_statics": "Consumable Statistics",
+  "consumer_crafting_by_product" : "Crafting By Products",
+  "consumer_ingredients": "Ingredients"
 }

@@ -96,6 +96,7 @@ class HomeProvider extends BasedProvider {
     }, (R) {
       _itemList = R;
       _tierGroupList = _itemList.convertToTierGroupList();
+      _tierGroupList.sort(((a, b) => a.tier.toString().compareTo(b.tier.toString())));
       itemLoading = false;
       itemComplete = true;
       appError = null;

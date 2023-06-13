@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openalbion_weaponry/features/consumable_detail/consumable_detail_screen.dart';
 import 'package:openalbion_weaponry/features/drawer_based/drawer_based_screen.dart';
 import 'package:openalbion_weaponry/features/home/home_screen.dart';
 import 'package:openalbion_weaponry/features/item_detail/item_detail_screen.dart';
@@ -14,15 +15,17 @@ class Routes {
             return HomeScreen();
 
           case DrawerBasedScreen.routeName:
-            return Builder(
-              builder: (context) {
-                return DrawerBasedScreen(settingsController: controller);
-              }
-            );
+            return Builder(builder: (context) {
+              return DrawerBasedScreen(settingsController: controller);
+            });
 
           case ItemDetailScreen.routeName:
             final args = ModalRoute.of(context)!.settings.arguments as ItemDetailArgs;
             return ItemDetailScreen(args: args);
+
+          case ConsumableDetailScreen.routeName:
+            final args = ModalRoute.of(context)!.settings.arguments as ConsumableDetailArgs;
+            return ConsumableDetailScreen(args: args);
 
           default:
             // return TestScreen();

@@ -24,6 +24,7 @@ mixin _$ItemVO {
   String get name => throw _privateConstructorUsedError;
   String get tier => throw _privateConstructorUsedError;
   String get identifier => throw _privateConstructorUsedError;
+  String get info => throw _privateConstructorUsedError;
   @JsonKey(name: "item_power")
   int? get itemPower => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $ItemVOCopyWith<$Res> {
       String name,
       String tier,
       String identifier,
+      String info,
       @JsonKey(name: "item_power") int? itemPower,
       String icon});
 }
@@ -64,6 +66,7 @@ class _$ItemVOCopyWithImpl<$Res, $Val extends ItemVO>
     Object? name = null,
     Object? tier = null,
     Object? identifier = null,
+    Object? info = null,
     Object? itemPower = freezed,
     Object? icon = null,
   }) {
@@ -83,6 +86,10 @@ class _$ItemVOCopyWithImpl<$Res, $Val extends ItemVO>
       identifier: null == identifier
           ? _value.identifier
           : identifier // ignore: cast_nullable_to_non_nullable
+              as String,
+      info: null == info
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
               as String,
       itemPower: freezed == itemPower
           ? _value.itemPower
@@ -107,6 +114,7 @@ abstract class _$$_ItemVOCopyWith<$Res> implements $ItemVOCopyWith<$Res> {
       String name,
       String tier,
       String identifier,
+      String info,
       @JsonKey(name: "item_power") int? itemPower,
       String icon});
 }
@@ -125,6 +133,7 @@ class __$$_ItemVOCopyWithImpl<$Res>
     Object? name = null,
     Object? tier = null,
     Object? identifier = null,
+    Object? info = null,
     Object? itemPower = freezed,
     Object? icon = null,
   }) {
@@ -144,6 +153,10 @@ class __$$_ItemVOCopyWithImpl<$Res>
       identifier: null == identifier
           ? _value.identifier
           : identifier // ignore: cast_nullable_to_non_nullable
+              as String,
+      info: null == info
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
               as String,
       itemPower: freezed == itemPower
           ? _value.itemPower
@@ -165,6 +178,7 @@ class _$_ItemVO implements _ItemVO {
       this.name = "",
       this.tier = "",
       this.identifier = "",
+      this.info = "",
       @JsonKey(name: "item_power") this.itemPower,
       this.icon = ""});
 
@@ -183,6 +197,9 @@ class _$_ItemVO implements _ItemVO {
   @JsonKey()
   final String identifier;
   @override
+  @JsonKey()
+  final String info;
+  @override
   @JsonKey(name: "item_power")
   final int? itemPower;
   @override
@@ -191,7 +208,7 @@ class _$_ItemVO implements _ItemVO {
 
   @override
   String toString() {
-    return 'ItemVO(id: $id, name: $name, tier: $tier, identifier: $identifier, itemPower: $itemPower, icon: $icon)';
+    return 'ItemVO(id: $id, name: $name, tier: $tier, identifier: $identifier, info: $info, itemPower: $itemPower, icon: $icon)';
   }
 
   @override
@@ -204,6 +221,7 @@ class _$_ItemVO implements _ItemVO {
             (identical(other.tier, tier) || other.tier == tier) &&
             (identical(other.identifier, identifier) ||
                 other.identifier == identifier) &&
+            (identical(other.info, info) || other.info == info) &&
             (identical(other.itemPower, itemPower) ||
                 other.itemPower == itemPower) &&
             (identical(other.icon, icon) || other.icon == icon));
@@ -211,8 +229,8 @@ class _$_ItemVO implements _ItemVO {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, tier, identifier, itemPower, icon);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, tier, identifier, info, itemPower, icon);
 
   @JsonKey(ignore: true)
   @override
@@ -234,6 +252,7 @@ abstract class _ItemVO implements ItemVO {
       final String name,
       final String tier,
       final String identifier,
+      final String info,
       @JsonKey(name: "item_power") final int? itemPower,
       final String icon}) = _$_ItemVO;
 
@@ -247,6 +266,8 @@ abstract class _ItemVO implements ItemVO {
   String get tier;
   @override
   String get identifier;
+  @override
+  String get info;
   @override
   @JsonKey(name: "item_power")
   int? get itemPower;

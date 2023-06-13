@@ -11,6 +11,8 @@ class AppConstants {
   static const SERVER_EAST = "east";
   static const SERVER_WEST = "west";
 
-  static const AVAILABLE_CATEGORY_LIST = ["weapon", "armor", "accessory","consumable"];
+  static const AVAILABLE_CATEGORY_LIST = ["weapon", "armor", "accessory", "consumable"];
   static const AVAILABLE_MARKET_QUALITY = "1,2,3,4,5";
+
+  static const AVAILABLE_CONSUMABLE_TAB_LIST = ["General", "Market", "Crafting"];
 }

@@ -20,3 +20,8 @@ class InterText extends StatelessWidget {
     );
   }
 }
+
+TextStyle getInterTextStyle(BuildContext context) {
+  return TextStyle().copyWith(
+      fontFamily: inter, color: Theme.of(context).textTheme.displayMedium!.color);
+}
