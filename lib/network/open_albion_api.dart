@@ -3,6 +3,7 @@ import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/data/vos/version_result_vo.dart';
 import 'package:openalbion_weaponry/network/api_constants.dart';
 import 'package:openalbion_weaponry/network/response/response_category_list.dart';
+import 'package:openalbion_weaponry/network/response/response_crafting_list.dart';
 import 'package:openalbion_weaponry/network/response/response_enchantment_list.dart';
 import 'package:openalbion_weaponry/network/response/response_item_list.dart';
 import 'package:openalbion_weaponry/network/response/response_search_result_list.dart';
@@ -56,5 +57,11 @@ abstract class OpenAlbionApi {
   @GET("/version-check")
   Future<VersionResultVO> checkVersion({
     @Header(ApiConstants.X_WEAPONRY_KEY) required String key,
+  });
+
+  @GET("/consumable-craftings/consumable/{itemId}")
+  Future<ResponseCraftingList> getCraftingDetail({
+    @Header(ApiConstants.X_WEAPONRY_KEY) required String key,
+    @Path() required int itemId,
   });
 }

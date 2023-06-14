@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
+import 'package:openalbion_weaponry/data/vos/crafting_enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
@@ -38,5 +39,7 @@ abstract class NetworkRepository {
     required ReportVO report,
   });
 
-    Future<Either<AppError, VersionResultVO>> checkVersion();
+  Future<Either<AppError, VersionResultVO>> checkVersion();
+
+  Future<Either<AppError, List<CraftingEnchantmentVO>>> getCraftingDetail({required int itemId});
 }

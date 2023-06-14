@@ -23,7 +23,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await _initializeHive();
   await _initializeEnv();
-  await NetworkRepositoryImpl().checkVersion();
+  // await NetworkRepositoryImpl().getCraftingDetail(itemId: 18);
 
   _handleFirebaseCloudMessaging();
   _initializeOrientation();

@@ -60,6 +60,7 @@ class _ConsumableTabSectionState extends State<ConsumableTabSection> with Ticker
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: MARGIN_MEDIUM),
         TabBar(
           controller: _controller,
           isScrollable: true,
@@ -71,9 +72,11 @@ class _ConsumableTabSectionState extends State<ConsumableTabSection> with Ticker
           tabs: AppConstants.AVAILABLE_CONSUMABLE_TAB_LIST
               .map((tab) => Tab(
                     text: tab,
+                    height: 35,
                   ))
               .toList(),
         ),
+        SizedBox(height: MARGIN_MEDIUM),
         _buildTabBodySection()
       ],
     );
@@ -101,7 +104,7 @@ class _ConsumableTabSectionState extends State<ConsumableTabSection> with Ticker
         return ConsumableMarketSection();
 
       case 2:
-        return ConsumableCraftingSection();
+        return ConsumableCraftingSection(item: widget.item,);
 
       default:
         return SizedBox();

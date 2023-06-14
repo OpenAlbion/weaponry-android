@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/category_vo.dart';
+import 'package:openalbion_weaponry/data/vos/crafting_enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
@@ -131,9 +132,12 @@ class NetworkRepositoryImpl implements NetworkRepository {
       String? key = dotenv.env[ApiConstants.X_WEAPONRY_KEY];
       if (key == null) return Left(AppError(code: "-", message: "X-Weaponry-Key Empty."));
 
-      var response = await _albionClient
-          .marketPriceApi()
-          .getMarketPrice(key: key, region: server, itemId: itemId, quality: quality,locations: ApiConstants.AVAILABLE_MARKET_LOCATIONS);
+      var response = await _albionClient.marketPriceApi().getMarketPrice(
+          key: key,
+          region: server,
+          itemId: itemId,
+          quality: quality,
+          locations: ApiConstants.AVAILABLE_MARKET_LOCATIONS);
 
       return Right(response);
     } on DioError catch (e) {
@@ -196,6 +200,26 @@ class NetworkRepositoryImpl implements NetworkRepository {
       var response = await _albionClient.openAlbionApi().checkVersion(key: key);
 
       return Right(response);
+    } on DioError catch (e) {
+      return Left(ErrorMapper.mapDioToAppError(e));
+    } on JsonUnsupportedObjectError catch (_) {
+      return Left(AppError(code: "-", message: "Respond is not Json"));
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<CraftingEnchantmentVO>>> getCraftingDetail({required int itemId}) async {
+    try {
+      String? key = dotenv.env[ApiConstants.X_WEAPONRY_KEY];
+      if (key == null) return Left(AppError(code: "-", message: "X-Weaponry-Key Empty."));
+
+      var response = await _albionClient.openAlbionApi().getCraftingDetail(key: key, itemId: itemId);
+
+      return Right(response.data);
     } on DioError catch (e) {
       return Left(ErrorMapper.mapDioToAppError(e));
     } on JsonUnsupportedObjectError catch (_) {
