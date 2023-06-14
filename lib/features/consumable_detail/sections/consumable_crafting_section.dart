@@ -17,6 +17,7 @@ import 'package:openalbion_weaponry/providers/crafting_provider.dart';
 import 'package:openalbion_weaponry/providers/market_price_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
+import 'package:openalbion_weaponry/utils/dialog_utils.dart';
 import 'package:provider/provider.dart';
 
 class ConsumableCraftingSection extends StatelessWidget {
@@ -123,57 +124,74 @@ class IngredientItemView extends StatelessWidget {
     return Consumer<CraftingProvider>(builder: (context, craftingProvider, child) {
       return Padding(
         padding: const EdgeInsets.only(bottom: MARGIN_MEDIUM_2),
-        child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-          decoration: BoxDecoration(
-              color: getCardColor(context).withOpacity(0.5),
-              borderRadius: BorderRadius.circular(MARGIN_MEDIUM)),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(height: MARGIN_MEDIUM_2),
-            Row(
-              children: [
-                SizedBox(width: MARGIN_MEDIUM_2),
-                CachedNetworkImage(
-                  imageUrl: craftingRequirementVO.icon,
-                  width: 75,
-                  filterQuality: FilterQuality.high,
-                ),
-                SizedBox(width: MARGIN_MEDIUM_2),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: GestureDetector(
+          onTap: () {
+            DialogUtils.showAlredyHaveDialog(
+                context: context,
+                onUpdate: (amount) {
+                  craftingProvider.alreadyHaveMap[craftingRequirementVO.name] = amount;
+                  craftingProvider.notifyListeners();
+                });
+          },
+          child: Container(
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+            decoration: BoxDecoration(
+                color: getCardColor(context).withOpacity(0.5),
+                borderRadius: BorderRadius.circular(MARGIN_MEDIUM)),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(height: MARGIN_MEDIUM_2),
+              Row(
+                children: [
+                  SizedBox(width: MARGIN_MEDIUM_2),
+                  CachedNetworkImage(
+                    imageUrl: craftingRequirementVO.icon,
+                    width: 75,
+                    filterQuality: FilterQuality.high,
+                  ),
+                  SizedBox(width: MARGIN_MEDIUM_2),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InterText(craftingRequirementVO.name),
+                      SizedBox(height: MARGIN_MEDIUM),
+                      InterText(
+                          "x ${craftingRequirementVO.value * craftingProvider.selectedCraftAmount}")
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: MARGIN_MEDIUM_2),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+                child: Row(
                   children: [
-                    InterText(craftingRequirementVO.name),
-                    SizedBox(height: MARGIN_MEDIUM),
-                    InterText("x ${craftingRequirementVO.value * craftingProvider.selectedCraftAmount}")
+                    SizedBox(width: 120, child: InterText("Already Have")),
+                    InterText("- ${craftingProvider.getAlreadyHaveAmount(craftingRequirementVO.name)}")
                   ],
                 ),
-              ],
-            ),
-            SizedBox(height: MARGIN_MEDIUM_2),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-              child: Row(
-                children: [SizedBox(width: 120, child: InterText("Already Have")), InterText("- 100")],
               ),
-            ),
-            SizedBox(height: MARGIN_MEDIUM_2),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-              child: Row(
-                children: [SizedBox(width: 120, child: InterText("Need To Buy")), InterText("- 100")],
+              SizedBox(height: MARGIN_MEDIUM_2),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+                child: Row(
+                  children: [SizedBox(width: 120, child: InterText("Need To Buy")), InterText("- ${craftingProvider.getNeedToBuyAmount(itemName: craftingRequirementVO.name, value: craftingRequirementVO.value)}")],
+                ),
               ),
-            ),
-            SizedBox(height: MARGIN_MEDIUM_2),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-              child: Row(
-                children: [SizedBox(width: 120, child: InterText("Estimate Cost")), InterText("- 100K")],
+              SizedBox(height: MARGIN_MEDIUM_2),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+                child: Row(
+                  children: [
+                    SizedBox(width: 120, child: InterText("Estimate Cost")),
+                    InterText("- 100K")
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: MARGIN_MEDIUM_2),
-          ]),
+              SizedBox(height: MARGIN_MEDIUM_2),
+            ]),
+          ),
         ),
       );
     });
@@ -256,12 +274,14 @@ class ProductSection extends StatelessWidget {
                       },
                       svgIcon: "assets/images/svgs/ic_minus.svg"),
                   SizedBox(width: MARGIN_MEDIUM_2),
-                  SimpleButton(onTap: () {
-                    if (craftProvider.selectedCraftAmount < 100) {
+                  SimpleButton(
+                      onTap: () {
+                        if (craftProvider.selectedCraftAmount < 100) {
                           craftProvider.selectedCraftAmount += 1;
                           craftProvider.notifyListeners();
                         }
-                  }, svgIcon: "assets/images/svgs/ic_plus.svg")
+                      },
+                      svgIcon: "assets/images/svgs/ic_plus.svg")
                 ],
               ),
             ),

@@ -18,6 +18,8 @@ class CraftingProvider extends BasedProvider {
   List<CraftingEnchantmentVO> _craftingEnchantmentList = [];
   List<CraftingEnchantmentVO> get craftingEnchantmentList => _craftingEnchantmentList;
 
+  Map<String, int> alreadyHaveMap = {};
+
   AppError? appError;
   final NetworkRepository _repository = NetworkRepositoryImpl();
   final FirebaseAnalyticsRepository _fireRepository = FirebaseAnalyticsRepositoryImpl();
@@ -67,6 +69,21 @@ class CraftingProvider extends BasedProvider {
   void updateSelectedCraftAmount(double amount) {
     selectedCraftAmount = amount.toInt();
     notifyListeners();
+  }
+
+  int getAlreadyHaveAmount(String itemName) {
+    return alreadyHaveMap[itemName] ?? 0;
+  }
+
+  int getNeedToBuyAmount({required itemName,required int value}) {
+    int alredayHaveAmount = getAlreadyHaveAmount(itemName);
+    int totalAmount = selectedCraftAmount * value;
+    int result = totalAmount - alredayHaveAmount;
+    if (result.isNegative) {
+      return 0;
+    } else {
+      return result;
+    }
   }
 
   String getTotalProfit() {

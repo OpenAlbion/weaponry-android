@@ -10,6 +10,7 @@ import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/data/vos/version_result_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:openalbion_weaponry/features/global/simple_dropdown.dart';
+import 'package:openalbion_weaponry/features/global/simple_numberfield.dart';
 import 'package:openalbion_weaponry/features/global/simple_textfield.dart';
 import 'package:openalbion_weaponry/providers/app_start_provider.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
@@ -167,13 +168,15 @@ class DialogUtils {
                   versionResult.description,
                 ),
                 SizedBox(height: MARGIN_MEDIUM_2),
-                versionResult.force ?Padding(
-                  padding: const EdgeInsets.only(bottom: MARGIN_MEDIUM_2),
-                  child: InterText(
-                    AppLocalizations.of(context)!.you_need_to_upgrade,
-                    style: TextStyle(fontSize: TEXT_SMALL),
-                  ),
-                ): SizedBox(),
+                versionResult.force
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: MARGIN_MEDIUM_2),
+                        child: InterText(
+                          AppLocalizations.of(context)!.you_need_to_upgrade,
+                          style: TextStyle(fontSize: TEXT_SMALL),
+                        ),
+                      )
+                    : SizedBox(),
                 Row(
                   children: [
                     Spacer(),
@@ -202,6 +205,93 @@ class DialogUtils {
                               borderRadius: BorderRadius.circular(MARGIN_MEDIUM)))),
                       onPressed: () {
                         onUpdate();
+                      },
+                      child: InterText(
+                        AppLocalizations.of(context)!.update,
+                        style: TextStyle(color: whiteText, fontSize: TEXT_REGULAR - 1),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      }))
+      // ..animatedFunc = (child, animation) {
+      //   return ScaleTransition(
+      //     scale: Tween(begin: 0.0, end: 1.0).animate(animation),
+      //     child: child,
+      //   );
+      // }
+      ..animatedFunc = (child, animation) {
+        return FadeTransition(
+          opacity: Tween(begin: 0.0, end: 1.0).animate(animation),
+          child: child,
+        );
+      }
+      ..show();
+  }
+
+  static YYDialog showAlredyHaveDialog(
+      {required BuildContext context, required Function(int) onUpdate}) {
+    var yyDialog = YYDialog();
+    var amount = "";
+
+    return yyDialog.build()
+      ..width = 320
+      ..backgroundColor = Theme.of(context).scaffoldBackgroundColor
+      ..borderRadius = MARGIN_MEDIUM
+      ..showCallBack = () {}
+      ..dismissCallBack = () {}
+      ..widget(Builder(builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: MARGIN_MEDIUM_2, horizontal: MARGIN_MEDIUM_2),
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InterText("Update Already Have Amount",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: TEXT_REGULAR_2X)),
+                SizedBox(height: MARGIN_MEDIUM),
+                Divider(height: MARGIN_MEDIUM_2),
+                SizedBox(height: MARGIN_MEDIUM),
+                SimpleNumberField(
+                    hint: "100",
+                    onChanged: (text) {
+                      amount = text;
+                    }),
+                SizedBox(height: MARGIN_MEDIUM_2),
+                Row(
+                  children: [
+                    Spacer(),
+                    TextButton(
+                      style: ButtonStyle(
+                        overlayColor:
+                            MaterialStateColor.resolveWith((states) => blackBackground.withOpacity(0.1)),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(MARGIN_MEDIUM),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        yyDialog.dismiss();
+                      },
+                      child: InterText(AppLocalizations.of(context)!.cancel),
+                    ),
+                    SizedBox(width: MARGIN_MEDIUM_2),
+                    FilledButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(primaryRed),
+                          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(MARGIN_MEDIUM)))),
+                      onPressed: () {
+                        if (amount.trim().isNotEmpty) {
+                          onUpdate(int.parse(amount));
+                        }
+                        yyDialog.dismiss();
                       },
                       child: InterText(
                         AppLocalizations.of(context)!.update,
