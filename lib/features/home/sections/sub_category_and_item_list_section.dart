@@ -31,6 +31,7 @@ class SubCategoryAndItemListSection extends StatelessWidget {
     switch (itemType) {
       case 'weapon':
       case 'armor':
+      case 'accessory':
         Navigator.pushNamed(context, ItemDetailScreen.routeName,
             arguments: ItemDetailArgs(item: item, type: itemType));
         break;

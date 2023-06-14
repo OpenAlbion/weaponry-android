@@ -2,6 +2,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/attribute_vo.dart';
+import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/stat_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,7 +11,8 @@ import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class ConsumableGeneralSection extends StatelessWidget {
-  const ConsumableGeneralSection({super.key});
+  final ItemVO item;
+  const ConsumableGeneralSection({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class ConsumableGeneralSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: InterText(
-            "The Pork Omelette is a Tier 7 consumable that reduces cool down periods and skill casting times. Players may craft Pork Omelette at the Cook. Pork Omelette may add nutrition to crafting stations and is the Favorite Dish at the Alchemist's Lab. Players may only have one type of Food active at one time. Effects of Pork Omelette last for 30 minutes. Pork Omelette per craft: 10 ",
+            item.info.trim(),
             style: TextStyle(height: 1.4),
           ),
         ),
@@ -78,11 +80,11 @@ class ConsumableAttributeRow extends StatelessWidget {
           const EdgeInsets.only(top: MARGIN_MEDIUM_2, left: MARGIN_MEDIUM_2, right: MARGIN_MEDIUM_2),
       child: Row(
         children: [
-          SizedBox(width: 120, child: InterText(statVO.name, style: TextStyle(fontSize: TEXT_REGULAR))),
+          SizedBox(width: 120, child: InterText(statVO.name.trim(), style: TextStyle(fontSize: TEXT_REGULAR))),
           SizedBox(width: 20, child: InterText(":", style: TextStyle(fontSize: TEXT_REGULAR))),
           Expanded(
             child: SizedBox(
-                child: InterText(statVO.value,
+                child: InterText(statVO.value.trim(),
                     style: TextStyle(fontSize: TEXT_REGULAR), textAlign: TextAlign.start)),
           )
         ],

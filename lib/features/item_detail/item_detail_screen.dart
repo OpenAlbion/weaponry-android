@@ -31,7 +31,7 @@ class ItemDetailScreen extends StatelessWidget {
                 NormalBackButton(),
                 ChooseEnchantmentSection(item: args.item),
                 GearStatSection(),
-                MarketSection(),
+                MarketSection(requiredVeritcalPadding: true),
                 SpellSection(),
                 SizedBox(height: MARGIN_LARGE),
               ],

@@ -11,7 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class MarketSection extends StatelessWidget {
-  const MarketSection({super.key});
+  final bool requiredVeritcalPadding;
+  const MarketSection({super.key, required this.requiredVeritcalPadding});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class MarketSection extends StatelessWidget {
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: MARGIN_LARGE),
+                  requiredVeritcalPadding ? SizedBox(height: MARGIN_LARGE) : SizedBox(),
                   InterText("Market Price(${provider.selectedMarketServer})"),
                   SizedBox(height: MARGIN_MEDIUM_2),
                   Row(
@@ -90,8 +91,9 @@ class MarketPriceRow extends StatelessWidget {
               Row(
                 children: [
                   SizedBox(
-                    width: 120,
-                    child: InterText("$royalCity\n(${quality.mapItemQualityName()})", style: TextStyle(fontSize: TEXT_SMALL))),
+                      width: 120,
+                      child: InterText("$royalCity\n(${quality.mapItemQualityName()})",
+                          style: TextStyle(fontSize: TEXT_SMALL))),
                   Spacer(),
                   SizedBox(
                       width: 100,

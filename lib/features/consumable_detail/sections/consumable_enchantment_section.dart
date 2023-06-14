@@ -135,8 +135,8 @@ class EnchantmentItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<ConsumableDetailProvider>().selectEnchantment(enchantItem);
-        // context.read<MarketPriceProvider>().selectedEnchantment = enchantItem.enchantment;
-        // context.read<MarketPriceProvider>().getMarketPrice();
+        context.read<MarketPriceProvider>().selectedEnchantment = enchantItem.enchantment;
+        context.read<MarketPriceProvider>().getMarketPrice();
       },
       child: Padding(
         padding: const EdgeInsets.only(left: MARGIN_MEDIUM),

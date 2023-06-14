@@ -5,6 +5,7 @@ import 'package:openalbion_weaponry/features/consumable_detail/sections/consumab
 import 'package:openalbion_weaponry/features/consumable_detail/sections/consumable_tab_section.dart';
 import 'package:openalbion_weaponry/features/item_detail/widgets/normal_back_button.dart';
 import 'package:openalbion_weaponry/providers/consumable_detail_provider.dart';
+import 'package:openalbion_weaponry/providers/market_price_provider.dart';
 import 'package:provider/provider.dart';
 
 class ConsumableDetailScreen extends StatelessWidget {
@@ -16,7 +17,7 @@ class ConsumableDetailScreen extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ConsumableDetailProvider>(create: (_) => ConsumableDetailProvider()..getItemDetail(args.type, args.item.id)),
-        // ChangeNotifierProvider(create: (_) => MarketPriceProvider()..initializeIdAndMarket(args.item.identifier))
+        ChangeNotifierProvider(create: (_) => MarketPriceProvider()..initializeIdAndMarket(args.item.identifier))
       ],
       child: Scaffold(
         body: SafeArea(
@@ -26,7 +27,7 @@ class ConsumableDetailScreen extends StatelessWidget {
               children: [
                 NormalBackButton(),
                 ConsumableEnchantmentSection(item: args.item),
-                ConsumableTabSection(),
+                ConsumableTabSection(item: args.item),
                 SizedBox(height: MARGIN_LARGE),
               ],
             ),
