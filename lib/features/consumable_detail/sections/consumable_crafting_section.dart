@@ -215,6 +215,8 @@ class ProductSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CraftingProvider>(builder: (context, craftProvider, child) {
       return Consumer<ConsumableDetailProvider>(builder: (context, detailProvider, child) {
+        var enchantment = craftProvider.getCraftingEnchantment(
+            enchantmentId: detailProvider.selectedEnchantment.enchantment);
         return Container(
           width: double.infinity,
           margin: EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
@@ -240,24 +242,24 @@ class ProductSection extends StatelessWidget {
                   children: [
                     InterText(item.name),
                     SizedBox(height: MARGIN_MEDIUM),
-                    craftProvider.getCraftingEnchantment(
-                                enchantmentId: detailProvider.selectedEnchantment.enchantment) !=
-                            null
+                    enchantment != null
                         ? InterText(
-                            "x ${craftProvider.selectedCraftAmount * craftProvider.getCraftingEnchantment(enchantmentId: detailProvider.selectedEnchantment.enchantment)?.crafting.perCraft}")
+                            "x ${craftProvider.selectedCraftAmount * enchantment.crafting.perCraft}")
                         : SizedBox()
                   ],
                 ),
               ],
             ),
             SizedBox(height: MARGIN_MEDIUM_2),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-              child: InterText(
-                "Per Craft (x${craftProvider.perCraft}) :",
-                style: TextStyle(fontSize: TEXT_SMALL),
-              ),
-            ),
+            enchantment != null
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
+                    child: InterText(
+                      "Per Craft (x${craftProvider.getCraftingEnchantment(enchantmentId: detailProvider.selectedEnchantment.enchantment)?.crafting.perCraft}) :",
+                      style: TextStyle(fontSize: TEXT_SMALL),
+                    ),
+                  )
+                : SizedBox(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
               child: FlutterSlider(
