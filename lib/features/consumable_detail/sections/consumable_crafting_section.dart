@@ -100,10 +100,12 @@ class IngredientSection extends StatelessWidget {
             ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: enchantment.crafting.requirements.length,
+                itemCount: enchantment?.crafting.requirements.length ?? 0,
                 itemBuilder: (context, index) {
-                  return IngredientItemView(
-                      craftingRequirementVO: enchantment.crafting.requirements[index]);
+                  return enchantment != null
+                      ? IngredientItemView(
+                          craftingRequirementVO: enchantment.crafting.requirements[index])
+                      : SizedBox();
                 })
           ],
         );
@@ -238,8 +240,12 @@ class ProductSection extends StatelessWidget {
                   children: [
                     InterText(item.name),
                     SizedBox(height: MARGIN_MEDIUM),
-                    InterText(
-                        "x ${craftProvider.selectedCraftAmount * craftProvider.getCraftingEnchantment(enchantmentId: detailProvider.selectedEnchantment.enchantment).crafting.perCraft}")
+                    craftProvider.getCraftingEnchantment(
+                                enchantmentId: detailProvider.selectedEnchantment.enchantment) !=
+                            null
+                        ? InterText(
+                            "x ${craftProvider.selectedCraftAmount * craftProvider.getCraftingEnchantment(enchantmentId: detailProvider.selectedEnchantment.enchantment)?.crafting.perCraft}")
+                        : SizedBox()
                   ],
                 ),
               ],
@@ -259,7 +265,9 @@ class ProductSection extends StatelessWidget {
                 min: 1.0,
                 max: 100.0,
                 touchSize: 22,
-                trackBar: FlutterSliderTrackBar(activeTrackBar: BoxDecoration(color: secondaryRed)),
+                trackBar: FlutterSliderTrackBar(
+                    activeTrackBar: BoxDecoration(color: secondaryRed),
+                    inactiveTrackBar: BoxDecoration(color: secondaryRed.withOpacity(0.1))),
                 onDragging: (handlerIndex, lowerValue, upperValue) {
                   craftProvider.updateSelectedCraftAmount(lowerValue as double);
                 },

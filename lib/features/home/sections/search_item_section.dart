@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/data/vos/search_result_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
+import 'package:openalbion_weaponry/features/home/home_screen.dart';
 import 'package:openalbion_weaponry/features/home/sections/item_list_section.dart';
 import 'package:openalbion_weaponry/features/home/widgets/history_view.dart';
 import 'package:openalbion_weaponry/features/item_detail/item_detail_screen.dart';
@@ -52,12 +53,16 @@ class HistorySection extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: provider.searchResultHistoryList.length,
                 itemBuilder: (context, index) {
-                  return HistoryView(text: provider.searchResultHistoryList[index].name, onTap: () {
-                    Navigator.pushNamed(context, ItemDetailScreen.routeName,
-                              arguments: ItemDetailArgs(
-                                  item: provider.searchResultHistoryList[index].convertToItemVO(),
-                                  type: provider.searchResultHistoryList[index].type));
-                  });
+                  return HistoryView(
+                      text: provider.searchResultHistoryList[index].name,
+                      onTap: () {
+                        navigateDetailScreen(context, provider.searchResultHistoryList[index].type,
+                            provider.searchResultHistoryList[index].convertToItemVO());
+                        // Navigator.pushNamed(context, ItemDetailScreen.routeName,
+                        //     arguments: ItemDetailArgs(
+                        //         item: provider.searchResultHistoryList[index].convertToItemVO(),
+                        //         type: provider.searchResultHistoryList[index].type));
+                      });
                   // return Text(provider.searchResultList[index].name);
                 }),
           ),
@@ -91,10 +96,13 @@ class SearchResultSection extends StatelessWidget {
                         item: provider.searchResultList[index].convertToItemVO(),
                         onTap: () {
                           provider.addSearchResult(provider.searchResultList[index]);
-                          Navigator.pushNamed(context, ItemDetailScreen.routeName,
-                              arguments: ItemDetailArgs(
-                                  item: provider.searchResultList[index].convertToItemVO(),
-                                  type: provider.searchResultList[index].type));
+                          navigateDetailScreen(context, provider.searchResultList[index].type,
+                              provider.searchResultList[index].convertToItemVO());
+
+                          // Navigator.pushNamed(context, ItemDetailScreen.routeName,
+                          //     arguments: ItemDetailArgs(
+                          //         item: provider.searchResultList[index].convertToItemVO(),
+                          //         type: provider.searchResultList[index].type));
                         });
                   }),
             ],

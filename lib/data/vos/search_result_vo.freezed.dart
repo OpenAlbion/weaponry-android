@@ -38,6 +38,8 @@ mixin _$SearchResultVO {
   int? get typeId => throw _privateConstructorUsedError;
   @HiveField(7)
   int get createdAt => throw _privateConstructorUsedError;
+  @HiveField(8, defaultValue: "")
+  String get info => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +61,8 @@ abstract class $SearchResultVOCopyWith<$Res> {
       @HiveField(4) String icon,
       @HiveField(5) @JsonKey(name: "item_power") int? itemPower,
       @HiveField(6) @JsonKey(name: "type_id") int? typeId,
-      @HiveField(7) int createdAt});
+      @HiveField(7) int createdAt,
+      @HiveField(8, defaultValue: "") String info});
 }
 
 /// @nodoc
@@ -83,6 +86,7 @@ class _$SearchResultVOCopyWithImpl<$Res, $Val extends SearchResultVO>
     Object? itemPower = freezed,
     Object? typeId = freezed,
     Object? createdAt = null,
+    Object? info = null,
   }) {
     return _then(_value.copyWith(
       type: null == type
@@ -117,6 +121,10 @@ class _$SearchResultVOCopyWithImpl<$Res, $Val extends SearchResultVO>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as int,
+      info: null == info
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -137,7 +145,8 @@ abstract class _$$_SearchResultVOCopyWith<$Res>
       @HiveField(4) String icon,
       @HiveField(5) @JsonKey(name: "item_power") int? itemPower,
       @HiveField(6) @JsonKey(name: "type_id") int? typeId,
-      @HiveField(7) int createdAt});
+      @HiveField(7) int createdAt,
+      @HiveField(8, defaultValue: "") String info});
 }
 
 /// @nodoc
@@ -159,6 +168,7 @@ class __$$_SearchResultVOCopyWithImpl<$Res>
     Object? itemPower = freezed,
     Object? typeId = freezed,
     Object? createdAt = null,
+    Object? info = null,
   }) {
     return _then(_$_SearchResultVO(
       type: null == type
@@ -193,6 +203,10 @@ class __$$_SearchResultVOCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as int,
+      info: null == info
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -208,7 +222,8 @@ class _$_SearchResultVO implements _SearchResultVO {
       @HiveField(4) this.icon = "",
       @HiveField(5) @JsonKey(name: "item_power") this.itemPower,
       @HiveField(6) @JsonKey(name: "type_id") this.typeId,
-      @HiveField(7) this.createdAt = 0});
+      @HiveField(7) this.createdAt = 0,
+      @HiveField(8, defaultValue: "") this.info = ""});
 
   factory _$_SearchResultVO.fromJson(Map<String, dynamic> json) =>
       _$$_SearchResultVOFromJson(json);
@@ -245,10 +260,14 @@ class _$_SearchResultVO implements _SearchResultVO {
   @JsonKey()
   @HiveField(7)
   final int createdAt;
+  @override
+  @JsonKey()
+  @HiveField(8, defaultValue: "")
+  final String info;
 
   @override
   String toString() {
-    return 'SearchResultVO(type: $type, name: $name, tier: $tier, identifier: $identifier, icon: $icon, itemPower: $itemPower, typeId: $typeId, createdAt: $createdAt)';
+    return 'SearchResultVO(type: $type, name: $name, tier: $tier, identifier: $identifier, icon: $icon, itemPower: $itemPower, typeId: $typeId, createdAt: $createdAt, info: $info)';
   }
 
   @override
@@ -266,13 +285,14 @@ class _$_SearchResultVO implements _SearchResultVO {
                 other.itemPower == itemPower) &&
             (identical(other.typeId, typeId) || other.typeId == typeId) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.info, info) || other.info == info));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, type, name, tier, identifier,
-      icon, itemPower, typeId, createdAt);
+      icon, itemPower, typeId, createdAt, info);
 
   @JsonKey(ignore: true)
   @override
@@ -297,7 +317,8 @@ abstract class _SearchResultVO implements SearchResultVO {
       @HiveField(4) final String icon,
       @HiveField(5) @JsonKey(name: "item_power") final int? itemPower,
       @HiveField(6) @JsonKey(name: "type_id") final int? typeId,
-      @HiveField(7) final int createdAt}) = _$_SearchResultVO;
+      @HiveField(7) final int createdAt,
+      @HiveField(8, defaultValue: "") final String info}) = _$_SearchResultVO;
 
   factory _SearchResultVO.fromJson(Map<String, dynamic> json) =
       _$_SearchResultVO.fromJson;
@@ -328,6 +349,9 @@ abstract class _SearchResultVO implements SearchResultVO {
   @override
   @HiveField(7)
   int get createdAt;
+  @override
+  @HiveField(8, defaultValue: "")
+  String get info;
   @override
   @JsonKey(ignore: true)
   _$$_SearchResultVOCopyWith<_$_SearchResultVO> get copyWith =>

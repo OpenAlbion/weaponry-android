@@ -77,6 +77,7 @@ _initializeHive() async {
   await Hive.openBox<SearchResultVO>(HiveConstants.BOX_NAME_SEARCH_RESULT_VO);
 }
 
+
 void _initializeOrientation() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

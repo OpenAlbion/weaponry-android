@@ -16,23 +16,43 @@ class SeachResultVOAdapter extends TypeAdapter<SearchResultVO> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SearchResultVO();
+    return SearchResultVO(
+      type: fields[0] as String,
+      name: fields[1] as String,
+      tier: fields[2] as String,
+      identifier: fields[3] as String,
+      icon: fields[4] as String,
+      itemPower: fields[5] as int?,
+      typeId: fields[6] as int?,
+      createdAt: fields[7] as int,
+      info :fields[8] == null ? '' : fields[8] as String
+
+    );
   }
 
   @override
   void write(BinaryWriter writer, SearchResultVO obj) {
-    writer.writeByte(0);
+    writer
+      ..writeByte(8)
+      ..writeByte(0)
+      ..write(obj.type)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.tier)
+      ..writeByte(3)
+      ..write(obj.identifier)
+      ..writeByte(4)
+      ..write(obj.icon)
+      ..writeByte(5)
+      ..write(obj.itemPower)
+      ..writeByte(6)
+      ..write(obj.typeId)
+      ..writeByte(7)
+      ..write(obj.createdAt)
+      ..writeByte(8)
+      ..write(obj.info);
   }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SeachResultVOAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }
 
 // **************************************************************************
@@ -49,6 +69,7 @@ _$_SearchResultVO _$$_SearchResultVOFromJson(Map<String, dynamic> json) =>
       itemPower: json['item_power'] as int?,
       typeId: json['type_id'] as int?,
       createdAt: json['createdAt'] as int? ?? 0,
+      info: json['info'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$_SearchResultVOToJson(_$_SearchResultVO instance) =>
@@ -61,4 +82,5 @@ Map<String, dynamic> _$$_SearchResultVOToJson(_$_SearchResultVO instance) =>
       'item_power': instance.itemPower,
       'type_id': instance.typeId,
       'createdAt': instance.createdAt,
+      'info': instance.info,
     };

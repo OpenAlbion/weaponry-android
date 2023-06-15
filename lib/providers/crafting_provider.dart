@@ -72,6 +72,11 @@ class CraftingProvider extends BasedProvider {
 
   void getCraftingMarketPrice({required int enchantmentId}) async {
     var enchantmentVO = getCraftingEnchantment(enchantmentId: enchantmentId);
+
+    if (enchantmentVO == null) {
+      return;
+    }
+
     _craftingMarketPriceList = [];
     notifyListeners();
 
@@ -107,8 +112,17 @@ class CraftingProvider extends BasedProvider {
     });
   }
 
-  CraftingEnchantmentVO getCraftingEnchantment({required int enchantmentId}) {
-    return _craftingEnchantmentList.where((element) => element.enchantment == enchantmentId).first;
+  CraftingEnchantmentVO? getCraftingEnchantment({required int enchantmentId}) {
+    var enchantmentList =
+        _craftingEnchantmentList.where((element) => element.enchantment == enchantmentId).toList();
+
+    if (enchantmentList.isEmpty) {
+      appError = AppError(code: "-", message: "There is no crafting process for this item.");
+      setState(ViewState.ERROR);
+      return null;
+    } else {
+      return enchantmentList.first;
+    }
   }
 
   void updateSelectedEnchantment(int enchantmentId) {

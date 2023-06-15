@@ -20,6 +20,7 @@ class SearchResultVO with _$SearchResultVO {
     @HiveField(5) @JsonKey(name: "item_power") int? itemPower,
     @HiveField(6) @JsonKey(name: "type_id") int? typeId,
     @HiveField(7) @Default(0) int createdAt,
+    @HiveField(8, defaultValue: "") @Default("") String info,
   }) = _SearchResultVO;
 
   factory SearchResultVO.fromJson(Map<String, dynamic> json) => _$SearchResultVOFromJson(json);
@@ -31,6 +32,7 @@ extension SearchResultVOExtenstion on SearchResultVO {
         id: typeId ?? 2,
         name: name,
         tier: tier,
+        info: info,
         identifier: identifier,
         itemPower: itemPower,
         icon: icon);
