@@ -230,4 +230,28 @@ class NetworkRepositoryImpl implements NetworkRepository {
       return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
     }
   }
+
+  @override
+  Future<Either<AppError, List<MarketPriceVO>>> getMarketPriceByLocation(
+      {required String itemId, required String quality, required String location}) async {
+    try {
+      final server = await _preference.getMarketServer();
+      String? key = dotenv.env[ApiConstants.X_WEAPONRY_KEY];
+      if (key == null) return Left(AppError(code: "-", message: "X-Weaponry-Key Empty."));
+
+      var response = await _albionClient
+          .marketPriceApi()
+          .getMarketPrice(key: key, region: server, itemId: itemId, quality: quality, locations: location);
+
+      return Right(response);
+    } on DioError catch (e) {
+      return Left(ErrorMapper.mapDioToAppError(e));
+    } on JsonUnsupportedObjectError catch (_) {
+      return Left(AppError(code: "-", message: "Respond is not Json"));
+    } on TypeError catch (_) {
+      return Left(AppError(code: "-", message: "Invalid Json Type"));
+    } on FirebaseException catch (e) {
+      return Left(AppError(code: "Firebase Exception", message: "${e.message}"));
+    }
+  }
 }

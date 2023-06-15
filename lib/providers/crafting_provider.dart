@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:openalbion_weaponry/constants/app_constants.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/crafting_enchantment_vo.dart';
 import 'package:openalbion_weaponry/data/vos/market_price_vo.dart';
@@ -18,6 +19,9 @@ class CraftingProvider extends BasedProvider {
   List<CraftingEnchantmentVO> _craftingEnchantmentList = [];
   List<CraftingEnchantmentVO> get craftingEnchantmentList => _craftingEnchantmentList;
 
+  List<MarketPriceVO> _craftingMarketPriceList = [];
+  List<MarketPriceVO> get craftingMarketPriceList => _craftingMarketPriceList;
+
   Map<String, int> alreadyHaveMap = {};
 
   AppError? appError;
@@ -28,7 +32,8 @@ class CraftingProvider extends BasedProvider {
   int perCraft = 10;
   int totalCraftAmount = 100;
   int selectedCraftAmount = 1;
-  int profitPerCraft = 1800;
+  int profitPerCraft = 0;
+  int selectedEnchantment = 0;
 
   String selectedCity = "";
 
@@ -39,7 +44,9 @@ class CraftingProvider extends BasedProvider {
   }
 
   void updateSelectedCity(String city) {
+    profitPerCraft = 0;
     selectedCity = city;
+    getCraftingMarketPrice(enchantmentId: selectedEnchantment);
     notifyListeners();
   }
 
@@ -58,11 +65,55 @@ class CraftingProvider extends BasedProvider {
     }, (R) {
       _craftingEnchantmentList = R;
       setState(ViewState.COMPLETE);
+
+      getCraftingMarketPrice(enchantmentId: selectedEnchantment);
+    });
+  }
+
+  void getCraftingMarketPrice({required int enchantmentId}) async {
+    var enchantmentVO = getCraftingEnchantment(enchantmentId: enchantmentId);
+    _craftingMarketPriceList = [];
+    notifyListeners();
+
+    String consumableIdentifier = enchantmentVO.enchantment != 0
+        ? "${enchantmentVO.crafting.consumable.identifier}@${enchantmentVO.enchantment}"
+        : enchantmentVO.crafting.consumable.identifier;
+
+    String ingredientIdentifier = enchantmentVO.crafting.requirements
+        .map((requirement) => requirement.identifier)
+        .toList()
+        .join(",");
+
+    // setState(ViewState.LOADING);
+    if (await handleConnectionView(isReplaceView: false)) {
+      return;
+    }
+    Either<AppError, List<MarketPriceVO>> data = await _repository.getMarketPriceByLocation(
+        itemId: "$consumableIdentifier,$ingredientIdentifier", location: selectedCity, quality: "1");
+    data.fold((L) {
+      appError = L;
+      print(appError);
+      // setState(ViewState.ERROR);
+    }, (R) {
+      _craftingMarketPriceList = R;
+
+      var consumableList =
+          _craftingMarketPriceList.where((element) => element.itemId == consumableIdentifier);
+      if (consumableList.isNotEmpty) {
+        profitPerCraft = consumableList.first.sellPriceMin;
+      }
+
+      notifyListeners();
     });
   }
 
   CraftingEnchantmentVO getCraftingEnchantment({required int enchantmentId}) {
     return _craftingEnchantmentList.where((element) => element.enchantment == enchantmentId).first;
+  }
+
+  void updateSelectedEnchantment(int enchantmentId) {
+    selectedEnchantment = enchantmentId;
+    notifyListeners();
   }
 
   // crafting methods
@@ -71,12 +122,12 @@ class CraftingProvider extends BasedProvider {
     notifyListeners();
   }
 
-  int getAlreadyHaveAmount(String itemName) {
-    return alreadyHaveMap[itemName] ?? 0;
+  int getAlreadyHaveAmount(String identifier) {
+    return alreadyHaveMap[identifier] ?? 0;
   }
 
-  int getNeedToBuyAmount({required itemName,required int value}) {
-    int alredayHaveAmount = getAlreadyHaveAmount(itemName);
+  int getNeedToBuyAmount({required identifier, required int value}) {
+    int alredayHaveAmount = getAlreadyHaveAmount(identifier);
     int totalAmount = selectedCraftAmount * value;
     int result = totalAmount - alredayHaveAmount;
     if (result.isNegative) {
@@ -87,8 +138,29 @@ class CraftingProvider extends BasedProvider {
   }
 
   String getTotalProfit() {
+    if (profitPerCraft == 0) {
+      return "Not Available";
+    }
     var totalCraft = selectedCraftAmount * perCraft;
     var totalProfit = profitPerCraft * totalCraft;
     return formatNumberInMillion(totalProfit);
+  }
+
+  String getCostForIngredient({required String identifier, required int value}) {
+    var needToBuyAmount = getNeedToBuyAmount(identifier: identifier, value: value);
+    var ingredientList =
+        craftingMarketPriceList.where((element) => element.itemId == identifier).toList();
+
+    if (ingredientList.isNotEmpty) {
+      var perCost = ingredientList.first.sellPriceMin;
+
+      if (perCost == 0) {
+        return "Not Available";
+      }
+      var totalCost = needToBuyAmount * perCost;
+      return formatNumberInMillion(totalCost);
+    } else {
+      return "Not Available";
+    }
   }
 }

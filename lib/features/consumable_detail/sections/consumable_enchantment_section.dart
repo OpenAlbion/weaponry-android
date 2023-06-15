@@ -10,6 +10,7 @@ import 'package:openalbion_weaponry/features/item_detail/widgets/dash_border_tex
 import 'package:openalbion_weaponry/features/item_detail/widgets/enchantment_loading.dart';
 import 'package:openalbion_weaponry/providers/based_provider.dart';
 import 'package:openalbion_weaponry/providers/consumable_detail_provider.dart';
+import 'package:openalbion_weaponry/providers/crafting_provider.dart';
 import 'package:openalbion_weaponry/providers/item_detail_provider.dart';
 import 'package:openalbion_weaponry/providers/market_price_provider.dart';
 import 'package:provider/provider.dart';
@@ -137,6 +138,13 @@ class EnchantmentItem extends StatelessWidget {
         context.read<ConsumableDetailProvider>().selectEnchantment(enchantItem);
         context.read<MarketPriceProvider>().selectedEnchantment = enchantItem.enchantment;
         context.read<MarketPriceProvider>().getMarketPrice();
+
+        context.read<CraftingProvider>().selectedEnchantment = enchantItem.enchantment;
+        if (context.read<CraftingProvider>().craftingEnchantmentList.isNotEmpty) {
+          context
+              .read<CraftingProvider>()
+              .getCraftingMarketPrice(enchantmentId: enchantItem.enchantment);
+        }
       },
       child: Padding(
         padding: const EdgeInsets.only(left: MARGIN_MEDIUM),

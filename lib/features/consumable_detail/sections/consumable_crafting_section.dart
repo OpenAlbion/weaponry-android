@@ -129,7 +129,7 @@ class IngredientItemView extends StatelessWidget {
             DialogUtils.showAlredyHaveDialog(
                 context: context,
                 onUpdate: (amount) {
-                  craftingProvider.alreadyHaveMap[craftingRequirementVO.name] = amount;
+                  craftingProvider.alreadyHaveMap[craftingRequirementVO.identifier] = amount;
                   craftingProvider.notifyListeners();
                 });
           },
@@ -168,7 +168,8 @@ class IngredientItemView extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: 120, child: InterText("Already Have")),
-                    InterText("- ${craftingProvider.getAlreadyHaveAmount(craftingRequirementVO.name)}")
+                    InterText(
+                        "- ${craftingProvider.getAlreadyHaveAmount(craftingRequirementVO.identifier)}")
                   ],
                 ),
               ),
@@ -176,7 +177,11 @@ class IngredientItemView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
                 child: Row(
-                  children: [SizedBox(width: 120, child: InterText("Need To Buy")), InterText("- ${craftingProvider.getNeedToBuyAmount(itemName: craftingRequirementVO.name, value: craftingRequirementVO.value)}")],
+                  children: [
+                    SizedBox(width: 120, child: InterText("Need To Buy")),
+                    InterText(
+                        "- ${craftingProvider.getNeedToBuyAmount(identifier: craftingRequirementVO.identifier, value: craftingRequirementVO.value)}")
+                  ],
                 ),
               ),
               SizedBox(height: MARGIN_MEDIUM_2),
@@ -185,7 +190,8 @@ class IngredientItemView extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: 120, child: InterText("Estimate Cost")),
-                    InterText("- 100K")
+                    InterText(
+                        "- ${craftingProvider.getCostForIngredient(identifier: craftingRequirementVO.identifier, value: craftingRequirementVO.value)}")
                   ],
                 ),
               ),
