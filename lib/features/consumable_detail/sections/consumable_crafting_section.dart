@@ -171,7 +171,7 @@ class IngredientItemView extends StatelessWidget {
                   children: [
                     SizedBox(width: 120, child: InterText("Already Have")),
                     InterText(
-                        "- ${craftingProvider.getAlreadyHaveAmount(craftingRequirementVO.identifier)}")
+                        "-   ${craftingProvider.getAlreadyHaveAmount(craftingRequirementVO.identifier)}")
                   ],
                 ),
               ),
@@ -182,7 +182,7 @@ class IngredientItemView extends StatelessWidget {
                   children: [
                     SizedBox(width: 120, child: InterText("Need To Buy")),
                     InterText(
-                        "- ${craftingProvider.getNeedToBuyAmount(identifier: craftingRequirementVO.identifier, value: craftingRequirementVO.value)}")
+                        "-   ${craftingProvider.getNeedToBuyAmount(identifier: craftingRequirementVO.identifier, value: craftingRequirementVO.value)}")
                   ],
                 ),
               ),
@@ -193,7 +193,7 @@ class IngredientItemView extends StatelessWidget {
                   children: [
                     SizedBox(width: 120, child: InterText("Estimate Cost")),
                     InterText(
-                        "- ${craftingProvider.getCostForIngredient(identifier: craftingRequirementVO.identifier, value: craftingRequirementVO.value)}")
+                        "-   ${craftingProvider.getCostForIngredient(identifier: craftingRequirementVO.identifier, value: craftingRequirementVO.value)}")
                   ],
                 ),
               ),
