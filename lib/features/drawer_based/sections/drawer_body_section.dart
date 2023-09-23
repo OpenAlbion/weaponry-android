@@ -11,15 +11,19 @@ class DrawerBodyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: SingleChildScrollView(
-      child: Column(
-        children: [
+      child: CustomScrollView(
+        slivers: [
           DrawerCategorySection(),
           DrawerAboutSection(),
-          Divider(color: get60PercentColor(context), endIndent: MARGIN_MEDIUM_2, height: 2),
+          SliverToBoxAdapter(
+              child: Divider(
+            color: get60PercentColor(context),
+            endIndent: MARGIN_MEDIUM_2,
+            height: 2,
+          )),
           DrawerSettingSection(),
         ],
       ),
-    ));
+    );
   }
 }

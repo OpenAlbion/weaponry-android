@@ -38,138 +38,173 @@ class _DrawerCategorySection extends State<DrawerCategorySection> {
   }
 
   Widget _buildCompleteUI(HomeProvider provider, BuildContext context) {
-    return Column(
-      children: provider.categoryList.getUniqueTypeList().map((type) {
-        return Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: Column(
-            children: [
-              ExpansionTile(
-                collapsedIconColor: get80PercentColor(context),
-                iconColor: secondaryRed,
-                initiallyExpanded: provider.selectedCategoryType == type,
-                title: InterText(convertTypeToLocalizedName(type, context)),
-                children: provider.categoryList.getByType(type).map((category) {
-                  return ListTile(
-                    selected: provider.selectedCategory.id == category.id,
-                    title: InterText(
-                        "  ${category.name}",
-                        style: TextStyle(
-                            color: provider.selectedCategory.id == category.id &&
-                                    provider.selectedCategoryType == provider.selectedCategory.type
-                                ? secondaryRed
-                                : get80PercentColor(context))),
-                    onTap: () {
-                      provider.setCategoryAndSubCategory(catId: category.id, setFirstSubcategory: true);
-                      Navigator.pop(context);
-                    },
-                  );
-                }).toList(),
-              ),
-              Divider(
-                  color: get60PercentColor(context),
-                  endIndent: MARGIN_MEDIUM_2,
-                  height: 2),
-            ],
-          ),
-        );
-      }).toList(),
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        childCount: provider.categoryList.getUniqueTypeList().length,
+        (context, index) {
+          var type = provider.categoryList.getUniqueTypeList()[index];
+
+          return Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: Column(
+              children: [
+                ExpansionTile(
+                  collapsedIconColor: get80PercentColor(context),
+                  iconColor: secondaryRed,
+                  initiallyExpanded: provider.selectedCategoryType == type,
+                  title: InterText(convertTypeToLocalizedName(type, context)),
+                  children: provider.categoryList.getByType(type).map((category) {
+                    return ListTile(
+                      selected: provider.selectedCategory.id == category.id,
+                      title: InterText("  ${category.name}",
+                          style: TextStyle(
+                              color: provider.selectedCategory.id == category.id &&
+                                      provider.selectedCategoryType == provider.selectedCategory.type
+                                  ? secondaryRed
+                                  : get80PercentColor(context))),
+                      onTap: () {
+                        provider.setCategoryAndSubCategory(
+                            catId: category.id, setFirstSubcategory: true);
+                        Navigator.pop(context);
+                      },
+                    );
+                  }).toList(),
+                ),
+                Divider(color: get60PercentColor(context), endIndent: MARGIN_MEDIUM_2, height: 2),
+              ],
+            ),
+          );
+        },
+      ),
+      // children: provider.categoryList.getUniqueTypeList().map((type) {
+      //   return Theme(
+      //     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      //     child: Column(
+      //       children: [
+      //         ExpansionTile(
+      //           collapsedIconColor: get80PercentColor(context),
+      //           iconColor: secondaryRed,
+      //           initiallyExpanded: provider.selectedCategoryType == type,
+      //           title: InterText(convertTypeToLocalizedName(type, context)),
+      //           children: provider.categoryList.getByType(type).map((category) {
+      //             return ListTile(
+      //               selected: provider.selectedCategory.id == category.id,
+      //               title: InterText("  ${category.name}",
+      //                   style: TextStyle(
+      //                       color: provider.selectedCategory.id == category.id &&
+      //                               provider.selectedCategoryType == provider.selectedCategory.type
+      //                           ? secondaryRed
+      //                           : get80PercentColor(context))),
+      //               onTap: () {
+      //                 provider.setCategoryAndSubCategory(catId: category.id, setFirstSubcategory: true);
+      //                 Navigator.pop(context);
+      //               },
+      //             );
+      //           }).toList(),
+      //         ),
+      //         Divider(color: get60PercentColor(context), endIndent: MARGIN_MEDIUM_2, height: 2),
+      //       ],
+      //     ),
+      //   );
+      // }).toList(),
     );
   }
 
   Widget _buildLoadingUI() {
-    return Shimmer.fromColors(
-      baseColor: getCardColor(context),
-      highlightColor: Colors.grey.withOpacity(0.4),
-      child: Column(
-        children: [
-          ExpansionTile(
-            initiallyExpanded: true,
-            expandedAlignment: Alignment.centerLeft,
-            title: Container(
-              color: whiteText,
-              width: 20,
-              height: 10,
+    return SliverToBoxAdapter(
+      child: Shimmer.fromColors(
+        baseColor: getCardColor(context),
+        highlightColor: Colors.grey.withOpacity(0.4),
+        child: Column(
+          children: [
+            ExpansionTile(
+              initiallyExpanded: true,
+              expandedAlignment: Alignment.centerLeft,
+              title: Container(
+                color: whiteText,
+                width: 20,
+                height: 10,
+              ),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
+                  child: Container(
+                    color: whiteText,
+                    width: 80,
+                    height: 10,
+                  ),
+                ),
+                SizedBox(height: MARGIN_LARGE),
+                Padding(
+                  padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
+                  child: Container(
+                    color: whiteText,
+                    width: 80,
+                    height: 10,
+                  ),
+                ),
+              ],
             ),
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
-                child: Container(
-                  color: whiteText,
-                  width: 80,
-                  height: 10,
-                ),
+            SizedBox(height: MARGIN_LARGE),
+            ExpansionTile(
+              initiallyExpanded: true,
+              expandedAlignment: Alignment.centerLeft,
+              title: Container(
+                color: whiteText,
+                width: 20,
+                height: 10,
               ),
-              SizedBox(height: MARGIN_LARGE),
-              Padding(
-                padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
-                child: Container(
-                  color: whiteText,
-                  width: 80,
-                  height: 10,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
+                  child: Container(
+                    color: whiteText,
+                    width: 80,
+                    height: 10,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: MARGIN_LARGE),
-          ExpansionTile(
-            initiallyExpanded: true,
-            expandedAlignment: Alignment.centerLeft,
-            title: Container(
-              color: whiteText,
-              width: 20,
-              height: 10,
+                SizedBox(height: MARGIN_LARGE),
+                Padding(
+                  padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
+                  child: Container(
+                    color: whiteText,
+                    width: 80,
+                    height: 10,
+                  ),
+                ),
+              ],
             ),
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
-                child: Container(
-                  color: whiteText,
-                  width: 80,
-                  height: 10,
-                ),
+            SizedBox(height: MARGIN_LARGE),
+            ExpansionTile(
+              initiallyExpanded: true,
+              expandedAlignment: Alignment.centerLeft,
+              title: Container(
+                color: whiteText,
+                width: 20,
+                height: 10,
               ),
-              SizedBox(height: MARGIN_LARGE),
-              Padding(
-                padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
-                child: Container(
-                  color: whiteText,
-                  width: 80,
-                  height: 10,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
+                  child: Container(
+                    color: whiteText,
+                    width: 80,
+                    height: 10,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: MARGIN_LARGE),
-          ExpansionTile(
-            initiallyExpanded: true,
-            expandedAlignment: Alignment.centerLeft,
-            title: Container(
-              color: whiteText,
-              width: 20,
-              height: 10,
+                SizedBox(height: MARGIN_LARGE),
+                Padding(
+                  padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
+                  child: Container(
+                    color: whiteText,
+                    width: 80,
+                    height: 10,
+                  ),
+                ),
+              ],
             ),
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
-                child: Container(
-                  color: whiteText,
-                  width: 80,
-                  height: 10,
-                ),
-              ),
-              SizedBox(height: MARGIN_LARGE),
-              Padding(
-                padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
-                child: Container(
-                  color: whiteText,
-                  width: 80,
-                  height: 10,
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

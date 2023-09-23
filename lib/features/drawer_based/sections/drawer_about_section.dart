@@ -12,23 +12,21 @@ class DrawerAboutSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeProvider>(builder: (context, provider, child) {
-      return Column(
-        children: [
-          ListTile(
-            selected: provider.selectedCategoryType == AppConstants.CATEGORY_TYPE_ABOUT,
-            title: InterText(
-                AppLocalizations.of(context)!.about,
-                style: TextStyle(
-                    color: provider.selectedCategoryType == AppConstants.CATEGORY_TYPE_ABOUT
-                        ? secondaryRed
-                        : get80PercentColor(context))),
-            onTap: () {
-              provider.selectCategoryType(AppConstants.CATEGORY_TYPE_ABOUT);
-              Navigator.pop(context);
-            },
-          )
-        ],
-      );
-    });  }
+    return SliverToBoxAdapter(
+      child: Consumer<HomeProvider>(builder: (context, provider, child) {
+        return ListTile(
+          selected: provider.selectedCategoryType == AppConstants.CATEGORY_TYPE_ABOUT,
+          title: InterText(
+              AppLocalizations.of(context)!.about,
+              style: TextStyle(
+                  color: provider.selectedCategoryType == AppConstants.CATEGORY_TYPE_ABOUT
+                      ? secondaryRed
+                      : get80PercentColor(context))),
+          onTap: () {
+            provider.selectCategoryType(AppConstants.CATEGORY_TYPE_ABOUT);
+            Navigator.pop(context);
+          },
+        );
+      }),
+    );  }
 }

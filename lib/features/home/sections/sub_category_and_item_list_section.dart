@@ -24,6 +24,7 @@ class SubCategoryAndItemListSection extends StatelessWidget {
             navigateDetailScreen(context, type, item);
           })
         ],
+
       ),
     );
   }
