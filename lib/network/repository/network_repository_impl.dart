@@ -60,6 +60,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
   @override
   Future<Either<AppError, List<ItemVO>>> getItemListBySubCategoryId(int subId, String path) async {
+    await Future.delayed(Duration(seconds: 10));
     try {
       String? key = dotenv.env[ApiConstants.X_WEAPONRY_KEY];
       if (key == null) return Left(AppError(code: "-", message: "X-Weaponry-Key Empty."));
@@ -239,9 +240,8 @@ class NetworkRepositoryImpl implements NetworkRepository {
       String? key = dotenv.env[ApiConstants.X_WEAPONRY_KEY];
       if (key == null) return Left(AppError(code: "-", message: "X-Weaponry-Key Empty."));
 
-      var response = await _albionClient
-          .marketPriceApi()
-          .getMarketPrice(key: key, region: server, itemId: itemId, quality: quality, locations: location);
+      var response = await _albionClient.marketPriceApi().getMarketPrice(
+          key: key, region: server, itemId: itemId, quality: quality, locations: location);
 
       return Right(response);
     } on DioError catch (e) {

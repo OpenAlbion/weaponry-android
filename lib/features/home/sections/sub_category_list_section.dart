@@ -44,8 +44,9 @@ class _SubCategoryListSectionState extends State<SubCategoryListSection> {
   }
 
   Widget _buildCompleteUI(HomeProvider provider, BuildContext context) {
-    return SizedBox(
+    return Container(
       height: HEIGHT_SUB_CATEGORY,
+      decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
       child: ListView.builder(
         key: itemKey,
         padding: EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM),
@@ -98,6 +99,32 @@ class RedDotWidget extends StatelessWidget {
           height: 4,
           decoration: BoxDecoration(color: secondaryRed, shape: BoxShape.circle),
         )
+      ],
+    );
+  }
+}
+
+class SubCategoryPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+  const SubCategoryPersistentHeaderDelegate();
+
+  @override
+  double get maxExtent => HEIGHT_SUB_CATEGORY_DELEGATE;
+
+  @override
+  double get minExtent => HEIGHT_SUB_CATEGORY_DELEGATE;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Column(
+      children: [
+        Container(height: MARGIN_MEDIUM_2,color: Theme.of(context).scaffoldBackgroundColor,),
+        SubCategoryListSection(),
+        Container(height: MARGIN_MEDIUM_2,color: Theme.of(context).scaffoldBackgroundColor,),
       ],
     );
   }

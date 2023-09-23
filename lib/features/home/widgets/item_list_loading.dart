@@ -8,22 +8,30 @@ class ItemListLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Shimmer.fromColors(
-      baseColor: getCardColor(context),
-      highlightColor: Colors.grey.withOpacity(0.4),
-      child: ListView.separated(
-          itemBuilder: (context, index) {
-            return LoadingTierGroupView();
-          },
-          separatorBuilder: (_, index) => Divider(
-                endIndent: 140,
-                color: get80PercentColor(context),
-              ),
-          itemCount: 3),
-    ));
+      return SliverToBoxAdapter(
+        child: SizedBox(
+          height: 1000,
+          child: Shimmer.fromColors(
+            baseColor: getCardColor(context),
+            highlightColor: Colors.grey.withOpacity(0.4),
+            child: ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return LoadingTierGroupView();
+            },
+            separatorBuilder: (_, index) => Divider(
+            endIndent: 140,
+            color: get80PercentColor(context),
+          ),
+            itemCount: 3),
+          ),
+        ),
+      );
+    }
+
+
   }
-}
+
 
 class LoadingItemView extends StatelessWidget {
   const LoadingItemView({

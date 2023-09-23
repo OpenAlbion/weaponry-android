@@ -28,12 +28,14 @@ class ItemListSection extends StatelessWidget {
     } else if (provider.itemComplete) {
       return _completeUI(provider, context);
     } else if (provider.appError != null) {
-      return Expanded(
-        child: Center(
-          child: InterText(
-            "${provider.appError?.code}\n${provider.appError?.message}",
-            style: TextStyle(),
-            textAlign: TextAlign.center,
+      return SliverToBoxAdapter(
+        child: Expanded(
+          child: Center(
+            child: InterText(
+              "${provider.appError?.code}\n${provider.appError?.message}",
+              style: TextStyle(),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       );
@@ -42,22 +44,21 @@ class ItemListSection extends StatelessWidget {
     return SizedBox();
   }
 
-  Expanded _completeUI(HomeProvider provider, BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-          itemBuilder: (context, index) {
-            return TierGroupView(
-              tierGroup: provider.tierGroupList[index],
-              onTap: (item) {
-                onTap(provider.selectedSubCategory.type, item);
-              },
-            );
+  Widget _completeUI(HomeProvider provider, BuildContext context) {
+    return SliverList.separated(
+      itemCount: provider.tierGroupList.length,
+      itemBuilder: (context, index) {
+        return TierGroupView(
+          tierGroup: provider.tierGroupList[index],
+          onTap: (item) {
+            onTap(provider.selectedSubCategory.type, item);
           },
-          separatorBuilder: (_, index) => Divider(
-                endIndent: 140,
-                color: get80PercentColor(context).withOpacity(0.5),
-              ),
-          itemCount: provider.tierGroupList.length),
+        );
+      },
+      separatorBuilder: (_, __) => Divider(
+        endIndent: 140,
+        color: get80PercentColor(context).withOpacity(0.5),
+      ),
     );
   }
 }
@@ -116,7 +117,6 @@ class ItemView extends StatelessWidget {
     );
   }
 }
-
 
 class TierGroupView extends StatelessWidget {
   final TierGroupVO tierGroup;
