@@ -2,7 +2,6 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:openalbion_weaponry/data/vos/app_error.dart';
 import 'package:openalbion_weaponry/data/vos/report_vo.dart';
 import 'package:openalbion_weaponry/data/vos/version_result_vo.dart';
@@ -39,15 +38,16 @@ class AppStartProvider extends BasedProvider {
           var shakeEnabled = await _preference.getShakeToReport();
           if (shakeEnabled && !isShaking) {
             isShaking = true;
-            DialogUtils.showDebugReport(
-                context: context,
-                titleList: _bugCategoryList,
-                onDimissied: () {
-                  isShaking = false;
-                },
-                onSubmited: (report) {
-                  reportBug(report: report);
-                });
+            // impact d7
+            // DialogUtils.showDebugReport(
+            //     context: context,
+            //     titleList: _bugCategoryList,
+            //     onDimissied: () {
+            //       isShaking = false;
+            //     },
+            //     onSubmited: (report) {
+            //       reportBug(report: report);
+            //     });
           }
         });
   }
@@ -85,14 +85,15 @@ class AppStartProvider extends BasedProvider {
       String latestVersion = R.version;
       int latestVersionExtended = getExtendedVersionNumber(latestVersion);
       if (currentVersionExtanded < latestVersionExtended) {
-        DialogUtils.showVersionUpdateDialog(
-            context: context,
-            versionResult: R,
-            onUpdate: () async {
-              await launchUrl(
-                  Uri.parse("https://play.google.com/store/apps/details?id=com.openalbion.weaponry"),
-                  mode: LaunchMode.externalApplication);
-            });
+        // impact d8
+        // DialogUtils.showVersionUpdateDialog(
+        //     context: context,
+        //     versionResult: R,
+        //     onUpdate: () async {
+        //       await launchUrl(
+        //           Uri.parse("https://play.google.com/store/apps/details?id=com.openalbion.weaponry"),
+        //           mode: LaunchMode.externalApplication);
+        //     });
       }
     });
   }

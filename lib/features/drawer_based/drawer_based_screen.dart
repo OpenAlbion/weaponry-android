@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:openalbion_weaponry/constants/app_constants.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
@@ -34,7 +33,8 @@ class DrawerBasedScreen extends StatefulWidget {
 class _DrawerBasedScreenState extends State<DrawerBasedScreen> {
   @override
   void initState() {
-    YYDialog.init(context);
+    // impact d1
+    // YYDialog.init(context);
 
     context.read<AppStartProvider>().initializeShaker(context);
     context.read<AppStartProvider>().checkVersion(context);
@@ -95,13 +95,14 @@ class FabSection extends StatelessWidget {
               return DebugFloatingActionButton(
                 onTap: () {
                   startProvider.reportToFirebase("click_debug_report");
-                  DialogUtils.showDebugReport(
-                      context: context,
-                      titleList: startProvider.bugCategoryList,
-                      onDimissied: () {},
-                      onSubmited: (report) {
-                        startProvider.reportBug(report: report);
-                      });
+                  // impact d6
+                  // DialogUtils.showDebugReport(
+                  //     context: context,
+                  //     titleList: startProvider.bugCategoryList,
+                  //     onDimissied: () {},
+                  //     onSubmited: (report) {
+                  //       startProvider.reportBug(report: report);
+                  //     });
                 },
               );
             } else {

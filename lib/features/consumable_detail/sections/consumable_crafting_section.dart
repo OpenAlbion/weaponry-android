@@ -128,12 +128,13 @@ class IngredientItemView extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: MARGIN_MEDIUM_2),
         child: GestureDetector(
           onTap: () {
-            DialogUtils.showAlredyHaveDialog(
-                context: context,
-                onUpdate: (amount) {
-                  craftingProvider.alreadyHaveMap[craftingRequirementVO.identifier] = amount;
-                  craftingProvider.notifyListeners();
-                });
+            // impact d5
+            // DialogUtils.showAlredyHaveDialog(
+            //     context: context,
+            //     onUpdate: (amount) {
+            //       craftingProvider.alreadyHaveMap[craftingRequirementVO.identifier] = amount;
+            //       craftingProvider.notifyListeners();
+            //     });
           },
           child: Container(
             width: double.infinity,

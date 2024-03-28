@@ -47,7 +47,7 @@ void _showLocalNotification(String title, String message) async {
   // request permission
   flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-      ?.requestPermission();
+      ?.requestNotificationsPermission();
 // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('app_icon');
