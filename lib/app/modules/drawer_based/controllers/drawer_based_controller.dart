@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
+import 'package:openalbion_weaponry/app/core/based/based_controller.dart';
 
-class DrawerBasedController extends GetxController {
-  //TODO: Implement DrawerBasedController
-
-  final count = 0.obs;
+class DrawerBasedController extends BasedController {
+  
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +17,4 @@ class DrawerBasedController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
