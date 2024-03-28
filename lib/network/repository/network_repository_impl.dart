@@ -48,7 +48,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       // final Map<String, dynamic> mappedJson = await jsonDecode(response);
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
@@ -70,7 +70,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       return Right(response.data);
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
@@ -92,7 +92,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       return Right(response.data);
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
@@ -114,7 +114,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       return Right(response.data);
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
@@ -141,7 +141,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       return Right(response);
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
@@ -161,7 +161,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       return Right(response.data);
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
@@ -181,7 +181,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       return Right("");
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
@@ -201,7 +201,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       return Right(response);
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
@@ -221,7 +221,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       return Right(response.data);
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {
@@ -245,7 +245,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
       return Right(response);
     } on DioError catch (e) {
-      return Left(ErrorMapper.mapDioToAppError(e));
+      return Left(ErrorMapper.mapDioToResponseError(e));
     } on JsonUnsupportedObjectError catch (_) {
       return Left(AppError(code: "-", message: "Respond is not Json"));
     } on TypeError catch (_) {

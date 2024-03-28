@@ -36,6 +36,7 @@ class ConsumableCraftingSection extends StatelessWidget {
 
         case ViewState.ERROR:
           return _buildCraftingError(provider.appError!);
+        default:
       }
       return _buildCompleteUI(context);
     });
