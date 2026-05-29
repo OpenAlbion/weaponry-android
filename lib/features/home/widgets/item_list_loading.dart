@@ -8,28 +8,24 @@ class ItemListLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return SizedBox(
-        height: 1000,
-        child: Shimmer.fromColors(
-          baseColor: getCardColor(context),
-          highlightColor: Colors.grey.withOpacity(0.4),
-          child: ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return LoadingTierGroupView();
-          },
-          separatorBuilder: (_, index) => Divider(
-          endIndent: 140,
-          color: get80PercentColor(context),
-        ),
-          itemCount: 3),
-        ),
-      );
-    }
-
-
+    return Expanded(
+      child: Shimmer.fromColors(
+        baseColor: getCardColor(context),
+        highlightColor: Colors.grey.withOpacity(0.4),
+        child: ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return LoadingTierGroupView();
+            },
+            separatorBuilder: (_, index) => Divider(
+                  endIndent: 140,
+                  color: get80PercentColor(context),
+                ),
+            itemCount: 3),
+      ),
+    );
   }
-
+}
 
 class LoadingItemView extends StatelessWidget {
   const LoadingItemView({
@@ -56,8 +52,8 @@ class LoadingItemView extends StatelessWidget {
                 Container(
                   width: 70,
                   height: 70,
-                  decoration: BoxDecoration(
-                      color: getCardColor(context), borderRadius: BorderRadius.circular(MARGIN_SMALL)),
+                  decoration:
+                      BoxDecoration(color: getCardColor(context), borderRadius: BorderRadius.circular(MARGIN_SMALL)),
                 ),
                 SizedBox(width: MARGIN_MEDIUM_2),
                 Column(
@@ -68,16 +64,14 @@ class LoadingItemView extends StatelessWidget {
                       width: 120,
                       height: 20,
                       decoration: BoxDecoration(
-                          color: getCardColor(context),
-                          borderRadius: BorderRadius.circular(MARGIN_SMALL)),
+                          color: getCardColor(context), borderRadius: BorderRadius.circular(MARGIN_SMALL)),
                     ),
                     SizedBox(height: MARGIN_CARD_MEDIUM_2),
                     Container(
                       width: 120,
                       height: 20,
                       decoration: BoxDecoration(
-                          color: getCardColor(context),
-                          borderRadius: BorderRadius.circular(MARGIN_SMALL)),
+                          color: getCardColor(context), borderRadius: BorderRadius.circular(MARGIN_SMALL)),
                     ),
                   ],
                 )
@@ -104,8 +98,7 @@ class LoadingTierGroupView extends StatelessWidget {
           child: Container(
             width: 120,
             height: 20,
-            decoration: BoxDecoration(
-                color: getCardColor(context), borderRadius: BorderRadius.circular(MARGIN_SMALL)),
+            decoration: BoxDecoration(color: getCardColor(context), borderRadius: BorderRadius.circular(MARGIN_SMALL)),
           ),
         ),
         ListView.builder(
