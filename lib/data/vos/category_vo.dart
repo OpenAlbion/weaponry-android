@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:openalbion_weaponry/constants/app_constants.dart';
 import 'package:openalbion_weaponry/data/vos/sub_category_vo.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:openalbion_weaponry/localization/app_localizations.dart';
 
 part 'category_vo.freezed.dart';
 part 'category_vo.g.dart';
 
 @Freezed()
 class CategoryVO with _$CategoryVO {
-  factory CategoryVO(
-      {required int id,
-      @Default("weapons") String path,
-      @Default("") String name,
-      @Default("") String type,
-      @Default([]) List<SubCategoryVO> subcategories}) = _CategoryVO;
+  factory CategoryVO({
+    required int id,
+    @Default("weapons") String path,
+    @Default("") String name,
+    @Default("") String type,
+    @Default([]) List<SubCategoryVO> subcategories,
+  }) = _CategoryVO;
 
   factory CategoryVO.fromJson(Map<String, dynamic> json) => _$CategoryVOFromJson(json);
 }

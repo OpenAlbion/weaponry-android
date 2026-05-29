@@ -1,4 +1,3 @@
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
@@ -7,18 +6,17 @@ import 'package:openalbion_weaponry/theme/app_theme.dart';
 
 class DashBorderText extends StatelessWidget {
   final String text;
-  const DashBorderText({
-    super.key,
-    required this.text
-  });
+  const DashBorderText({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return DottedBorder(
-      dashPattern: [5,1],
-      color: get60PercentColor(context),
-      radius: Radius.circular(MARGIN_SMALL),
-      borderType: BorderType.RRect,
+      options: RoundedRectDottedBorderOptions(
+        dashPattern: [5, 1],
+        color: get60PercentColor(context),
+        radius: Radius.circular(MARGIN_SMALL),
+        // borderType: BorderType.RRect,
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: MARGIN_MEDIUM_2),
         child: SizedBox(

@@ -35,7 +35,7 @@ class AppStartProvider extends BasedProvider {
     _bugCategoryList = ["Item Missing", "Item Wrong Info", "Other"];
     _detector = ShakeDetector.autoStart(
         minimumShakeCount: 2,
-        onPhoneShake: () async {
+        onPhoneShake: (event) async {
           var shakeEnabled = await _preference.getShakeToReport();
           if (shakeEnabled && !isShaking) {
             isShaking = true;

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
+import 'package:openalbion_weaponry/localization/app_localizations.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:openalbion_weaponry/utils/debouncer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class SearchBarSection extends StatefulWidget {
   final Function(String text) onDimissSearch;
@@ -48,13 +49,11 @@ class _SearchBarSectionState extends State<SearchBarSection> {
           widget.onDimissSearch(_searchController?.text ?? "");
         },
         onChanged: (value) {
-          _debouncer.call(
-            () {
-              if (value.isNotEmpty) {
-                widget.onChanged(value);
-              }
-            },
-          );
+          _debouncer.call(() {
+            if (value.isNotEmpty) {
+              widget.onChanged(value);
+            }
+          });
         },
         decoration: InputDecoration(
           filled: true,
@@ -62,8 +61,7 @@ class _SearchBarSectionState extends State<SearchBarSection> {
           fillColor: getCardColor(context),
           hintText: AppLocalizations.of(context)?.search_hint,
           hintStyle: TextStyle(fontSize: 14, color: get80PercentColor(context)),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 13, right: 13, top: 10, bottom: 13),
             child: SvgPicture.asset(

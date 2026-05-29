@@ -5,7 +5,8 @@ import 'package:openalbion_weaponry/data/vos/attribute_vo.dart';
 import 'package:openalbion_weaponry/data/vos/item_vo.dart';
 import 'package:openalbion_weaponry/data/vos/stat_vo.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:openalbion_weaponry/localization/app_localizations.dart';
 import 'package:openalbion_weaponry/providers/consumable_detail_provider.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -30,10 +31,7 @@ class ConsumableGeneralSection extends StatelessWidget {
         SizedBox(height: MARGIN_MEDIUM_2),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
-          child: InterText(
-            item.info.trim(),
-            style: TextStyle(height: 1.4),
-          ),
+          child: InterText(item.info.trim(), style: TextStyle(height: 1.4)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: MARGIN_LARGE),
@@ -57,15 +55,18 @@ class ConsumableGeneralSection extends StatelessWidget {
   }
 
   Widget _buildConsumableStats() {
-    return Consumer<ConsumableDetailProvider>(builder: (context, provider, child) {
-      return ListView.builder(
+    return Consumer<ConsumableDetailProvider>(
+      builder: (context, provider, child) {
+        return ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           itemCount: provider.enchanmentList.length,
           itemBuilder: (context, index) {
             return ConsumableAttributeRow(statVO: provider.selectedEnchantment.stats.first.stats[index]);
-          });
-    });
+          },
+        );
+      },
+    );
   }
 }
 
@@ -76,17 +77,26 @@ class ConsumableAttributeRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.only(top: MARGIN_MEDIUM_2, left: MARGIN_MEDIUM_2, right: MARGIN_MEDIUM_2),
+      padding: const EdgeInsets.only(top: MARGIN_MEDIUM_2, left: MARGIN_MEDIUM_2, right: MARGIN_MEDIUM_2),
       child: Row(
         children: [
-          SizedBox(width: 120, child: InterText(statVO.name.trim(), style: TextStyle(fontSize: TEXT_REGULAR))),
-          SizedBox(width: 20, child: InterText(":", style: TextStyle(fontSize: TEXT_REGULAR))),
+          SizedBox(
+            width: 120,
+            child: InterText(statVO.name.trim(), style: TextStyle(fontSize: TEXT_REGULAR)),
+          ),
+          SizedBox(
+            width: 20,
+            child: InterText(":", style: TextStyle(fontSize: TEXT_REGULAR)),
+          ),
           Expanded(
             child: SizedBox(
-                child: InterText(statVO.value.trim(),
-                    style: TextStyle(fontSize: TEXT_REGULAR), textAlign: TextAlign.start)),
-          )
+              child: InterText(
+                statVO.value.trim(),
+                style: TextStyle(fontSize: TEXT_REGULAR),
+                textAlign: TextAlign.start,
+              ),
+            ),
+          ),
         ],
       ),
     );

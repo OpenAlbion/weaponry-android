@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:openalbion_weaponry/localization/app_localizations.dart';
 
 class AboutIconAndNameSection extends StatelessWidget {
-  const AboutIconAndNameSection({
-    super.key,
-  });
+  const AboutIconAndNameSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +24,13 @@ class AboutIconAndNameSection extends StatelessWidget {
             colorFilter: ColorFilter.mode(Theme.of(context).iconTheme.color!, BlendMode.srcIn),
           ),
           splashRadius: MARGIN_LARGE,
-          constraints: BoxConstraints(
-            minWidth: MARGIN_LARGE,
-          ),
+          constraints: BoxConstraints(minWidth: MARGIN_LARGE),
         ),
         // SizedBox(width: MARGIN_MEDIUM),
-        InterText(AppLocalizations.of(context)!.about,
-            style: TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500)),
+        InterText(
+          AppLocalizations.of(context)!.about,
+          style: TextStyle(fontSize: TEXT_REGULAR_2X, fontWeight: FontWeight.w500),
+        ),
       ],
     );
   }

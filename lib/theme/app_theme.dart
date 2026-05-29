@@ -5,7 +5,7 @@ ThemeData lightThemeData(BuildContext context) {
   return ThemeData.light().copyWith(
     brightness: Brightness.light,
     scaffoldBackgroundColor: whiteBackground,
-    cardTheme: CardTheme().copyWith(color: secondaryWhite),
+    cardTheme: CardThemeData().copyWith(color: secondaryWhite),
     iconTheme: IconThemeData().copyWith(color: blackText80),
     textTheme: Theme.of(context).textTheme.apply(
           displayColor: blackText,
@@ -18,7 +18,7 @@ ThemeData darkThemeData(BuildContext context) {
   return ThemeData.light().copyWith(
     brightness: Brightness.light,
     scaffoldBackgroundColor: blackBackground,
-    cardTheme: CardTheme().copyWith(color: secondaryBlack),
+    cardTheme: CardThemeData().copyWith(color: secondaryBlack),
     iconTheme: IconThemeData().copyWith(color: whiteText80),
     textTheme: Theme.of(context).textTheme.apply(
           displayColor: whiteText,

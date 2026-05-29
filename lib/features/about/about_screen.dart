@@ -4,7 +4,8 @@ import 'package:openalbion_weaponry/constants/app_dimens.dart';
 import 'package:openalbion_weaponry/constants/app_fonts.dart';
 import 'package:openalbion_weaponry/features/about/section/icon_and_name_section.dart';
 import 'package:openalbion_weaponry/features/global/inter_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:openalbion_weaponry/localization/app_localizations.dart';
 import 'package:openalbion_weaponry/theme/app_color.dart';
 import 'package:openalbion_weaponry/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -25,22 +26,13 @@ class AboutScreen extends StatelessWidget {
             OrgAndAppLogoSection(),
             SizedBox(height: MARGIN_LARGE),
             AboutProjectSection(),
-            Divider(
-              height: MARGIN_XLARGE,
-              color: get60PercentColor(context),
-            ),
+            Divider(height: MARGIN_XLARGE, color: get60PercentColor(context)),
             AboutAppSection(),
-            Divider(
-              height: MARGIN_XLARGE,
-              color: get60PercentColor(context),
-            ),
+            Divider(height: MARGIN_XLARGE, color: get60PercentColor(context)),
             AboutCreditsSection(),
-            Divider(
-              height: MARGIN_XLARGE,
-              color: get60PercentColor(context),
-            ),
+            Divider(height: MARGIN_XLARGE, color: get60PercentColor(context)),
             AboutUsSection(),
-            SizedBox(height: MARGIN_XLARGE)
+            SizedBox(height: MARGIN_XLARGE),
           ],
         ),
       ),
@@ -71,9 +63,7 @@ class WebLauncherButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM, vertical: MARGIN_MEDIUM),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(MARGIN_SMALL),
-          border: Border.all(
-            color: get60PercentColor(context),
-          ),
+          border: Border.all(color: get60PercentColor(context)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -86,12 +76,7 @@ class WebLauncherButton extends StatelessWidget {
                   )
                 : SvgPicture.asset(svgIcon, width: 19),
             SizedBox(width: MARGIN_MEDIUM),
-            InterText(
-              text,
-              style: TextStyle(
-                fontSize: TEXT_REGULAR,
-              ),
-            ),
+            InterText(text, style: TextStyle(fontSize: TEXT_REGULAR)),
           ],
         ),
       ),
@@ -103,12 +88,7 @@ class DeveloperView extends StatelessWidget {
   final String nickName;
   final String city;
   final Color color;
-  const DeveloperView({
-    required this.nickName,
-    required this.city,
-    required this.color,
-    super.key,
-  });
+  const DeveloperView({required this.nickName, required this.city, required this.color, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -119,22 +99,40 @@ class DeveloperView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM, vertical: MARGIN_MEDIUM),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(MARGIN_SMALL),
-            border: Border.all(
-              color: get60PercentColor(context),
-            ),
+            border: Border.all(color: get60PercentColor(context)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text.rich(TextSpan(children: [
-                TextSpan(text: "Nickname : ", style: TextStyle(fontFamily: inter)),
-                TextSpan(text: nickName, style: TextStyle(fontFamily: inter))
-              ])),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Nickname : ",
+                      style: TextStyle(fontFamily: inter),
+                    ),
+                    TextSpan(
+                      text: nickName,
+                      style: TextStyle(fontFamily: inter),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: MARGIN_SMALL - 1),
-              Text.rich(TextSpan(children: [
-                TextSpan(text: "Royal city : ", style: TextStyle(fontFamily: inter)),
-                TextSpan(text: city, style: TextStyle(color: color, fontFamily: inter))
-              ])),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Royal city : ",
+                      style: TextStyle(fontFamily: inter),
+                    ),
+                    TextSpan(
+                      text: city,
+                      style: TextStyle(color: color, fontFamily: inter),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -144,9 +142,7 @@ class DeveloperView extends StatelessWidget {
 }
 
 class OrgAndAppLogoSection extends StatelessWidget {
-  const OrgAndAppLogoSection({
-    super.key,
-  });
+  const OrgAndAppLogoSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -162,17 +158,16 @@ class OrgAndAppLogoSection extends StatelessWidget {
         ),
         SizedBox(width: MARGIN_MEDIUM_2),
         ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: SvgPicture.asset('assets/images/svgs/ic_app_logo.svg', width: 70))
+          borderRadius: BorderRadius.circular(8),
+          child: SvgPicture.asset('assets/images/svgs/ic_app_logo.svg', width: 70),
+        ),
       ],
     );
   }
 }
 
 class AboutProjectSection extends StatelessWidget {
-  const AboutProjectSection({
-    super.key,
-  });
+  const AboutProjectSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -188,10 +183,7 @@ class AboutProjectSection extends StatelessWidget {
           SizedBox(height: MARGIN_MEDIUM),
           InterText(
             AppLocalizations.of(context)!.about_project_description,
-            style: TextStyle(
-              height: 1.4,
-              fontSize: TEXT_REGULAR,
-            ),
+            style: TextStyle(height: 1.4, fontSize: TEXT_REGULAR),
           ),
           SizedBox(height: MARGIN_MEDIUM_2),
           WebLauncherButton(
@@ -199,10 +191,12 @@ class AboutProjectSection extends StatelessWidget {
             svgIcon: 'assets/images/svgs/ic_web.svg',
             enableDarkModeColor: true,
             onTap: () async {
-              await launchUrl(Uri.parse("https://openalbion.com?ref=com.openalbion.weaponry"),
-                  mode: LaunchMode.externalApplication);
+              await launchUrl(
+                Uri.parse("https://openalbion.com?ref=com.openalbion.weaponry"),
+                mode: LaunchMode.externalApplication,
+              );
             },
-          )
+          ),
         ],
       ),
     );
@@ -210,9 +204,7 @@ class AboutProjectSection extends StatelessWidget {
 }
 
 class AboutAppSection extends StatelessWidget {
-  const AboutAppSection({
-    super.key,
-  });
+  const AboutAppSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -228,10 +220,7 @@ class AboutAppSection extends StatelessWidget {
           SizedBox(height: MARGIN_MEDIUM),
           InterText(
             AppLocalizations.of(context)!.about_app_description,
-            style: TextStyle(
-              height: 1.4,
-              fontSize: TEXT_REGULAR,
-            ),
+            style: TextStyle(height: 1.4, fontSize: TEXT_REGULAR),
           ),
           SizedBox(height: MARGIN_MEDIUM_2),
           WebLauncherButton(
@@ -239,10 +228,12 @@ class AboutAppSection extends StatelessWidget {
             svgIcon: 'assets/images/svgs/ic_github_dark.svg',
             enableDarkModeColor: true,
             onTap: () async {
-              await launchUrl(Uri.parse("https://github.com/OpenAlbion/weaponry-android"),
-                  mode: LaunchMode.externalApplication);
+              await launchUrl(
+                Uri.parse("https://github.com/OpenAlbion/weaponry-android"),
+                mode: LaunchMode.externalApplication,
+              );
             },
-          )
+          ),
         ],
       ),
     );
@@ -250,9 +241,7 @@ class AboutAppSection extends StatelessWidget {
 }
 
 class AboutUsSection extends StatelessWidget {
-  const AboutUsSection({
-    super.key,
-  });
+  const AboutUsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -271,10 +260,7 @@ class AboutUsSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: InterText(
             AppLocalizations.of(context)!.about_us_description,
-            style: TextStyle(
-              height: 1.4,
-              fontSize: TEXT_REGULAR,
-            ),
+            style: TextStyle(height: 1.4, fontSize: TEXT_REGULAR),
           ),
         ),
         SizedBox(height: MARGIN_MEDIUM_2),
@@ -301,8 +287,7 @@ class AboutUsSection extends StatelessWidget {
                 svgIcon: 'assets/images/svgs/ic_discord.svg',
                 enableDarkModeColor: false,
                 onTap: () async {
-                  await launchUrl(Uri.parse("https://discord.gg/CsUYDy5Mc6"),
-                      mode: LaunchMode.externalApplication);
+                  await launchUrl(Uri.parse("https://discord.gg/CsUYDy5Mc6"), mode: LaunchMode.externalApplication);
                 },
               ),
             ),
@@ -313,22 +298,19 @@ class AboutUsSection extends StatelessWidget {
                 svgIcon: 'assets/images/svgs/ic_twitter.svg',
                 enableDarkModeColor: false,
                 onTap: () async {
-                  await launchUrl(Uri.parse("https://twitter.com/openalbion"),
-                      mode: LaunchMode.externalApplication);
+                  await launchUrl(Uri.parse("https://twitter.com/openalbion"), mode: LaunchMode.externalApplication);
                 },
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }
 }
 
 class AboutCreditsSection extends StatelessWidget {
-  const AboutCreditsSection({
-    super.key,
-  });
+  const AboutCreditsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -346,30 +328,35 @@ class AboutCreditsSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: MARGIN_MEDIUM_2),
           child: RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                text: AppLocalizations.of(context)!.about_credits_description_part_1,
-                style: TextStyle(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: AppLocalizations.of(context)!.about_credits_description_part_1,
+                  style: TextStyle(
                     height: 1.4,
                     fontSize: TEXT_REGULAR,
-                    color: Theme.of(context).textTheme.displayMedium!.color),
-              ),
-              TextSpan(
-                text: AppLocalizations.of(context)!.about_credits_description_part_2,
-                style: TextStyle(
+                    color: Theme.of(context).textTheme.displayMedium!.color,
+                  ),
+                ),
+                TextSpan(
+                  text: AppLocalizations.of(context)!.about_credits_description_part_2,
+                  style: TextStyle(
                     height: 1.4,
                     fontSize: TEXT_REGULAR,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).textTheme.displayMedium!.color),
-              ),
-              TextSpan(
-                text: AppLocalizations.of(context)!.about_credits_description_part_3,
-                style: TextStyle(
+                    color: Theme.of(context).textTheme.displayMedium!.color,
+                  ),
+                ),
+                TextSpan(
+                  text: AppLocalizations.of(context)!.about_credits_description_part_3,
+                  style: TextStyle(
                     height: 1.4,
                     fontSize: TEXT_REGULAR,
-                    color: Theme.of(context).textTheme.displayMedium!.color),
-              ),
-            ]),
+                    color: Theme.of(context).textTheme.displayMedium!.color,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(height: MARGIN_MEDIUM_2),
@@ -380,11 +367,10 @@ class AboutCreditsSection extends StatelessWidget {
             svgIcon: 'assets/images/svgs/ic_web.svg',
             enableDarkModeColor: true,
             onTap: () async {
-              await launchUrl(Uri.parse("https://www.albion-online-data.com/"),
-                  mode: LaunchMode.externalApplication);
+              await launchUrl(Uri.parse("https://www.albion-online-data.com/"), mode: LaunchMode.externalApplication);
             },
           ),
-        )
+        ),
       ],
     );
   }
